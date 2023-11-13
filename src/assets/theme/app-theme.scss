@@ -1,0 +1,87 @@
+@use '@angular/material' as mat;
+@import "palette.scss";
+
+// Define the light theme
+$telesApps-app-primary: mat.define-palette($telesApps-primary, main, lighter, darker);
+$telesApps-app-accent: mat.define-palette($telesApps-accent, main, lighter, darker);
+$telesApps-app-warn: mat.define-palette($telesApps-warn, main, lighter, darker);
+$telesApps-app-foreground: mat.define-palette($telesApps-foreground, main, lighter);
+$telesApps-app-background: mat.define-palette($telesApps-background, main, lighter, darker);
+
+$telesApps-light-theme: mat.define-light-theme(
+    $telesApps-app-primary,
+    $telesApps-app-accent,
+    $telesApps-app-warn,
+);
+
+// Define the dark theme
+$telesApps-dark-primary: mat.define-palette($telesApps-dark-primary, main, lighter, darker);
+$telesApps-dark-accent: mat.define-palette($telesApps-dark-accent, main, lighter, darker);
+$telesApps-dark-warn: mat.define-palette($telesApps-dark-warn, main, lighter, darker);
+$telesApps-dark-foreground: mat.define-palette($telesApps-dark-foreground, main, lighter);
+$telesApps-dark-background: mat.define-palette($telesApps-dark-background, main, lighter, darker);
+
+$telesApps-dark-theme: mat.define-dark-theme(
+    $telesApps-dark-primary,
+    $telesApps-dark-accent,
+    $telesApps-dark-warn,
+);
+
+:root {
+    // Using CSS variables to define the theme colors, these can be used in each compoenent's SCSS files.
+    // Light theme properties
+    --primary-main: #{map-get($telesApps-primary, main)};
+    --primary-lighter: #{map-get($telesApps-primary, lighter)};
+    --primary-darker: #{map-get($telesApps-primary, darker)};
+    --accent-main: #{map-get($telesApps-accent, main)};
+    --accent-lighter: #{map-get($telesApps-accent, lighter)};
+    --accent-darker: #{map-get($telesApps-accent, darker)};
+    --warn-main: #{map-get($telesApps-warn, main)};
+    --warn-lighter: #{map-get($telesApps-warn, lighter)};
+    --warn-darker: #{map-get($telesApps-warn, darker)};
+    --foreground-main: #{map-get($telesApps-foreground, main)};
+    --foreground-lighter: #{map-get($telesApps-foreground, lighter)};
+    --foreground-darker: #{map-get($telesApps-foreground, darker)};
+    --background-main: #{map-get($telesApps-background, main)};
+    --background-lighter: #{map-get($telesApps-background, lighter)};
+    --background-darker: #{map-get($telesApps-background, darker)};
+    // save main contrast colors for later use
+    --primary-contrast-main: #{map-get(map-get($telesApps-primary, contrast), main)};
+    --accent-contrast-main: #{map-get(map-get($telesApps-accent, contrast), main)};
+    --warn-contrast-main: #{map-get(map-get($telesApps-warn, contrast), main)};
+}
+// Sets the Default theme to light
+body {
+    background-color: map-get($telesApps-background, main);
+    color: map-get($telesApps-foreground, main);
+}
+
+/* For dark theme, you may define similar classes */
+.dark-theme {
+    background-color: map-get($telesApps-dark-background, main) !important;
+    color: map-get($telesApps-dark-foreground, main);
+
+    --primary-main: #{map-get($telesApps-dark-primary, main)};
+    --primary-lighter: #{map-get($telesApps-dark-primary, lighter)};
+    --primary-darker: #{map-get($telesApps-dark-primary, darker)};
+    --accent-main: #{map-get($telesApps-dark-accent, main)};
+    --accent-lighter: #{map-get($telesApps-dark-accent, lighter)};
+    --accent-darker: #{map-get($telesApps-dark-accent, darker)};
+    --warn-main: #{map-get($telesApps-dark-warn, main)};
+    --warn-lighter: #{map-get($telesApps-dark-warn, lighter)};
+    --warn-darker: #{map-get($telesApps-dark-warn, darker)};
+    --foreground-main: #{map-get($telesApps-dark-foreground, main)};
+    --foreground-lighter: #{map-get($telesApps-dark-foreground, lighter)};
+    --foreground-darker: #{map-get($telesApps-dark-foreground, darker)};
+    --background-main: #{map-get($telesApps-dark-background, main)};
+    --background-lighter: #{map-get($telesApps-dark-background, lighter)};
+    --background-darker: #{map-get($telesApps-dark-background, darker)};
+}
+
+// Screen Size Break Points
+$mediaXLg_1901: 1901px;
+$mediaLg_1200: 1200px;
+$mediaMd_1024: 1024px;
+$mediaSm_768: 768px;
+$mediaMobile_480: 480px;
+$mediaXSm_320: 320px;

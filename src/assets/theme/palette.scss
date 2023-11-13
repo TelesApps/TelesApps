@@ -1,0 +1,97 @@
+// Define contrast colors for legibility
+$light-primary-text: #ffffff; // White text for high contrast on dark backgrounds
+$dark-primary-text: #000000; // Black text for high contrast on light backgrounds
+
+// Define the primary palette with contrast colors
+$telesApps-primary: (
+  main: #ffbc49,
+  lighter: #FFEBC8,
+  darker: #FFA531,
+  200: #FFDEA4,
+  contrast: (
+    main: $light-primary-text, // White text on main primary color
+    lighter: $dark-primary-text, // Black text on lighter primary color
+    darker: $light-primary-text, // White text on darker primary color
+  ),
+);
+
+// Define the accent palette with contrast colors
+$telesApps-accent: (
+  main: #6a89aa,
+  lighter: #D2DCE6,
+  darker: #4D6C90,
+  200: #B5C4D5,
+  contrast: (
+    main: $dark-primary-text, // Black text on main accent color
+    lighter: $dark-primary-text, // Black text on lighter accent color
+    darker: $dark-primary-text, // Black text on darker accent color
+  ),
+);
+
+// Define the warn palette with contrast colors
+$telesApps-warn: (
+  main: #e54f6d,
+  lighter: #F7CAD3,
+  darker: #DA3650,
+  200: #F2A7B6,
+  contrast: (
+    main: $light-primary-text, // White text on main warn color
+    lighter: $dark-primary-text, // Black text on lighter warn color
+    darker: $light-primary-text, // White text on darker warn color
+  ),
+);
+
+// Define the foreground palette with contrast colors
+$telesApps-foreground: (
+  main: #2d3047,
+  lighter: #C0C1C8,
+  darker: #1C1E2F,
+  700: #222437,
+  contrast: (
+    main: $dark-primary-text, // Black text on main foreground color
+    lighter: $dark-primary-text, // Black text on lighter foreground color
+    darker: $dark-primary-text, // Black text on darker foreground color
+  ),
+);
+
+// Define the background palette with contrast colors
+$telesApps-background: (
+  main: #F7F1F8,
+  lighter: #ffffff,
+  darker: #F3EBF5,
+  contrast: (
+    main: $dark-primary-text, // Black text on main background color
+    lighter: $dark-primary-text, // Black text on lighter background color
+    darker: $dark-primary-text, // Black text on darker background color
+  ),
+);
+
+// ************************ DARK THEME ************************
+
+// Dark Theme Palettes, Updated these if Primary Accent And Warn colors are different for dark theme
+$telesApps-dark-primary: $telesApps-primary;
+$telesApps-dark-accent: $telesApps-accent;
+$telesApps-dark-warn: $telesApps-warn;
+
+$telesApps-dark-foreground: (
+    main: #F7F1F8,
+    lighter: #ffffff,
+    darker: #F3EBF5,
+  700: #F5EDF6, // Medium grey for disabled states and such
+  contrast: (
+    main: $dark-primary-text, // Black text on light grey foreground
+    lighter: $dark-primary-text,
+    darker: $dark-primary-text,
+  ),
+);
+
+$telesApps-dark-background: (
+    main: #2d3047,
+    lighter: #C0C1C8,
+    darker: #1C1E2F,
+  contrast: (
+    main: $light-primary-text, // White text on dark backgrounds
+    lighter: $light-primary-text,
+    darker: $light-primary-text,
+  ),
+);

@@ -1,1 +1,27 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use "@angular/material" as mat;
+@use "assets/theme/app-theme.scss" as theme;
+@include mat.core();
+
+// Be sure that you only ever include this mixin once!
+
+@include mat.core-theme(theme.$telesApps-light-theme);
+@include mat.button-theme(theme.$telesApps-light-theme);
+// Include additional themes bellow under css classes on the application
+// Optionally, you can add a class-based dark theme like this:
+.dark-theme {
+    @include mat.core-color(theme.$telesApps-dark-theme);
+    @include mat.button-color(theme.$telesApps-dark-theme);
+}
+
+@media (prefers-color-scheme: dark) {
+    @include mat.core-color(theme.$telesApps-dark-theme);
+    @include mat.button-color(theme.$telesApps-dark-theme);
+}
+
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
