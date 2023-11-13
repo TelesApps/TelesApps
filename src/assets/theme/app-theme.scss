@@ -27,6 +27,12 @@ $telesApps-dark-theme: mat.define-dark-theme(
     $telesApps-dark-warn,
 );
 
+// Sets the Default theme to light
+body {
+    background-color: map-get($telesApps-background, main);
+    color: map-get($telesApps-foreground, main);
+}
+
 :root {
     // Using CSS variables to define the theme colors, these can be used in each compoenent's SCSS files.
     // Light theme properties
@@ -49,11 +55,6 @@ $telesApps-dark-theme: mat.define-dark-theme(
     --primary-contrast-main: #{map-get(map-get($telesApps-primary, contrast), main)};
     --accent-contrast-main: #{map-get(map-get($telesApps-accent, contrast), main)};
     --warn-contrast-main: #{map-get(map-get($telesApps-warn, contrast), main)};
-}
-// Sets the Default theme to light
-body {
-    background-color: map-get($telesApps-background, main);
-    color: map-get($telesApps-foreground, main);
 }
 
 /* For dark theme, you may define similar classes */
