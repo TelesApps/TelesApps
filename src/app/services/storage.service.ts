@@ -10,7 +10,6 @@ export class StorageService {
 
   private themeClass: BehaviorSubject<string> = new BehaviorSubject<string>('');
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
-    console.log('StorageService constructor');
   }
 
   getThemeClass() {

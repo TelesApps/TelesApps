@@ -1,4 +1,4 @@
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 @import "palette.scss";
 
 // Define the light theme
@@ -9,9 +9,15 @@ $telesApps-app-foreground: mat.define-palette($telesApps-foreground, main, light
 $telesApps-app-background: mat.define-palette($telesApps-background, main, lighter, darker);
 
 $telesApps-light-theme: mat.define-light-theme(
-    $telesApps-app-primary,
-    $telesApps-app-accent,
-    $telesApps-app-warn,
+    (
+        color: (
+            primary: $telesApps-app-primary,
+            accent: $telesApps-app-accent,
+            warn: $telesApps-app-warn
+        ),
+        typography: mat.define-typography-config(),
+        density: 0
+    )
 );
 
 // Define the dark theme
@@ -22,9 +28,15 @@ $telesApps-dark-foreground: mat.define-palette($telesApps-dark-foreground, main,
 $telesApps-dark-background: mat.define-palette($telesApps-dark-background, main, lighter, darker);
 
 $telesApps-dark-theme: mat.define-dark-theme(
-    $telesApps-dark-primary,
-    $telesApps-dark-accent,
-    $telesApps-dark-warn,
+    (
+        color: (
+            primary: $telesApps-dark-primary,
+            accent: $telesApps-dark-accent,
+            warn: $telesApps-dark-warn
+        ),
+        typography: mat.define-typography-config(),
+        density: 0
+    )
 );
 
 // Sets the Default theme to light

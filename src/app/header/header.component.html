@@ -1,1 +1,12 @@
-<p>header works!</p>
+<mat-toolbar>
+    <mat-toolbar-row class="content">
+        <div class="nav-links">
+            <a routerLink="/home" routerLinkActive="active">Home</a>
+            <a routerLink="/about" routerLinkActive="active">About</a>
+            <a routerLink="/contact" routerLinkActive="active">Contact</a>
+        </div>
+        <div class="hamburger-btn" (click)="openNavBar.emit()">
+            <mat-icon aria-hidden="false" aria-label="Example home icon">menu</mat-icon>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>
