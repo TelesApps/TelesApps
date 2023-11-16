@@ -67,10 +67,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "telesApps:build:production"
+              "buildTarget": "telesApps:build:production"
             },
             "development": {
-              "browserTarget": "telesApps:build:development"
+              "buildTarget": "telesApps:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -78,7 +78,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "telesApps:build"
+            "buildTarget": "telesApps:build"
           }
         },
         "test": {
