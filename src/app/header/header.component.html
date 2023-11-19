@@ -1,12 +1,11 @@
 <mat-toolbar>
     <mat-toolbar-row class="content">
-        <div class="nav-links">
-            <a routerLink="/home" routerLinkActive="active">Home</a>
-            <a routerLink="/about" routerLinkActive="active">About</a>
-            <a routerLink="/contact" routerLinkActive="active">Contact</a>
+        <div class="logo">
+            <img [src]="logoSrc" alt="Logo" />
         </div>
+        <app-nav-links></app-nav-links>
         <div class="hamburger-btn" (click)="openNavBar.emit()">
-            <mat-icon aria-hidden="false" aria-label="Example home icon">menu</mat-icon>
+            <mat-icon aria-hidden="false" aria-label="Nav Menu">menu</mat-icon>
         </div>
     </mat-toolbar-row>
 </mat-toolbar>

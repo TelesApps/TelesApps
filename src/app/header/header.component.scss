@@ -1,4 +1,40 @@
+@use 'assets/theme/app-theme.scss' as theme;
+
 .content {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    width: clamp(300px, 98%, 1480px);
+    height: 80px;
+    margin: auto;
+    padding: 4px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+        width: 220px;
+    }
+}
+
+app-nav-links {
+    width: 100%;
+}
+
+
+.hamburger-btn {
+    display: none;
+}
+
+@media screen and (max-width: theme.$mediaSm_768) {
+    app-nav-links {
+        display: none;
+    }
+    .hamburger-btn {
+        transform: scale(1.5);
+        display: block;
+        cursor: pointer;
+        padding-top: 8px;
+    }
 }

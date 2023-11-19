@@ -1,0 +1,31 @@
+@use 'assets/theme/app-theme.scss' as theme;
+
+ul {
+    // remove all css styling from this ul and li items
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    li {
+        cursor: pointer;
+    }
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.active-link {
+    color: var(--primary-main);
+}
+
+@media screen and (max-width: theme.$mediaSm_768) {
+    ul {
+        min-width: 120px;
+        flex-direction: column;
+        li {
+            font-size: larger;
+            padding: 10px 0;
+        }
+    }
+}

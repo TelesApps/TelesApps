@@ -1,15 +1,11 @@
 <div [class]="storage.getThemeClass() | async">
   <mat-drawer-container autosize>
     <mat-drawer #drawer mode="over">
-      <p>Auto-resizing sidenav</p>
-      
-      <button mat-raised-button>
-        Toggle extra text
-      </button>
+      <app-nav-links></app-nav-links>
     </mat-drawer>
   
     <app-header (openNavBar)="drawer.toggle()"></app-header>
-    <button mat-raised-button color="primary" (click)="storage.changeTheme()">Click me!</button>
+    <!-- <button mat-raised-button color="primary" (click)="storage.changeTheme()">Click me!</button> -->
     <router-outlet></router-outlet>
   </mat-drawer-container>
 </div>
