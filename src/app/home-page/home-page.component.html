@@ -1,7 +1,29 @@
 <div class="page">
     <div class="hero-section">
-        <img ngSrc="assets/images/future-city.png" alt="" fill priority>
-        <div class="title" style="position: relative; z-index: 1;">Welcome To Teles Apps</div>
+        @defer (on immediate) {
+        <img ngSrc="assets/images/future-city-1190px.png" alt="" fill priority>
+        } @loading {
+        <mat-spinner></mat-spinner>
+        }
+        <div class="title-area">
+            <h1>Welcome to Teles Apps</h1>
+            <h4>Building the applications of the future</h4>
+            <button mat-raised-button color="primary">Get Started</button>
+        </div>
     </div>
-    more stuff here
+    <div class="page-content">
+        <div class="features-section">
+            <div class="feature">
+                <div class="feature-icon">
+                    icon here
+                </div>
+                <div class="feature-title">
+                    <p>Feature 1</p>
+                </div>
+                <div class="feature-description">
+                    <p>Lorem ipsum dolor</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

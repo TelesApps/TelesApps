@@ -8,4 +8,7 @@
     <li>
         <a routerLink="/contact" routerLinkActive="active-link">Contact</a>
     </li>
+    <li>
+        <mat-slide-toggle (toggleChange)="storage.changeTheme()" hideIcon></mat-slide-toggle>
+    </li>
 </ul>

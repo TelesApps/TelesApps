@@ -1,8 +1,12 @@
 <mat-toolbar>
     <mat-toolbar-row class="content">
-        <div class="logo">
-            <img [src]="logoSrc" alt="Logo" />
+        @defer (when logoSrc()) {
+        <div class="logo" routerLink="/">
+            <img [ngSrc]="logoSrc()" width="220" height="55" />
         </div>
+        } @loading {
+            <mat-spinner></mat-spinner>
+          }
         <app-nav-links></app-nav-links>
         <div class="hamburger-btn" (click)="openNavBar.emit()">
             <mat-icon aria-hidden="false" aria-label="Nav Menu">menu</mat-icon>

@@ -1,12 +1,50 @@
+@use 'assets/theme/app-theme.scss' as theme;
+
 .page {
 
 }
 
 .hero-section {
     position: relative;
-    height: clamp(320px, 50vw, 680px);
+    height: clamp(320px, 50vw, 780px);
     img {
         object-fit: cover;
-        position: top;
+        z-index: -1;
     }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+}
+
+.title-area {
+    position: absolute;
+    top: clamp(20px, 5vw, 80px);
+    left: clamp(8px, 8vw, 120px);
+    color: map-get(theme.$telesApps-app-background, lighter);
+    h1 {
+        font-size: clamp(16pt, 3vw, 32pt);
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+    h4 {
+        font-size: clamp(10pt, 1.8vw, 24pt);
+        font-weight: 400;
+        margin-bottom: 8px;
+    }
+}
+
+.page-content {
+    width: clamp(300px, 98%, 1480px);
+    margin: auto;
+}
+
+.features-section {
+    margin-top: 32px;
+    display: flex;
+}
+
+.feature {
+    border: 1px solid var(--foreground-main);
 }

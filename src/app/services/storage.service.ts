@@ -1,4 +1,4 @@
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 // isPlatformBrowser is used for SSR
 import { isPlatformBrowser } from '@angular/common';
@@ -8,23 +8,20 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class StorageService {
 
-  private themeClass: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  // private themeClass: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  public themeClass = signal('');
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
-  }
-
-  getThemeClass() {
-    return this.themeClass.asObservable();
   }
 
   changeTheme(theme?: 'dark-theme' | '') {
     if (isPlatformBrowser(this.platformId)) {
-      let themeClass = this.themeClass.getValue();
+      let themeClass = this.themeClass();
       const body = document.body;
       if (!theme && themeClass && body) {
-        this.themeClass.next('');
+        this.themeClass.set('');
         body.classList.remove('dark-theme');
       } else if (body) {
-        this.themeClass.next('dark-theme');
+        this.themeClass.set('dark-theme');
         body.classList.add('dark-theme');
       }
     }
