@@ -1,6 +1,12 @@
 @use "@angular/material" as mat;
 @import "palette.scss";
 
+// Typography Definitions
+@import url('https://fonts.googleapis.com/css2?family=Exo:wght@400;500;600;700&display=swap');
+$exo-typography: mat.define-typography-config(
+    $font-family: 'Exo, sans-serif',
+);
+
 // Define the light theme
 $telesApps-app-primary: mat.define-palette($telesApps-primary, main, lighter, darker);
 $telesApps-app-accent: mat.define-palette($telesApps-accent, main, lighter, darker);
@@ -15,7 +21,7 @@ $telesApps-light-theme: mat.define-light-theme(
             accent: $telesApps-app-accent,
             warn: $telesApps-app-warn
         ),
-        typography: mat.define-typography-config(),
+        typography: $exo-typography,
         density: 0
     )
 );
@@ -34,7 +40,7 @@ $telesApps-dark-theme: mat.define-dark-theme(
             accent: $telesApps-dark-accent,
             warn: $telesApps-dark-warn
         ),
-        typography: mat.define-typography-config(),
+        typography: $exo-typography,
         density: 0
     )
 );
