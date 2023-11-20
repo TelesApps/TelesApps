@@ -41,9 +41,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .features-section {
-    margin-top: 32px;
+    margin-top: 90px;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 200px;
 }
 
 .feature {
@@ -51,18 +53,30 @@ h1, h2, h3, h4, h5, h6 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 6px;
+    flex-grow: 1;
+    max-width: 300px;
+    margin: 12px;
     padding: 12px;
     border: 1px solid var(--foreground-main);
     border-radius: 8px;
     color: map-get(theme.$telesApps-app-background, main);
     background: linear-gradient(-140deg, var(--accent-darker) 0%, map-get(theme.$telesApps-dark-background, darker) 100%);
-    box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.75);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     transition: all 0.2s ease-in-out;
     cursor: pointer;
     &:hover {
         transform: scale(1.05);
-        box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.75);
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 10px 15px;
+    }
+    .feature-title {
+        text-align: center;
+        font-size: clamp(14pt, 2.5vw, 24pt);
+        font-weight: 700;
+        margin: 12px 4px;
+    }
+    .feature-description {
+        font-size: clamp(11pt, .8vw, 16pt);
+        text-align: center;
     }
 
 }

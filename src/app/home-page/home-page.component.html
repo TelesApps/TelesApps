@@ -13,28 +13,70 @@
     </div>
     <div class="page-content">
         <div class="features-section">
-            <!-- Front-End -->
+            <!-- Frontend -->
+            <a routerLink="/front-end">
+                <div class="feature">
+                    <div class="feature-icon">
+                        @defer (on immediate) {
+                        <img width="80" height="80" ngSrc="assets/images/frontend-icon-161px.png" alt="">
+                        } @loading {
+                        <mat-spinner></mat-spinner>
+                        }
+                    </div>
+                    <div class="feature-title">
+                        <span>Front-end</span>
+                    </div>
+                    <div class="feature-description">
+                        <span>Crafting User Experiences with Precision and Creativity.</span>
+                    </div>
+                </div>
+            </a>
+            <!-- Backend-End -->
             <div class="feature">
                 <div class="feature-icon">
-                    icon here
+                    @defer (on immediate) {
+                    <img width="80" height="80" ngSrc="assets/images/backend-icon-159px.png" alt="">
+                    } @loading {
+                    <mat-spinner></mat-spinner>
+                    }
                 </div>
                 <div class="feature-title">
-                    <p>Feature 1</p>
+                    <span>Back-end</span>
                 </div>
                 <div class="feature-description">
-                    <p>Lorem ipsum dolor</p>
+                    <span>Fortifying the Backbone for Robust and Reliable Solutions.</span>
                 </div>
             </div>
-            <!-- Back-End -->
+            <!-- DataBase-End -->
             <div class="feature">
                 <div class="feature-icon">
-                    icon here
+                    @defer (on immediate) {
+                    <img width="80" height="80" ngSrc="assets/images/database-icon-164px.png" alt="">
+                    } @loading {
+                    <mat-spinner></mat-spinner>
+                    }
                 </div>
                 <div class="feature-title">
-                    <p>Feature 1</p>
+                    <span>Database</span>
                 </div>
                 <div class="feature-description">
-                    <p>Lorem ipsum dolor</p>
+                    <span>Storing Your Data, Powering Your Insights.</span>
+                </div>
+            </div>
+            <!-- AI -->
+            <div class="feature">
+                <div class="feature-icon">
+                    @defer (on immediate) {
+                    <img width="80" height="80" ngSrc="assets/images/ai-icon-218px.png" alt="">
+                    } @loading {
+                    <mat-spinner></mat-spinner>
+                    }
+                </div>
+                <div class="feature-title">
+                    <span>Generative AI</span>
+                </div>
+                <div class="feature-description">
+                    <span>Harnessing Cutting-Edge Technology for Future-Ready Solutions.</span>
                 </div>
             </div>
         </div>

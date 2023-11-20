@@ -22,3 +22,8 @@ body { margin: 0; font-family: 'Exo', sans-serif; }
     width: clamp(300px, 98%, 1480px);
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
