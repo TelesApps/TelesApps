@@ -19,7 +19,11 @@ export const slide =
     transition('database => back-end', slideTo('left')),
     transition('database => front-end', slideTo('left')),
     transition('back-end => front-end', slideTo('left')),
-    transition('* => home', slideTo('left')),
+    transition('front-end => home', slideTo('left')),
+    transition('back-end => home', slideTo('left')),
+    transition('database => home', slideTo('left')),
+    transition('ai => home', slideTo('left')),
+    transition('* => home', fadeIn()),
   ]);
 
   function slideTo(direction: string) {
@@ -51,5 +55,18 @@ export const slide =
           animate('600ms ease', style({ transform: 'translateX(0%)', opacity: 1 }))
         ])
       ]),
+    ];
+  }
+
+  function fadeIn() {
+    return [
+      // Initially, the entering element is fully transparent
+      query(':enter', [
+        style({ opacity: 0 })
+      ]),
+      // Animate the opacity to 1 (fully visible) over a duration of 600ms
+      query(':enter', [
+        animate('600ms ease', style({ opacity: 1 }))
+      ])
     ];
   }

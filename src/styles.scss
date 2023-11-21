@@ -18,8 +18,9 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: 'Exo', sans-serif; }
 
-.content-w {
-    width: clamp(300px, 98%, 1480px);
+.page-content {
+    width: clamp(300px, 98%, 1280px);
+    margin: auto;
 }
 
 a {
