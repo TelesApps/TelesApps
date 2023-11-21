@@ -5,6 +5,8 @@
     </mat-drawer>
   
     <app-header (openNavBar)="drawer.toggle()"></app-header>
-    <router-outlet></router-outlet>
+    <main [@routeAnimations]="prepareRoute(outlet)">
+      <router-outlet  #outlet="outlet"></router-outlet>
+    </main>
   </mat-drawer-container>
 </div>

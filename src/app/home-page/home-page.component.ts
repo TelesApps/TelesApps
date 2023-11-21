@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
+import { AnimationService } from '../services/animation.service';
 
 
 @Component({
@@ -14,5 +15,7 @@ import { RouterModule } from '@angular/router';
   styleUrl: './home-page.component.scss'
 })
 export class HomePageComponent {
+
+  animation = inject(AnimationService);
 
 }

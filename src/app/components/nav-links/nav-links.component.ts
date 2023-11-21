@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { StorageService } from '../../services/storage.service';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormsModule } from '@angular/forms';
+import { AnimationService } from '../../services/animation.service';
 
 @Component({
   selector: 'app-nav-links',
@@ -14,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class NavLinksComponent {
 
+  animation = inject(AnimationService);
   storage: StorageService = inject(StorageService)
   isDarkTheme: Signal<boolean> = computed(() => this.storage.themeClass() === 'dark-theme');
 
