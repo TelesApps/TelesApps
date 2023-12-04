@@ -11,10 +11,10 @@
             <button mat-raised-button color="primary">Get Started</button>
         </div>
     </div>
-    <div class="page-content">
+    <div class="content-width">
         <div class="features-section">
             <!-- Frontend -->
-            <a (click)="animation.noAnimation()" routerLink="/front-end" class="feature">
+            <a routerLink="/front-end" class="feature" replaceUrl="false">
                 <div class="feature-icon">
                     @defer (on immediate) {
                     <img width="80" height="80" ngSrc="assets/images/frontend-icon-161px.png" alt="">
@@ -77,6 +77,28 @@
                     <span>Harnessing Cutting-Edge Technology for Future-Ready Solutions.</span>
                 </div>
             </a>
+        </div>
+    </div>
+    <div class="contact-section">
+        <div class="content-width">
+            <div class="contact-content">
+                <h1>Contact Us To Get Started</h1>
+                <div class="img">
+                    <img srcset="assets/images/contact_380px.png 380w, assets/images/contact_640px.png 640w"
+                        alt="contact images">
+                </div>
+                <p>Ready to bring your application idea to life? Contact Us Now to embark on a journey of innovation and
+                    excellence. Our team of seasoned developers is committed to turning your vision into reality with
+                    cutting-edge technology and personalized solutions. We understand the unique challenges and
+                    opportunities in the app development landscape, and we are equipped to guide you through every step
+                    of the process. By choosing us, you're not just getting an app; you're gaining a partner dedicated
+                    to your success. Don't let your ideas wait any longer. Get in touch today to start shaping the
+                    future of your application!</p>
+                    <!-- 'mat-button','mat-raised-button', 'mat-flat-button','mat-stroked-button','mat-icon-button','mat-fab','mat-mini-fab' -->
+                    <div class="btn">
+                        <button mat-raised-button color="primary">Get Started</button>
+                    </div>
+            </div>
         </div>
     </div>
 </div>

@@ -40,7 +40,7 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin-bottom: 200px;
+    margin-bottom: 120px;
 }
 
 .feature {
@@ -73,6 +73,53 @@ h1, h2, h3, h4, h5, h6 {
     .feature-description {
         font-size: clamp(11pt, .8vw, 16pt);
         text-align: center;
+    }   
+}
+
+.contact-section {
+    background-color: var(--background-main);
+    padding-top: 90px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding-bottom: 120px;
+}
+
+.contact-content {
+    h1 {
+        width: clamp(300px, 90%, 580px);
+    }
+    p {
+        font-size: 14pt;
+        line-height: 1.8;
+        width: clamp(300px, 90%, 580px);  
+    }
+    .img {
+        padding: 10px;
+        float: right;
+        overflow: hidden;
+        width: clamp(300px, 40%, 680px);
+        img {
+            width: 100%;
+        }
+    }
+    .btn {
+        width: clamp(300px, 90%, 580px);  
+        text-align: center;
     }
 
+}
+
+.flex-reverse {
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (max-width: theme.$mediaMobile_540) {
+    .contact-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
 }

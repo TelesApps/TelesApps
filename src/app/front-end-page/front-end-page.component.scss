@@ -30,7 +30,7 @@
     height: 880px;
 }
 
-.page-content {
+.content-width {
     h1 {
         width: clamp(300px, 90%, 580px);
     }
@@ -50,11 +50,11 @@
     }
 }
 
-@media screen and (max-width: theme.$mediaMobile_480) {
+@media screen and (max-width: theme.$mediaMobile_540) {
     .section {
         height: 1280px;
     }
-    .page-content {
+    .content-width {
         display: flex;
         flex-direction: column;
         align-items: center;

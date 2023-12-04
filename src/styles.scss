@@ -18,7 +18,7 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: 'Exo', sans-serif; }
 
-.page-content {
+.content-width {
     width: clamp(300px, 98%, 1280px);
     margin: auto;
 }
