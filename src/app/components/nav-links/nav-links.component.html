@@ -1,18 +1,18 @@
 <ul>
     <li>
-        <a routerLink="/home" routerLinkActive="active-link">Home</a>
+        <a routerLink="/home" routerLinkActive="active-link" (click)="closeSidebar.emit()">Home</a>
     </li>
     <li>
-        <a routerLink="/front-end" routerLinkActive="active-link">Front-end</a>
+        <a routerLink="/front-end" routerLinkActive="active-link" (click)="closeSidebar.emit()">Front-end</a>
     </li>
     <li>
-        <a routerLink="/back-end" routerLinkActive="active-link">Back-end</a>
+        <a routerLink="/back-end" routerLinkActive="active-link" (click)="closeSidebar.emit()">Back-end</a>
     </li>
     <li>
-        <a routerLink="/database" routerLinkActive="active-link">Database</a>
+        <a routerLink="/database" routerLinkActive="active-link" (click)="closeSidebar.emit()">Database</a>
     </li>
     <li>
-        <a routerLink="/ai" routerLinkActive="active-link" >Generative AI</a>
+        <a routerLink="/ai" routerLinkActive="active-link" (click)="closeSidebar.emit()">Generative AI</a>
     </li>
     <li>
         <mat-slide-toggle (toggleChange)="storage.changeTheme()" hideIcon></mat-slide-toggle>

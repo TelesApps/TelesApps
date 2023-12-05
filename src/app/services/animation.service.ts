@@ -13,8 +13,6 @@ export class AnimationService {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         if (isPlatformBrowser(this.platformId)) {
-          // Only execute this code in the browser
-          window.scrollTo(0, 0);
         }
       }
     });

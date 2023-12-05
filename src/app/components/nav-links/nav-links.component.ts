@@ -1,4 +1,4 @@
-import { Component, inject, Signal, computed } from '@angular/core';
+import { Component, inject, Signal, computed, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { StorageService } from '../../services/storage.service';
@@ -18,6 +18,7 @@ export class NavLinksComponent {
   animation = inject(AnimationService);
   storage: StorageService = inject(StorageService)
   isDarkTheme: Signal<boolean> = computed(() => this.storage.themeClass() === 'dark-theme');
+  @Output() closeSidebar = new EventEmitter();
 
 
 }

@@ -1,7 +1,7 @@
 <div [ngClass]="storage.themeClass() === 'dark-theme'? 'dark-theme':''">
   <mat-drawer-container autosize>
     <mat-drawer #drawer mode="over">
-      <app-nav-links></app-nav-links>
+      <app-nav-links (closeSidebar)="drawer.close()"></app-nav-links>
     </mat-drawer>
   
     <app-header (openNavBar)="drawer.toggle()"></app-header>
