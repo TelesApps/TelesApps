@@ -1,1 +1,36 @@
-<p>ai-page works!</p>
+<div class="page">
+    <div class="hero-section">
+        @defer (on immediate) {
+        <img ngSrc="assets/images/ai-hero.png" alt="" fill priority>
+        } @placeholder {
+        <div>loading...</div>
+        }
+        <div class="title-area">
+            <h1>Generative AI</h1>
+        </div>
+    </div>
+    <div class="section">
+        <div class="content-width">
+            <h1>Embracing Innovation: Boosting Business Efficiency with Generative AI Technology</h1>
+            <div class="img">
+                <img srcset="assets/images/robot_380.png 380w, assets/images/robot_640.png 640w, assets/images/robot_1024.png 1024w"
+                    alt="robot images">
+            </div>
+            <p>At Teles Apps, we embrace the future of technology by integrating Generative AI into our operations, a
+                move that significantly boosts productivity and cuts costs. This cutting-edge AI technology automates
+                complex tasks, swiftly analyzes large datasets, and generates predictive models, leading to smarter,
+                more efficient decision-making. By tapping into AI's learning and adaptive capabilities, we not only
+                accelerate and refine our processes but also minimize manual errors and reduce labor-intensive tasks.
+                This strategic adoption of Generative AI positions us at the forefront of tech innovation, allowing us
+                to focus our human resources on creative and strategic challenges. Embracing AI-driven solutions, Teles
+                Apps is not just adapting to the future; we're actively shaping a more efficient, cost-effective
+                business landscape.</p>
+        </div>
+    </div>
+    <div class="section">
+        <div class="cta-btn">
+            <button mat-raised-button color="primary" (click)="animation.onNavigate('/contact', 300)">Get Started
+                Today</button>
+        </div>
+    </div>
+    <footer></footer>

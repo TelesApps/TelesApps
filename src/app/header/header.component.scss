@@ -28,7 +28,7 @@ app-nav-links {
     display: none;
 }
 
-@media screen and (max-width: theme.$mediaSm_768) {
+@media screen and (max-width: theme.$mediaMd_1024) {
     app-nav-links {
         display: none;
     }

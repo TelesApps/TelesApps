@@ -17,7 +17,7 @@ mat-slide-toggle {
     color: var(--primary-main);
 }
 
-@media screen and (max-width: theme.$mediaSm_768) {
+@media screen and (max-width: theme.$mediaMd_1024) {
     ul {
         min-width: 140px;
         flex-direction: column;
