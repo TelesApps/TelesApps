@@ -1,4 +1,4 @@
-import { isPlatformBrowser } from '@angular/common';
+import { ViewportScroller, isPlatformBrowser } from '@angular/common';
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 
@@ -9,13 +9,23 @@ export class AnimationService {
 
   private animationType: string = 'animation';
 
-  constructor(private router: Router, @Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(private router: Router, private viewportScroller: ViewportScroller, @Inject(PLATFORM_ID) private platformId: Object) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         if (isPlatformBrowser(this.platformId)) {
         }
       }
     });
+  }
+
+  onNavigate(url: string, delay?: number) {
+    this.viewportScroller.scrollToPosition([0, 0]);
+    let scrollDuration = 400;
+    if (delay)
+      scrollDuration = delay;
+    setTimeout(() => {
+      this.router.navigate([url]);
+    }, scrollDuration);
   }
 
   noAnimation() {

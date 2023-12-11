@@ -1,0 +1,83 @@
+@use "assets/theme/app-theme.scss" as theme;
+
+.hero-section {
+    position: relative;
+    height: clamp(280px, 20vw, 780px);
+    width: clamp(300px, 98%, 1480px);
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    img {
+        object-fit: cover;
+        z-index: -1;
+    }
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4));
+    .title-area {
+        color: map-get(theme.$telesApps-app-background, lighter);
+        h1 {
+            font-size: clamp(16pt, 3vw, 32pt);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+    }
+}
+
+.section {
+    background-color: var(--background-darker);
+    padding-top: 20px;
+    overflow: hidden;
+    padding-bottom: 24px;
+}
+
+.content-width {
+    h1 {
+        width: clamp(300px, 90%, 580px);
+    }
+    p {
+        font-size: 14pt;
+        line-height: 1.8;
+        width: clamp(300px, 90%, 580px);  
+    }
+}
+.img {
+    padding: 10px;
+    float: right;
+    overflow: hidden;
+    width: clamp(300px, 40%, 680px);
+    img {
+        width: 100%;
+    }
+}
+
+.cta-btn {
+    text-align: center;
+    button {
+        width: clamp(300px, 90%, 580px);
+    }
+}
+
+footer {
+    height: 100px;
+    background-color: var(--background-darker);
+}
+
+@media screen and (max-width: theme.$mediaMobile_540) {
+    .section {
+        height: 1280px;
+    }
+    .content-width {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .img {
+        width: 80%;
+        img {
+            margin: auto;
+            width: 100%;
+        }
+    }
+    
+}

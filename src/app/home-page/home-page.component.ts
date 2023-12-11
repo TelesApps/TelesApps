@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
-import {MatToolbarModule} from '@angular/material/toolbar';
+import { CommonModule, NgOptimizedImage, ViewportScroller } from '@angular/common';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { AnimationService } from '../services/animation.service';
 
 

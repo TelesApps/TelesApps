@@ -4,6 +4,7 @@ import { FrontEndPageComponent } from './front-end-page/front-end-page.component
 import { BackEndPageComponent } from './back-end-page/back-end-page.component';
 import { DatabasePageComponent } from './database-page/database-page.component';
 import { AiPageComponent } from './ai-page/ai-page.component';
+import { ContactPageComponent } from './contact-page/contact-page.component';
 
 export const routes: Routes = [
     {
@@ -35,6 +36,11 @@ export const routes: Routes = [
         path: 'ai',
         component: AiPageComponent,
         data: { animation: 'ai' }
+    },
+    {
+        path: 'contact',
+        component: ContactPageComponent,
+        data: { animation: 'contact' }
     },
     {
         path: '**',

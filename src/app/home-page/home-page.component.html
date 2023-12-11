@@ -8,13 +8,13 @@
         <div class="title-area">
             <h1>Welcome to Teles Apps</h1>
             <h4>Building the applications of the future</h4>
-            <button mat-raised-button color="primary">Get Started</button>
+            <button (click)="animation.onNavigate('/contact', 100)" mat-raised-button color="primary">Get Started</button>
         </div>
     </div>
     <div class="content-width">
         <div class="features-section">
             <!-- Frontend -->
-            <a routerLink="/front-end" class="feature" replaceUrl="false">
+            <a (click)="animation.onNavigate('/front-end')" class="feature" replaceUrl="false">
                 <div class="feature-icon">
                     @defer (on immediate) {
                     <img width="80" height="80" ngSrc="assets/images/frontend-icon-161px.png" alt="">
@@ -30,7 +30,7 @@
                 </div>
             </a>
             <!-- Backend-End -->
-            <a (click)="animation.noAnimation()" routerLink="/back-end" class="feature">
+            <a (click)="animation.onNavigate('/back-end')" class="feature">
                 <div class="feature-icon">
                     @defer (on immediate) {
                     <img width="80" height="80" ngSrc="assets/images/backend-icon-159px.png" alt="">
@@ -46,7 +46,7 @@
                 </div>
             </a>
             <!-- DataBase-End -->
-            <a (click)="animation.noAnimation()" routerLink="/database" class="feature">
+            <a (click)="animation.onNavigate('/database')" class="feature">
                 <div class="feature-icon">
                     @defer (on immediate) {
                     <img width="80" height="80" ngSrc="assets/images/database-icon-164px.png" alt="">
@@ -62,7 +62,7 @@
                 </div>
             </a>
             <!-- AI -->
-            <a (click)="animation.noAnimation()" routerLink="/ai" class="feature">
+            <a (click)="animation.onNavigate('/ai')" class="feature">
                 <div class="feature-icon">
                     @defer (on immediate) {
                     <img width="80" height="80" ngSrc="assets/images/ai-icon-218px.png" alt="">
@@ -96,7 +96,7 @@
                     future of your application!</p>
                     <!-- 'mat-button','mat-raised-button', 'mat-flat-button','mat-stroked-button','mat-icon-button','mat-fab','mat-mini-fab' -->
                     <div class="btn">
-                        <button mat-raised-button color="primary">Get Started</button>
+                        <button mat-raised-button color="primary" (click)="animation.onNavigate('/contact', 600)">Get Started</button>
                     </div>
             </div>
         </div>

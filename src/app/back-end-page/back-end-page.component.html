@@ -1,1 +1,36 @@
-<p>back-end-page works!</p>
+<div class="page">
+    <div class="hero-section">
+        @defer (on immediate) {
+        <img ngSrc="assets/images/backend-hero.png" alt="" fill priority>
+        } @placeholder {
+        <div>loading...</div>
+        }
+        <div class="title-area">
+            <h1>Back-end Development</h1>
+        </div>
+    </div>
+    <div class="section">
+        <div class="content-width">
+            <h1>"Empowering Digital Innovation: Expert Back-End Development Solutions</h1>
+            <div class="img">
+                <img srcset="assets/images/secure_380.png 380w, assets/images/secure_640.png 640w, assets/images/secure_1024.png 1024w"
+                    alt="secure images">
+            </div>
+            <p>Teles Apps specializes in advanced back-end software development, offering robust, scalable solutions for
+                diverse business needs. Our expertise encompasses efficient database management, ensuring secure and
+                rapid data access, and expert server management for high reliability and security. We excel in API
+                integration, facilitating seamless software interactions, and emphasize stringent security measures to
+                protect all transactions and data. Our team is adept in creating custom functionalities tailored to
+                unique business requirements, optimizing performance for an enhanced user experience. Additionally, we
+                integrate cutting-edge cloud computing solutions for improved scalability and efficiency. With a focus
+                on real-time data processing and cross-platform support, Teles Apps delivers back-end services that are
+                not only high-performing but also future-ready, ensuring our clients stay ahead in the digital
+                landscape.</p>
+        </div>
+    </div>
+    <div class="section">
+        <div class="cta-btn">
+            <button mat-raised-button color="primary" (click)="animation.onNavigate('/contact', 300)">Get Started Today</button>
+        </div>
+    </div>
+    <footer></footer>

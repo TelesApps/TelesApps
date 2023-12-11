@@ -2,7 +2,7 @@
 
 .hero-section {
     position: relative;
-    height: clamp(280px, 18vw, 780px);
+    height: clamp(280px, 20vw, 780px);
     width: clamp(300px, 98%, 1480px);
     margin: auto;
     display: flex;
@@ -27,7 +27,8 @@
 .section {
     background-color: var(--background-darker);
     padding-top: 20px;
-    height: 880px;
+    overflow: hidden;
+    padding-bottom: 24px;
 }
 
 .content-width {
@@ -48,6 +49,18 @@
     img {
         width: 100%;
     }
+}
+
+.cta-btn {
+    text-align: center;
+    button {
+        width: clamp(300px, 90%, 580px);
+    }
+}
+
+footer {
+    height: 100px;
+    background-color: var(--background-darker);
 }
 
 @media screen and (max-width: theme.$mediaMobile_540) {
