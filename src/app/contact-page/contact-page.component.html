@@ -1,1 +1,49 @@
-<p>contact-page works!</p>
+<div class="page">
+    <div class="hero-section">
+        @defer (on immediate) {
+        <img ngSrc="assets/images/contact-hero.png" alt="" fill priority>
+        } @placeholder {
+        <div>loading...</div>
+        }
+        <div class="title-area">
+            <h1>Contact Us</h1>
+        </div>
+    </div>
+    <div class="involvement-area">
+        <div class="content-width">
+            <a class="involvement popout" href="https://www.upwork.com/freelancers/claudioteles" target="_blank">
+                <div class="img-border bc-primary-l">
+                    <div class="involvement-img img-url-1"></div>
+                </div>
+                <div class="involvement-content">
+                    <div class="involvement-txt">
+                        <h3>Secure Collaboration And Mutual Satisfaction With Upwork</h3>
+                        <p>
+                            Teles Apps highly recommends using Upwork due to its effective safeguarding measures that
+                            protect both clients and service providers like us, ensuring mutual satisfaction. Upwork's
+                            platform excels in providing a secure environment for project collaboration, offering robust
+                            protection and clear terms of engagement that benefit all parties involved By partnering
+                            through Upwork, we can assure our clients of a seamless, transparent, and productive working experience.
+                        </p>
+                    </div>
+                </div>
+            </a>
+            <div class="involvement">
+                <div class="img-border bc-accent-l">
+                    <div class="involvement-img img-url-2"></div>
+                </div>
+                <div class="involvement-content">
+                    <div class="involvement-txt contact">
+                        <h3>Get in Touch: Contact Us via Phone or Email for Personalized Assistance</h3>
+                        <a href="tel:352-616-1935"><mat-icon aria-hidden="false" aria-label="Telephone Icon">phone</mat-icon>
+                            352-616-1935
+                        </a>
+                        <a href="mailto:telesapps85@gmail.com"><mat-icon aria-hidden="false" aria-label="Email Icon">email</mat-icon>
+                            telesapps85&#64;gmail.com
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer></footer>
