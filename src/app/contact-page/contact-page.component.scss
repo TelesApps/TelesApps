@@ -97,6 +97,10 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
+.upwork-btn {
+    display: none;
+}
+
 @media screen and (max-width: theme.$mediaLg_1200) {
     .content-width {
         margin-left: -40px;
@@ -132,20 +136,13 @@
     .content-width {
         margin-left: 0px;
     }
-    .img-border {
-        left: 0px;
-        height: 300px;
-        .involvement-img {
-            height: 300px;
-        }
-    }
-
     .involvement-area {
-        padding-top: 10px;
-        padding-bottom: 10px;
+        padding-top: 0px;
+        padding-bottom: 0px;
     }
 
     .involvement {
+        width: 100vw;
         display: flex;
         flex-wrap: wrap;
         margin: 0px;
@@ -176,12 +173,23 @@
     .involvement:hover {
         transform: scale(1);
     }
+
     .img-border {
-        width: 90vw !important;
+        left: 0px;
+        height: 300px;
+        width: 100vw;
         border-radius: 0px !important;
+        padding: 18px;
+        background-color: var(--background-main);
         .involvement-img {
+            height: 300px;
             width: 90% !important;
             border-radius: 0px !important;
         }
+    }
+
+    .upwork-btn {
+        display: block;
+        text-align: center;
     }
 }
