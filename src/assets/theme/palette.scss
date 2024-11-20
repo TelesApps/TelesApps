@@ -9,7 +9,7 @@ $telesApps-primary: (
   darker: #FFA531,
   200: #FFDEA4,
   contrast: (
-    main: $light-primary-text, // White text on main primary color
+    main: $dark-primary-text, // White text on main primary color
     lighter: $dark-primary-text, // Black text on lighter primary color
     darker: $light-primary-text, // White text on darker primary color
   ),
