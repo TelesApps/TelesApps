@@ -9,11 +9,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @Component({
-  selector: 'app-header',
-  standalone: true,
-  imports: [CommonModule, MatToolbarModule, MatIconModule, RouterModule, NavLinksComponent, NgOptimizedImage, MatProgressSpinnerModule],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.scss',
+    selector: 'app-header',
+    imports: [CommonModule, MatToolbarModule, MatIconModule, RouterModule, NavLinksComponent, NgOptimizedImage, MatProgressSpinnerModule],
+    templateUrl: './header.component.html',
+    styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
 

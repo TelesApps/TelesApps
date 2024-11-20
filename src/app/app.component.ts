@@ -11,22 +11,21 @@ import { AnimationBuilder } from '@angular/animations';
 import { AnimationService } from './services/animation.service';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  providers: [StorageService],
-  imports: [
-    CommonModule,
-    RouterOutlet,
-    RouterLink,
-    RouterLinkActive,
-    MatSidenavModule,
-    HeaderComponent,
-    MatButtonModule,
-    NavLinksComponent
-  ],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  animations: [slide]
+    selector: 'app-root',
+    providers: [StorageService],
+    imports: [
+        CommonModule,
+        RouterOutlet,
+        RouterLink,
+        RouterLinkActive,
+        MatSidenavModule,
+        HeaderComponent,
+        MatButtonModule,
+        NavLinksComponent
+    ],
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    animations: [slide]
 })
 export class AppComponent {
   title = 'telesApps';

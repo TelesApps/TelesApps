@@ -7,11 +7,10 @@ import { FormsModule } from '@angular/forms';
 import { AnimationService } from '../../services/animation.service';
 
 @Component({
-  selector: 'app-nav-links',
-  standalone: true,
-  imports: [CommonModule, RouterModule, MatSlideToggleModule, ],
-  templateUrl: './nav-links.component.html',
-  styleUrl: './nav-links.component.scss'
+    selector: 'app-nav-links',
+    imports: [CommonModule, RouterModule, MatSlideToggleModule,],
+    templateUrl: './nav-links.component.html',
+    styleUrl: './nav-links.component.scss'
 })
 export class NavLinksComponent {
 

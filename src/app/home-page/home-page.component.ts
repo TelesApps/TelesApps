@@ -9,11 +9,10 @@ import { AnimationService } from '../services/animation.service';
 
 
 @Component({
-  selector: 'app-home-page',
-  standalone: true,
-  imports: [CommonModule, NgOptimizedImage, MatProgressSpinnerModule, MatButtonModule, RouterModule],
-  templateUrl: './home-page.component.html',
-  styleUrl: './home-page.component.scss'
+    selector: 'app-home-page',
+    imports: [CommonModule, NgOptimizedImage, MatProgressSpinnerModule, MatButtonModule, RouterModule],
+    templateUrl: './home-page.component.html',
+    styleUrl: './home-page.component.scss'
 })
 export class HomePageComponent {
 

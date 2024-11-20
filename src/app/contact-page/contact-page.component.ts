@@ -5,11 +5,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'app-contact-page',
-  standalone: true,
-  imports: [CommonModule, NgOptimizedImage, MatIconModule, MatButtonModule],
-  templateUrl: './contact-page.component.html',
-  styleUrls: ['../front-end-page/front-end-page.component.scss', './contact-page.component.scss']
+    selector: 'app-contact-page',
+    imports: [CommonModule, NgOptimizedImage, MatIconModule, MatButtonModule],
+    templateUrl: './contact-page.component.html',
+    styleUrls: ['../front-end-page/front-end-page.component.scss', './contact-page.component.scss']
 })
 export class ContactPageComponent {
 

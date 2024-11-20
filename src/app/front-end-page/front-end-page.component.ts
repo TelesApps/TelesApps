@@ -4,11 +4,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { AnimationService } from '../services/animation.service';
 
 @Component({
-  selector: 'app-front-end-page',
-  standalone: true,
-  imports: [CommonModule, NgOptimizedImage, MatButtonModule],
-  templateUrl: './front-end-page.component.html',
-  styleUrl: './front-end-page.component.scss'
+    selector: 'app-front-end-page',
+    imports: [CommonModule, NgOptimizedImage, MatButtonModule],
+    templateUrl: './front-end-page.component.html',
+    styleUrl: './front-end-page.component.scss'
 })
 export class FrontEndPageComponent {
 

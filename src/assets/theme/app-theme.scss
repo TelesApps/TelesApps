@@ -3,18 +3,18 @@
 
 // Typography Definitions
 @import url('https://fonts.googleapis.com/css2?family=Exo:wght@400;500;600;700&display=swap');
-$exo-typography: mat.define-typography-config(
+$exo-typography: mat.m2-define-typography-config(
     $font-family: 'Exo, sans-serif',
 );
 
 // Define the light theme
-$telesApps-app-primary: mat.define-palette($telesApps-primary, main, lighter, darker);
-$telesApps-app-accent: mat.define-palette($telesApps-accent, main, lighter, darker);
-$telesApps-app-warn: mat.define-palette($telesApps-warn, main, lighter, darker);
-$telesApps-app-foreground: mat.define-palette($telesApps-foreground, main, lighter);
-$telesApps-app-background: mat.define-palette($telesApps-background, main, lighter, darker);
+$telesApps-app-primary: mat.m2-define-palette($telesApps-primary, main, lighter, darker);
+$telesApps-app-accent: mat.m2-define-palette($telesApps-accent, main, lighter, darker);
+$telesApps-app-warn: mat.m2-define-palette($telesApps-warn, main, lighter, darker);
+$telesApps-app-foreground: mat.m2-define-palette($telesApps-foreground, main, lighter);
+$telesApps-app-background: mat.m2-define-palette($telesApps-background, main, lighter, darker);
 
-$telesApps-light-theme: mat.define-light-theme(
+$telesApps-light-theme: mat.m2-define-light-theme(
     (
         color: (
             primary: $telesApps-app-primary,
@@ -27,13 +27,13 @@ $telesApps-light-theme: mat.define-light-theme(
 );
 
 // Define the dark theme
-$telesApps-dark-primary: mat.define-palette($telesApps-dark-primary, main, lighter, darker);
-$telesApps-dark-accent: mat.define-palette($telesApps-dark-accent, main, lighter, darker);
-$telesApps-dark-warn: mat.define-palette($telesApps-dark-warn, main, lighter, darker);
-$telesApps-dark-foreground: mat.define-palette($telesApps-dark-foreground, main, lighter);
-$telesApps-dark-background: mat.define-palette($telesApps-dark-background, main, lighter, darker);
+$telesApps-dark-primary: mat.m2-define-palette($telesApps-dark-primary, main, lighter, darker);
+$telesApps-dark-accent: mat.m2-define-palette($telesApps-dark-accent, main, lighter, darker);
+$telesApps-dark-warn: mat.m2-define-palette($telesApps-dark-warn, main, lighter, darker);
+$telesApps-dark-foreground: mat.m2-define-palette($telesApps-dark-foreground, main, lighter);
+$telesApps-dark-background: mat.m2-define-palette($telesApps-dark-background, main, lighter, darker);
 
-$telesApps-dark-theme: mat.define-dark-theme(
+$telesApps-dark-theme: mat.m2-define-dark-theme(
     (
         color: (
             primary: $telesApps-dark-primary,
