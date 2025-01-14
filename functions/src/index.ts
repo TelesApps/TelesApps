@@ -2,6 +2,7 @@
 // import * as admin from "firebase-admin";
 // admin.initializeApp();
 import {Api} from "./api";
+import {mockCall} from "./mock";
 
 // export { onUserCreated } from "./onUserCreated";
 // export { onUserDeleted } from "./onUserDeleted";
@@ -9,4 +10,5 @@ import {Api} from "./api";
 
 // APIs
 export const api = Api;
+export const mock = mockCall;
 

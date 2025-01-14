@@ -29,5 +29,6 @@ module.exports = {
     "import/no-unresolved": 0,
     "indent": "off",
     "linebreak-style": 0,
+    "max-len": ["error", {"code": 120}],
   },
 };

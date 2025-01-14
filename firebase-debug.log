@@ -1,0 +1,42 @@
+[debug] [2025-01-14T17:42:15.672Z] ----------------------------------------------------------------------
+[debug] [2025-01-14T17:42:15.675Z] Command:       C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\firebase-tools\lib\bin\firebase.js emulators:start --import ./src/assets/mock-data --export-on-exit ./src/assets/mock-data
+[debug] [2025-01-14T17:42:15.675Z] CLI Version:   13.26.0
+[debug] [2025-01-14T17:42:15.675Z] Platform:      win32
+[debug] [2025-01-14T17:42:15.675Z] Node Version:  v20.12.0
+[debug] [2025-01-14T17:42:15.676Z] Time:          Tue Jan 14 2025 12:42:15 GMT-0500 (Eastern Standard Time)
+[debug] [2025-01-14T17:42:15.676Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-01-14T17:42:15.772Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-01-14T17:42:15.773Z] > authorizing via signed-in user (telesapps85@gmail.com)
+[debug] [2025-01-14T17:42:15.847Z] java version "22.0.2" 2024-07-16
+
+[debug] [2025-01-14T17:42:15.847Z] Java(TM) SE Runtime Environment (build 22.0.2+9-70)
+Java HotSpot(TM) 64-Bit Server VM (build 22.0.2+9-70, mixed mode, sharing)
+
+[debug] [2025-01-14T17:42:15.871Z] Parsed Java major version: 22
+[info] i  emulators: Starting emulators: auth, functions, firestore, database, hosting, storage, extensions {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: auth, functions, firestore, database, hosting, storage, extensions"}}
+[debug] [2025-01-14T17:42:15.873Z] Checked if tokens are valid: true, expires at: 1736879886780
+[debug] [2025-01-14T17:42:15.873Z] Checked if tokens are valid: true, expires at: 1736879886780
+[debug] [2025-01-14T17:42:15.874Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/telesapps-c8f5a [none]
+[debug] [2025-01-14T17:42:16.087Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/telesapps-c8f5a 200
+[debug] [2025-01-14T17:42:16.087Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/telesapps-c8f5a {"projectNumber":"1095550930048","projectId":"telesapps-c8f5a","lifecycleState":"ACTIVE","name":"telesapps","labels":{"firebase":"enabled"},"createTime":"2022-06-26T12:09:31.371Z"}
+[debug] [2025-01-14T17:42:16.139Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-01-14T17:42:16.139Z] [auth] Authentication Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-01-14T17:42:16.139Z] [firestore] Firestore Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-01-14T17:42:16.139Z] [firestore.websocket] websocket server for firestore only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-01-14T17:42:16.139Z] [database] Database Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-01-14T17:42:16.140Z] [hosting] Hosting Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-01-14T17:42:16.140Z] [storage] Storage Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-01-14T17:42:16.140Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"auth":[{"address":"127.0.0.1","family":"IPv4","port":9099}],"firestore":[{"address":"127.0.0.1","family":"IPv4","port":8080}],"firestore.websocket":[{"address":"127.0.0.1","family":"IPv4","port":9150}],"database":[{"address":"127.0.0.1","family":"IPv4","port":9000}],"hosting":[{"address":"127.0.0.1","family":"IPv4","port":5000}],"storage":[{"address":"127.0.0.1","family":"IPv4","port":9199}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[debug] [2025-01-14T17:42:16.149Z] [hub] writing locator at C:\Users\claud\AppData\Local\Temp\hub-telesapps-c8f5a.json
+[debug] [2025-01-14T17:42:16.160Z] [Extensions] Started Extensions emulator, this is a noop.
+[debug] [2025-01-14T17:42:16.166Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-01-14T17:42:16.166Z] [eventarc] Eventarc Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-01-14T17:42:16.166Z] [tasks] Cloud Tasks Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-01-14T17:42:16.166Z] late-assigned ports for functions and eventarc emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"auth":[{"address":"127.0.0.1","family":"IPv4","port":9099}],"firestore":[{"address":"127.0.0.1","family":"IPv4","port":8080}],"firestore.websocket":[{"address":"127.0.0.1","family":"IPv4","port":9150}],"database":[{"address":"127.0.0.1","family":"IPv4","port":9000}],"hosting":[{"address":"127.0.0.1","family":"IPv4","port":5000}],"storage":[{"address":"127.0.0.1","family":"IPv4","port":9199}],"functions":[{"address":"127.0.0.1","family":"IPv4","port":5001}],"eventarc":[{"address":"127.0.0.1","family":"IPv4","port":9299}],"tasks":[{"address":"127.0.0.1","family":"IPv4","port":9499}]},"metadata":{"message":"late-assigned ports for functions and eventarc emulators"}}
+[warn] !  functions: The following emulators are not running, calls to these services from the Functions emulator will affect production: pubsub, dataconnect {"metadata":{"emulator":{"name":"functions"},"message":"The following emulators are not running, calls to these services from the Functions emulator will affect production: \u001b[1mpubsub, dataconnect\u001b[22m"}}
+[debug] [2025-01-14T17:42:16.170Z] defaultcredentials: writing to file C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json
+[debug] [2025-01-14T17:42:16.173Z] Setting GAC to C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\claud\\AppData\\Roaming\\firebase\\telesapps85_gmail_com_application_default_credentials.json"}}
+[debug] [2025-01-14T17:42:16.173Z] Checked if tokens are valid: true, expires at: 1736879886780
+[debug] [2025-01-14T17:42:16.174Z] Checked if tokens are valid: true, expires at: 1736879886780
+[debug] [2025-01-14T17:42:16.174Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/telesapps-c8f5a/adminSdkConfig [none]
