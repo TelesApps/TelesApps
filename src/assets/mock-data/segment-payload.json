@@ -1,0 +1,37 @@
+{
+    "writeKey": "qXa7qkgaGp9sabrBEXDku6t8tIUKSVAG",
+    "type": "track",
+    "email": "telesapps85@gmail.com",
+    "order_id": "testingID0002",
+    "courseId": "012345678905",
+    "name": "Order Completed",
+    "userId": "f4ca124298",
+    "event": "Order Completed",
+    "properties": {
+        "checkout_id": "kdjfadslfjingbvsdjahfosa",
+        "order_id": "testingID0002",
+        "email": "claudioteles85@gmail.com",
+        "name": "Claudio",
+        "surname": "Teles",
+        "affiliation": "Google Store",
+        "total": 27.50,
+        "revenue": 25.00,
+        "shipping": 3,
+        "tax": 2,
+        "discount": 2.5,
+        "coupon": "hasbros",
+        "currency": "EUR",
+        "products": [
+            {
+                "product_id": "012345678901",
+                "sku": "TOY-CAR-1",
+                "name": "Toy car",
+                "price": 9.90,
+                "quantity": 1,
+                "category": "toycars",
+                "url": "https://example.com/toy-car.html",
+                "image_url": "https://example.com/toy-car-1.jpg"
+            }
+        ]
+    }
+}

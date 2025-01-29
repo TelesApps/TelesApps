@@ -1,42 +1,947 @@
-[debug] [2025-01-14T17:42:15.672Z] ----------------------------------------------------------------------
-[debug] [2025-01-14T17:42:15.675Z] Command:       C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\firebase-tools\lib\bin\firebase.js emulators:start --import ./src/assets/mock-data --export-on-exit ./src/assets/mock-data
-[debug] [2025-01-14T17:42:15.675Z] CLI Version:   13.26.0
-[debug] [2025-01-14T17:42:15.675Z] Platform:      win32
-[debug] [2025-01-14T17:42:15.675Z] Node Version:  v20.12.0
-[debug] [2025-01-14T17:42:15.676Z] Time:          Tue Jan 14 2025 12:42:15 GMT-0500 (Eastern Standard Time)
-[debug] [2025-01-14T17:42:15.676Z] ----------------------------------------------------------------------
+[debug] [2025-01-29T15:42:54.078Z] ----------------------------------------------------------------------
+[debug] [2025-01-29T15:42:54.080Z] Command:       C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\firebase-tools\lib\bin\firebase.js emulators:start --import ./src/assets/mock-data/emulator-data --export-on-exit ./src/assets/mock-data/emulator-data
+[debug] [2025-01-29T15:42:54.080Z] CLI Version:   13.26.0
+[debug] [2025-01-29T15:42:54.080Z] Platform:      win32
+[debug] [2025-01-29T15:42:54.080Z] Node Version:  v20.12.0
+[debug] [2025-01-29T15:42:54.081Z] Time:          Wed Jan 29 2025 10:42:54 GMT-0500 (Eastern Standard Time)
+[debug] [2025-01-29T15:42:54.081Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2025-01-14T17:42:15.772Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2025-01-14T17:42:15.773Z] > authorizing via signed-in user (telesapps85@gmail.com)
-[debug] [2025-01-14T17:42:15.847Z] java version "22.0.2" 2024-07-16
+[debug] [2025-01-29T15:42:54.209Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-01-29T15:42:54.209Z] > authorizing via signed-in user (telesapps85@gmail.com)
+[debug] [2025-01-29T15:42:54.297Z] java version "22.0.2" 2024-07-16
 
-[debug] [2025-01-14T17:42:15.847Z] Java(TM) SE Runtime Environment (build 22.0.2+9-70)
+[debug] [2025-01-29T15:42:54.297Z] Java(TM) SE Runtime Environment (build 22.0.2+9-70)
 Java HotSpot(TM) 64-Bit Server VM (build 22.0.2+9-70, mixed mode, sharing)
 
-[debug] [2025-01-14T17:42:15.871Z] Parsed Java major version: 22
+[debug] [2025-01-29T15:42:54.309Z] Parsed Java major version: 22
 [info] i  emulators: Starting emulators: auth, functions, firestore, database, hosting, storage, extensions {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: auth, functions, firestore, database, hosting, storage, extensions"}}
-[debug] [2025-01-14T17:42:15.873Z] Checked if tokens are valid: true, expires at: 1736879886780
-[debug] [2025-01-14T17:42:15.873Z] Checked if tokens are valid: true, expires at: 1736879886780
-[debug] [2025-01-14T17:42:15.874Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/telesapps-c8f5a [none]
-[debug] [2025-01-14T17:42:16.087Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/telesapps-c8f5a 200
-[debug] [2025-01-14T17:42:16.087Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/telesapps-c8f5a {"projectNumber":"1095550930048","projectId":"telesapps-c8f5a","lifecycleState":"ACTIVE","name":"telesapps","labels":{"firebase":"enabled"},"createTime":"2022-06-26T12:09:31.371Z"}
-[debug] [2025-01-14T17:42:16.139Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
-[debug] [2025-01-14T17:42:16.139Z] [auth] Authentication Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
-[debug] [2025-01-14T17:42:16.139Z] [firestore] Firestore Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
-[debug] [2025-01-14T17:42:16.139Z] [firestore.websocket] websocket server for firestore only supports listening on one address (127.0.0.1). Not listening on ::1
-[debug] [2025-01-14T17:42:16.139Z] [database] Database Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
-[debug] [2025-01-14T17:42:16.140Z] [hosting] Hosting Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
-[debug] [2025-01-14T17:42:16.140Z] [storage] Storage Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
-[debug] [2025-01-14T17:42:16.140Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"auth":[{"address":"127.0.0.1","family":"IPv4","port":9099}],"firestore":[{"address":"127.0.0.1","family":"IPv4","port":8080}],"firestore.websocket":[{"address":"127.0.0.1","family":"IPv4","port":9150}],"database":[{"address":"127.0.0.1","family":"IPv4","port":9000}],"hosting":[{"address":"127.0.0.1","family":"IPv4","port":5000}],"storage":[{"address":"127.0.0.1","family":"IPv4","port":9199}]},"metadata":{"message":"assigned listening specs for emulators"}}
-[debug] [2025-01-14T17:42:16.149Z] [hub] writing locator at C:\Users\claud\AppData\Local\Temp\hub-telesapps-c8f5a.json
-[debug] [2025-01-14T17:42:16.160Z] [Extensions] Started Extensions emulator, this is a noop.
-[debug] [2025-01-14T17:42:16.166Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
-[debug] [2025-01-14T17:42:16.166Z] [eventarc] Eventarc Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
-[debug] [2025-01-14T17:42:16.166Z] [tasks] Cloud Tasks Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
-[debug] [2025-01-14T17:42:16.166Z] late-assigned ports for functions and eventarc emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"auth":[{"address":"127.0.0.1","family":"IPv4","port":9099}],"firestore":[{"address":"127.0.0.1","family":"IPv4","port":8080}],"firestore.websocket":[{"address":"127.0.0.1","family":"IPv4","port":9150}],"database":[{"address":"127.0.0.1","family":"IPv4","port":9000}],"hosting":[{"address":"127.0.0.1","family":"IPv4","port":5000}],"storage":[{"address":"127.0.0.1","family":"IPv4","port":9199}],"functions":[{"address":"127.0.0.1","family":"IPv4","port":5001}],"eventarc":[{"address":"127.0.0.1","family":"IPv4","port":9299}],"tasks":[{"address":"127.0.0.1","family":"IPv4","port":9499}]},"metadata":{"message":"late-assigned ports for functions and eventarc emulators"}}
+[debug] [2025-01-29T15:42:54.312Z] Checked if tokens are valid: false, expires at: 1738164652189
+[debug] [2025-01-29T15:42:54.312Z] Checked if tokens are valid: false, expires at: 1738164652189
+[debug] [2025-01-29T15:42:54.313Z] > refreshing access token with scopes: []
+[debug] [2025-01-29T15:42:54.314Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-01-29T15:42:54.315Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-01-29T15:42:54.418Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-01-29T15:42:54.419Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-01-29T15:42:54.433Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/telesapps-c8f5a [none]
+[debug] [2025-01-29T15:42:54.661Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/telesapps-c8f5a 200
+[debug] [2025-01-29T15:42:54.662Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/telesapps-c8f5a {"projectNumber":"1095550930048","projectId":"telesapps-c8f5a","lifecycleState":"ACTIVE","name":"telesapps","labels":{"firebase":"enabled"},"createTime":"2022-06-26T12:09:31.371Z"}
+[debug] [2025-01-29T15:42:54.677Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-01-29T15:42:54.678Z] [auth] Authentication Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-01-29T15:42:54.678Z] [firestore] Firestore Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-01-29T15:42:54.678Z] [firestore.websocket] websocket server for firestore only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-01-29T15:42:54.678Z] [database] Database Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-01-29T15:42:54.678Z] [hosting] Hosting Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-01-29T15:42:54.678Z] [storage] Storage Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-01-29T15:42:54.678Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"auth":[{"address":"127.0.0.1","family":"IPv4","port":9099}],"firestore":[{"address":"127.0.0.1","family":"IPv4","port":8080}],"firestore.websocket":[{"address":"127.0.0.1","family":"IPv4","port":9150}],"database":[{"address":"127.0.0.1","family":"IPv4","port":9000}],"hosting":[{"address":"127.0.0.1","family":"IPv4","port":5000}],"storage":[{"address":"127.0.0.1","family":"IPv4","port":9199}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[debug] [2025-01-29T15:42:54.682Z] [hub] writing locator at C:\Users\claud\AppData\Local\Temp\hub-telesapps-c8f5a.json
+[debug] [2025-01-29T15:42:54.690Z] [Extensions] Started Extensions emulator, this is a noop.
+[debug] [2025-01-29T15:42:54.694Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-01-29T15:42:54.694Z] [eventarc] Eventarc Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-01-29T15:42:54.694Z] [tasks] Cloud Tasks Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-01-29T15:42:54.695Z] late-assigned ports for functions and eventarc emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"auth":[{"address":"127.0.0.1","family":"IPv4","port":9099}],"firestore":[{"address":"127.0.0.1","family":"IPv4","port":8080}],"firestore.websocket":[{"address":"127.0.0.1","family":"IPv4","port":9150}],"database":[{"address":"127.0.0.1","family":"IPv4","port":9000}],"hosting":[{"address":"127.0.0.1","family":"IPv4","port":5000}],"storage":[{"address":"127.0.0.1","family":"IPv4","port":9199}],"functions":[{"address":"127.0.0.1","family":"IPv4","port":5001}],"eventarc":[{"address":"127.0.0.1","family":"IPv4","port":9299}],"tasks":[{"address":"127.0.0.1","family":"IPv4","port":9499}]},"metadata":{"message":"late-assigned ports for functions and eventarc emulators"}}
 [warn] !  functions: The following emulators are not running, calls to these services from the Functions emulator will affect production: pubsub, dataconnect {"metadata":{"emulator":{"name":"functions"},"message":"The following emulators are not running, calls to these services from the Functions emulator will affect production: \u001b[1mpubsub, dataconnect\u001b[22m"}}
-[debug] [2025-01-14T17:42:16.170Z] defaultcredentials: writing to file C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json
-[debug] [2025-01-14T17:42:16.173Z] Setting GAC to C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\claud\\AppData\\Roaming\\firebase\\telesapps85_gmail_com_application_default_credentials.json"}}
-[debug] [2025-01-14T17:42:16.173Z] Checked if tokens are valid: true, expires at: 1736879886780
-[debug] [2025-01-14T17:42:16.174Z] Checked if tokens are valid: true, expires at: 1736879886780
-[debug] [2025-01-14T17:42:16.174Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/telesapps-c8f5a/adminSdkConfig [none]
+[debug] [2025-01-29T15:42:54.698Z] defaultcredentials: writing to file C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json
+[debug] [2025-01-29T15:42:54.701Z] Setting GAC to C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\claud\\AppData\\Roaming\\firebase\\telesapps85_gmail_com_application_default_credentials.json"}}
+[debug] [2025-01-29T15:42:54.701Z] Checked if tokens are valid: true, expires at: 1738168973419
+[debug] [2025-01-29T15:42:54.701Z] Checked if tokens are valid: true, expires at: 1738168973419
+[debug] [2025-01-29T15:42:54.701Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/telesapps-c8f5a/adminSdkConfig [none]
+[debug] [2025-01-29T15:42:55.190Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/telesapps-c8f5a/adminSdkConfig 200
+[debug] [2025-01-29T15:42:55.191Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/telesapps-c8f5a/adminSdkConfig {"projectId":"telesapps-c8f5a","databaseURL":"https://telesapps-c8f5a-default-rtdb.firebaseio.com","storageBucket":"telesapps-c8f5a.appspot.com","locationId":"us-central"}
+[info] i  firestore: Importing data from D:\All Projects\telesApps\src\assets\mock-data\emulator-data\firestore_export\firestore_export.overall_export_metadata {"metadata":{"emulator":{"name":"firestore"},"message":"Importing data from D:\\All Projects\\telesApps\\src\\assets\\mock-data\\emulator-data\\firestore_export\\firestore_export.overall_export_metadata"}}
+[debug] [2025-01-29T15:42:55.243Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2025-01-29T15:42:55.243Z] Ignoring unsupported arg: single_project_mode_error {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: single_project_mode_error"}}
+[debug] [2025-01-29T15:42:55.243Z] Starting Firestore Emulator with command {"binary":"java","args":["-Dgoogle.cloud_firestore.debug_log_level=FINE","-Duser.language=en","-jar","C:\\Users\\claud\\.cache\\firebase\\emulators\\cloud-firestore-emulator-v1.19.8.jar","--host","127.0.0.1","--port",8080,"--websocket_port",9150,"--project_id","telesapps-c8f5a","--seed_from_export","D:\\All Projects\\telesApps\\src\\assets\\mock-data\\emulator-data\\firestore_export\\firestore_export.overall_export_metadata","--rules","D:\\All Projects\\telesApps\\firestore.rules","--single_project_mode",true,"--functions_emulator","127.0.0.1:5001"],"optionalArgs":["port","webchannel_port","host","rules","websocket_port","functions_emulator","seed_from_export","project_id","single_project_mode"],"joinArgs":false,"shell":false,"port":8080} {"metadata":{"emulator":{"name":"firestore"},"message":"Starting Firestore Emulator with command {\"binary\":\"java\",\"args\":[\"-Dgoogle.cloud_firestore.debug_log_level=FINE\",\"-Duser.language=en\",\"-jar\",\"C:\\\\Users\\\\claud\\\\.cache\\\\firebase\\\\emulators\\\\cloud-firestore-emulator-v1.19.8.jar\",\"--host\",\"127.0.0.1\",\"--port\",8080,\"--websocket_port\",9150,\"--project_id\",\"telesapps-c8f5a\",\"--seed_from_export\",\"D:\\\\All Projects\\\\telesApps\\\\src\\\\assets\\\\mock-data\\\\emulator-data\\\\firestore_export\\\\firestore_export.overall_export_metadata\",\"--rules\",\"D:\\\\All Projects\\\\telesApps\\\\firestore.rules\",\"--single_project_mode\",true,\"--functions_emulator\",\"127.0.0.1:5001\"],\"optionalArgs\":[\"port\",\"webchannel_port\",\"host\",\"rules\",\"websocket_port\",\"functions_emulator\",\"seed_from_export\",\"project_id\",\"single_project_mode\"],\"joinArgs\":false,\"shell\":false,\"port\":8080}"}}
+[info] i  firestore: Firestore Emulator logging to firestore-debug.log {"metadata":{"emulator":{"name":"firestore"},"message":"Firestore Emulator logging to \u001b[1mfirestore-debug.log\u001b[22m"}}
+[info] +  firestore: Firestore Emulator UI websocket is running on 9150. {"metadata":{"emulator":{"name":"firestore"},"message":"Firestore Emulator UI websocket is running on 9150."}}
+[debug] [2025-01-29T15:42:56.515Z] Checked if tokens are valid: true, expires at: 1738168973419
+[debug] [2025-01-29T15:42:56.515Z] Checked if tokens are valid: true, expires at: 1738168973419
+[debug] [2025-01-29T15:42:56.516Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/telesapps-c8f5a [none]
+[debug] [2025-01-29T15:42:56.767Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/telesapps-c8f5a 200
+[debug] [2025-01-29T15:42:56.768Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/telesapps-c8f5a {"projectId":"telesapps-c8f5a","projectNumber":"1095550930048","displayName":"telesapps","name":"projects/telesapps-c8f5a","resources":{"hostingSite":"telesapps-c8f5a","realtimeDatabaseInstance":"telesapps-c8f5a-default-rtdb","storageBucket":"telesapps-c8f5a.appspot.com","locationId":"us-central"},"state":"ACTIVE","etag":"1_05850980-6cad-44ff-b680-7900153e0fb1"}
+[debug] [2025-01-29T15:42:56.768Z] database rules config:  [{"instance":"telesapps-c8f5a-default-rtdb","rules":"D:\\All Projects\\telesApps\\database.rules.json"}]
+[debug] [2025-01-29T15:42:56.771Z] Ignoring unsupported arg: projectId {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: projectId"}}
+[debug] [2025-01-29T15:42:56.771Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2025-01-29T15:42:56.771Z] Ignoring unsupported arg: rules {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: rules"}}
+[debug] [2025-01-29T15:42:56.771Z] Starting Database Emulator with command {"binary":"java","args":["-Duser.language=en","-jar","C:\\Users\\claud\\.cache\\firebase\\emulators\\firebase-database-emulator-v4.11.2.jar","--host","127.0.0.1","--port",9000,"--single_project_mode","Warning","--functions_emulator_host","127.0.0.1","--functions_emulator_port",5001],"optionalArgs":["port","host","functions_emulator_port","functions_emulator_host","single_project_mode"],"joinArgs":false,"shell":false,"port":9000} {"metadata":{"emulator":{"name":"database"},"message":"Starting Database Emulator with command {\"binary\":\"java\",\"args\":[\"-Duser.language=en\",\"-jar\",\"C:\\\\Users\\\\claud\\\\.cache\\\\firebase\\\\emulators\\\\firebase-database-emulator-v4.11.2.jar\",\"--host\",\"127.0.0.1\",\"--port\",9000,\"--single_project_mode\",\"Warning\",\"--functions_emulator_host\",\"127.0.0.1\",\"--functions_emulator_port\",5001],\"optionalArgs\":[\"port\",\"host\",\"functions_emulator_port\",\"functions_emulator_host\",\"single_project_mode\"],\"joinArgs\":false,\"shell\":false,\"port\":9000}"}}
+[info] i  database: Database Emulator logging to database-debug.log {"metadata":{"emulator":{"name":"database"},"message":"Database Emulator logging to \u001b[1mdatabase-debug.log\u001b[22m"}}
+[info] i  auth: Importing config from D:\All Projects\telesApps\src\assets\mock-data\emulator-data\auth_export\config.json {"metadata":{"emulator":{"name":"auth"},"message":"Importing config from D:\\All Projects\\telesApps\\src\\assets\\mock-data\\emulator-data\\auth_export\\config.json"}}
+[info] i  auth: Importing accounts from D:\All Projects\telesApps\src\assets\mock-data\emulator-data\auth_export\accounts.json {"metadata":{"emulator":{"name":"auth"},"message":"Importing accounts from D:\\All Projects\\telesApps\\src\\assets\\mock-data\\emulator-data\\auth_export\\accounts.json"}}
+[debug] [2025-01-29T15:43:03.375Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"storage"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2025-01-29T15:43:04.045Z] Temp file directory for storage emulator: C:\Users\claud\AppData\Local\Temp/firebase/storage/blobs {"metadata":{"emulator":{"name":"storage"},"message":"Temp file directory for storage emulator: C:\\Users\\claud\\AppData\\Local\\Temp/firebase/storage/blobs"}}
+[debug] [2025-01-29T15:43:04.049Z] Checked if tokens are valid: true, expires at: 1738168973419
+[debug] [2025-01-29T15:43:04.050Z] Checked if tokens are valid: true, expires at: 1738168973419
+[debug] [2025-01-29T15:43:04.050Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/telesapps-c8f5a/sites 
+[debug] [2025-01-29T15:43:04.872Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/telesapps-c8f5a/sites 200
+[debug] [2025-01-29T15:43:04.872Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/telesapps-c8f5a/sites {"sites":[{"name":"projects/telesapps-c8f5a/sites/telesapps-c8f5a","defaultUrl":"https://telesapps-c8f5a.web.app","appId":"1:1095550930048:web:9c6f8462bcfc71bbbdaa65","type":"DEFAULT_SITE"}]}
+[debug] [2025-01-29T15:43:04.873Z] Checked if tokens are valid: true, expires at: 1738168973419
+[debug] [2025-01-29T15:43:04.873Z] Checked if tokens are valid: true, expires at: 1738168973419
+[debug] [2025-01-29T15:43:04.873Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/telesapps-c8f5a/webApps/1:1095550930048:web:9c6f8462bcfc71bbbdaa65/config [none]
+[debug] [2025-01-29T15:43:05.341Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/telesapps-c8f5a/webApps/1:1095550930048:web:9c6f8462bcfc71bbbdaa65/config 200
+[debug] [2025-01-29T15:43:05.341Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/telesapps-c8f5a/webApps/1:1095550930048:web:9c6f8462bcfc71bbbdaa65/config {"projectId":"telesapps-c8f5a","appId":"1:1095550930048:web:9c6f8462bcfc71bbbdaa65","databaseURL":"https://telesapps-c8f5a-default-rtdb.firebaseio.com","storageBucket":"telesapps-c8f5a.appspot.com","locationId":"us-central","apiKey":"AIzaSyDlLKHGBCmJea2aDAblXobANWgX6wto55E","authDomain":"telesapps-c8f5a.firebaseapp.com","messagingSenderId":"1095550930048","measurementId":"G-ZZ1MP3DF02"}
+[debug] [2025-01-29T15:43:05.356Z] Checked if tokens are valid: true, expires at: 1738168973419
+[debug] [2025-01-29T15:43:05.357Z] Checked if tokens are valid: true, expires at: 1738168973419
+[debug] [2025-01-29T15:43:05.357Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/telesapps-c8f5a [none]
+[debug] [2025-01-29T15:43:05.519Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/telesapps-c8f5a 200
+[debug] [2025-01-29T15:43:05.520Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/telesapps-c8f5a {"projectId":"telesapps-c8f5a","projectNumber":"1095550930048","displayName":"telesapps","name":"projects/telesapps-c8f5a","resources":{"hostingSite":"telesapps-c8f5a","realtimeDatabaseInstance":"telesapps-c8f5a-default-rtdb","storageBucket":"telesapps-c8f5a.appspot.com","locationId":"us-central"},"state":"ACTIVE","etag":"1_05850980-6cad-44ff-b680-7900153e0fb1"}
+[info] i  hosting[telesapps-c8f5a]: Serving hosting files from: dist/teles-apps/browser {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mdist/teles-apps/browser\u001b[22m"}}
+[info] +  hosting[telesapps-c8f5a]: Local server: http://127.0.0.1:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://127.0.0.1:5000\u001b[22m\u001b[24m"}}
+[debug] [2025-01-29T15:43:05.648Z] [Extensions] Connecting Extensions emulator, this is a noop.
+[info] i  functions: Watching "D:\All Projects\telesApps\functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"D:\\All Projects\\telesApps\\functions\" for Cloud Functions..."}}
+[debug] [2025-01-29T15:43:05.656Z] Validating nodejs source
+[warn] !  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[debug] [2025-01-29T15:43:06.341Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "lint": "eslint --ext .js,.ts .",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "@segment/analytics-node": "^2.2.1",
+    "axios": "^1.7.7",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "eslint": "^8.9.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.25.4",
+    "firebase-functions-test": "^3.1.0",
+    "typescript": "^4.9.0"
+  },
+  "private": true
+}
+[debug] [2025-01-29T15:43:06.341Z] Building nodejs source
+[debug] [2025-01-29T15:43:06.341Z] Failed to find version of module node: reached end of search path D:\All Projects\telesApps\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2025-01-29T15:43:06.343Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-01-29T15:43:06.348Z] Found firebase-functions binary at 'D:\All Projects\telesApps\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8215
+
+[debug] [2025-01-29T15:43:07.085Z] Got response from /__/functions.yaml {"endpoints":{"api":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"api"},"mock":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"mock"},"iil":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"iil"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2025-01-29T15:43:12.153Z] defaultcredentials: writing to file C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json
+[debug] [2025-01-29T15:43:12.155Z] Setting GAC to C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\claud\\AppData\\Roaming\\firebase\\telesapps85_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: api, mock, iil. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: api, mock, iil."}}
+[info] +  functions[us-central1-api]: http function initialized (http://127.0.0.1:5001/telesapps-c8f5a/us-central1/api). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/telesapps-c8f5a/us-central1/api)."}}
+[info] +  functions[us-central1-mock]: http function initialized (http://127.0.0.1:5001/telesapps-c8f5a/us-central1/mock). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/telesapps-c8f5a/us-central1/mock)."}}
+[info] +  functions[us-central1-iil]: http function initialized (http://127.0.0.1:5001/telesapps-c8f5a/us-central1/iil). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/telesapps-c8f5a/us-central1/iil)."}}
+[debug] [2025-01-29T15:43:12.190Z] >>> [apiv2][query] PUT http://127.0.0.1:9000/.settings/rules.json ns=telesapps-c8f5a-default-rtdb
+[debug] [2025-01-29T15:43:12.190Z] >>> [apiv2][body] PUT http://127.0.0.1:9000/.settings/rules.json "{\n  /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */\n  \"rules\": {\n    \".read\": false,\n    \".write\": false\n  }\n}"
+[debug] [2025-01-29T15:43:12.512Z] <<< [apiv2][status] PUT http://127.0.0.1:9000/.settings/rules.json 200
+[debug] [2025-01-29T15:43:12.512Z] <<< [apiv2][body] PUT http://127.0.0.1:9000/.settings/rules.json {"status":"ok"}
+[debug] [2025-01-29T15:43:12.516Z] Could not find VSCode notification endpoint: FetchError: request to http://localhost:40001/vscode/notify failed, reason: . If you are not running the Firebase Data Connect VSCode extension, this is expected and not an issue.
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://127.0.0.1:4000/               │
+└─────────────────────────────────────────────────────────────┘
+
+┌────────────────┬────────────────┬──────────────────────────────────┐
+│ Emulator       │ Host:Port      │ View in Emulator UI              │
+├────────────────┼────────────────┼──────────────────────────────────┤
+│ Authentication │ 127.0.0.1:9099 │ http://127.0.0.1:4000/auth       │
+├────────────────┼────────────────┼──────────────────────────────────┤
+│ Functions      │ 127.0.0.1:5001 │ http://127.0.0.1:4000/functions  │
+├────────────────┼────────────────┼──────────────────────────────────┤
+│ Firestore      │ 127.0.0.1:8080 │ http://127.0.0.1:4000/firestore  │
+├────────────────┼────────────────┼──────────────────────────────────┤
+│ Database       │ 127.0.0.1:9000 │ http://127.0.0.1:4000/database   │
+├────────────────┼────────────────┼──────────────────────────────────┤
+│ Hosting        │ 127.0.0.1:5000 │ n/a                              │
+├────────────────┼────────────────┼──────────────────────────────────┤
+│ Storage        │ 127.0.0.1:9199 │ http://127.0.0.1:4000/storage    │
+├────────────────┼────────────────┼──────────────────────────────────┤
+│ Extensions     │ 127.0.0.1:5001 │ http://127.0.0.1:4000/extensions │
+└────────────────┴────────────────┴──────────────────────────────────┘
+  Emulator Hub running at 127.0.0.1:4400
+  Other reserved ports: 4500, 9150
+┌─────────────────────────┬───────────────┬─────────────────────┐
+│ Extension Instance Name │ Extension Ref │ View in Emulator UI │
+└─────────────────────────┴───────────────┴─────────────────────┘
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
+[debug] [2025-01-29T16:24:47.879Z] File D:\All Projects\telesApps\functions\lib\api.js.map changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File D:\\All Projects\\telesApps\\functions\\lib\\api.js.map changed, reloading triggers"}}
+[debug] [2025-01-29T16:24:47.883Z] File D:\All Projects\telesApps\functions\lib\api.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File D:\\All Projects\\telesApps\\functions\\lib\\api.js changed, reloading triggers"}}
+[debug] [2025-01-29T16:24:47.894Z] File D:\All Projects\telesApps\functions\lib\iil.js.map changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File D:\\All Projects\\telesApps\\functions\\lib\\iil.js.map changed, reloading triggers"}}
+[debug] [2025-01-29T16:24:47.895Z] File D:\All Projects\telesApps\functions\lib\iil.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File D:\\All Projects\\telesApps\\functions\\lib\\iil.js changed, reloading triggers"}}
+[debug] [2025-01-29T16:24:47.908Z] File D:\All Projects\telesApps\functions\lib\mock.js.map changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File D:\\All Projects\\telesApps\\functions\\lib\\mock.js.map changed, reloading triggers"}}
+[debug] [2025-01-29T16:24:47.908Z] File D:\All Projects\telesApps\functions\lib\mock.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File D:\\All Projects\\telesApps\\functions\\lib\\mock.js changed, reloading triggers"}}
+[debug] [2025-01-29T16:24:47.913Z] File D:\All Projects\telesApps\functions\lib\index.js.map changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File D:\\All Projects\\telesApps\\functions\\lib\\index.js.map changed, reloading triggers"}}
+[debug] [2025-01-29T16:24:47.913Z] File D:\All Projects\telesApps\functions\lib\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File D:\\All Projects\\telesApps\\functions\\lib\\index.js changed, reloading triggers"}}
+[debug] [2025-01-29T16:24:48.918Z] Validating nodejs source
+[warn] !  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[debug] [2025-01-29T16:24:49.718Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "lint": "eslint --ext .js,.ts .",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "@segment/analytics-node": "^2.2.1",
+    "axios": "^1.7.7",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "eslint": "^8.9.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.25.4",
+    "firebase-functions-test": "^3.1.0",
+    "typescript": "^4.9.0"
+  },
+  "private": true
+}
+[debug] [2025-01-29T16:24:49.718Z] Building nodejs source
+[debug] [2025-01-29T16:24:49.718Z] Failed to find version of module node: reached end of search path D:\All Projects\telesApps\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2025-01-29T16:24:49.721Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-01-29T16:24:49.727Z] Found firebase-functions binary at 'D:\All Projects\telesApps\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8202
+
+[debug] [2025-01-29T16:24:50.511Z] Got response from /__/functions.yaml {"endpoints":{"api":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"api"},"mock":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"mock"},"iil":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"iil"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2025-01-29T16:24:55.566Z] defaultcredentials: writing to file C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json
+[debug] [2025-01-29T16:24:55.567Z] Setting GAC to C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\claud\\AppData\\Roaming\\firebase\\telesapps85_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: api, mock, iil. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: api, mock, iil."}}
+[debug] [2025-01-29T16:25:15.569Z] [work-queue] {"queuedWork":["/telesapps-c8f5a/us-central1/iil/send-segment-event-2025-01-29T16:25:15.569Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2025-01-29T16:25:15.570Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/telesapps-c8f5a/us-central1/iil/send-segment-event-2025-01-29T16:25:15.569Z"],"workRunningCount":1}
+[debug] [2025-01-29T16:25:15.570Z] Accepted request POST /telesapps-c8f5a/us-central1/iil/send-segment-event --> us-central1-iil
+[debug] [2025-01-29T16:25:15.573Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2025-01-29T16:25:15.573Z] [functions] Got req.url=/telesapps-c8f5a/us-central1/iil/send-segment-event, mapping to path=/send-segment-event {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/telesapps-c8f5a/us-central1/iil/send-segment-event, mapping to path=/send-segment-event"}}
+[debug] [2025-01-29T16:25:15.582Z] [worker-pool] addWorker(us-central1-iil) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] addWorker(us-central1-iil)"}}
+[debug] [2025-01-29T16:25:15.583Z] [worker-pool] Adding worker with key us-central1-iil, total=1 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Adding worker with key us-central1-iil, total=1"}}
+[debug] [2025-01-29T16:25:16.781Z] [runtime-status] [27544] Resolved module firebase-admin {"declared":true,"installed":true,"version":"12.7.0","resolution":"D:\\All Projects\\telesApps\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"[runtime-status] [27544] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"12.7.0\",\"resolution\":\"D:\\\\All Projects\\\\telesApps\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2025-01-29T16:25:16.783Z] [runtime-status] [27544] Resolved module firebase-functions {"declared":true,"installed":true,"version":"6.1.0","resolution":"D:\\All Projects\\telesApps\\functions\\node_modules\\firebase-functions\\lib\\v2\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"[runtime-status] [27544] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"6.1.0\",\"resolution\":\"D:\\\\All Projects\\\\telesApps\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v2\\\\index.js\"}"}}
+[debug] [2025-01-29T16:25:16.783Z] [runtime-status] [27544] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"[runtime-status] [27544] Outgoing network have been stubbed. [{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"net\",\"status\":\"mocked\"}]"}}
+[debug] [2025-01-29T16:25:16.784Z] [runtime-status] [27544] Resolved module firebase-functions {"declared":true,"installed":true,"version":"6.1.0","resolution":"D:\\All Projects\\telesApps\\functions\\node_modules\\firebase-functions\\lib\\v2\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"[runtime-status] [27544] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"6.1.0\",\"resolution\":\"D:\\\\All Projects\\\\telesApps\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v2\\\\index.js\"}"}}
+[debug] [2025-01-29T16:25:17.113Z] [runtime-status] [27544] Checked functions.config() {"config":{}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"[runtime-status] [27544] Checked functions.config() {\"config\":{}}"}}
+[debug] [2025-01-29T16:25:17.113Z] [runtime-status] [27544] firebase-functions has been stubbed. {"functionsResolution":{"declared":true,"installed":true,"version":"6.1.0","resolution":"D:\\All Projects\\telesApps\\functions\\node_modules\\firebase-functions\\lib\\v2\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"[runtime-status] [27544] firebase-functions has been stubbed. {\"functionsResolution\":{\"declared\":true,\"installed\":true,\"version\":\"6.1.0\",\"resolution\":\"D:\\\\All Projects\\\\telesApps\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v2\\\\index.js\"}}"}}
+[debug] [2025-01-29T16:25:17.114Z] [runtime-status] [27544] Resolved module firebase-functions {"declared":true,"installed":true,"version":"6.1.0","resolution":"D:\\All Projects\\telesApps\\functions\\node_modules\\firebase-functions\\lib\\v2\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"[runtime-status] [27544] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"6.1.0\",\"resolution\":\"D:\\\\All Projects\\\\telesApps\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v2\\\\index.js\"}"}}
+[debug] [2025-01-29T16:25:17.119Z] [runtime-status] [27544] Resolved module firebase-admin {"declared":true,"installed":true,"version":"12.7.0","resolution":"D:\\All Projects\\telesApps\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"[runtime-status] [27544] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"12.7.0\",\"resolution\":\"D:\\\\All Projects\\\\telesApps\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2025-01-29T16:25:17.122Z] [runtime-status] [27544] Resolved module firebase-functions {"declared":true,"installed":true,"version":"6.1.0","resolution":"D:\\All Projects\\telesApps\\functions\\node_modules\\firebase-functions\\lib\\v2\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"[runtime-status] [27544] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"6.1.0\",\"resolution\":\"D:\\\\All Projects\\\\telesApps\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v2\\\\index.js\"}"}}
+[debug] [2025-01-29T16:25:17.122Z] [runtime-status] [27544] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"12.7.0","resolution":"D:\\All Projects\\telesApps\\functions\\node_modules\\firebase-admin\\lib\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"[runtime-status] [27544] firebase-admin has been stubbed. {\"adminResolution\":{\"declared\":true,\"installed\":true,\"version\":\"12.7.0\",\"resolution\":\"D:\\\\All Projects\\\\telesApps\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}}"}}
+[debug] [2025-01-29T16:25:17.318Z] [runtime-status] [27544] initializeApp(DEFAULT) {"storageBucket":"telesapps-c8f5a.appspot.com","databaseURL":"http://127.0.0.1:9000/?ns=telesapps-c8f5a-default-rtdb","projectId":"telesapps-c8f5a"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"[runtime-status] [27544] initializeApp(DEFAULT) {\"storageBucket\":\"telesapps-c8f5a.appspot.com\",\"databaseURL\":\"http://127.0.0.1:9000/?ns=telesapps-c8f5a-default-rtdb\",\"projectId\":\"telesapps-c8f5a\"}"}}
+[debug] [2025-01-29T16:25:17.434Z] [runtime-status] [27544] Functions runtime initialized. {"cwd":"D:\\All Projects\\telesApps\\functions","node_version":"20.12.0"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"[runtime-status] [27544] Functions runtime initialized. {\"cwd\":\"D:\\\\All Projects\\\\telesApps\\\\functions\",\"node_version\":\"20.12.0\"}"}}
+[debug] [2025-01-29T16:25:17.434Z] [runtime-status] [27544] Listening to port: \\?\pipe\fire_emu_0727a8e66b7096a0 {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"[runtime-status] [27544] Listening to port: \\\\?\\pipe\\fire_emu_0727a8e66b7096a0"}}
+[debug] [2025-01-29T16:25:17.542Z] [worker-us-central1-iil-5f0993d4-963d-4639-8068-37e17fb8c9b0]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"[worker-us-central1-iil-5f0993d4-963d-4639-8068-37e17fb8c9b0]: IDLE"}}
+[debug] [2025-01-29T16:25:17.542Z] [worker-pool] submitRequest(triggerId=us-central1-iil) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-iil)"}}
+[info] i  functions: Beginning execution of "us-central1-iil" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"Beginning execution of \"us-central1-iil\""}}
+[debug] [2025-01-29T16:25:17.544Z] [worker-us-central1-iil-5f0993d4-963d-4639-8068-37e17fb8c9b0]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"[worker-us-central1-iil-5f0993d4-963d-4639-8068-37e17fb8c9b0]: BUSY"}}
+[info] >  validating request {"user":"validating request","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"\u001b[90m> \u001b[39m validating request"}}
+[info] >  doc.exists:  true {"user":"doc.exists:  true","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"\u001b[90m> \u001b[39m doc.exists:  true"}}
+[info] >  doc.data():  { {"user":"doc.data():  {","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"\u001b[90m> \u001b[39m doc.data():  {"}}
+[info] >    allowed_referer: [ 'https://www.learning-center.iil.com/', 'local-postman' ], {"user":"  allowed_referer: [ 'https://www.learning-center.iil.com/', 'local-postman' ],","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"\u001b[90m> \u001b[39m   allowed_referer: [ 'https://www.learning-center.iil.com/', 'local-postman' ],"}}
+[info] >    api_key: '123456' {"user":"  api_key: '123456'","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"\u001b[90m> \u001b[39m   api_key: '123456'"}}
+[info] >  } {"user":"}","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"\u001b[90m> \u001b[39m }"}}
+[info] >  retreived config from firestore: { {"user":"retreived config from firestore: {","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"\u001b[90m> \u001b[39m retreived config from firestore: {"}}
+[info] >    allowed_referer: [ 'https://www.learning-center.iil.com/', 'local-postman' ], {"user":"  allowed_referer: [ 'https://www.learning-center.iil.com/', 'local-postman' ],","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"\u001b[90m> \u001b[39m   allowed_referer: [ 'https://www.learning-center.iil.com/', 'local-postman' ],"}}
+[info] >    api_key: '123456' {"user":"  api_key: '123456'","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"\u001b[90m> \u001b[39m   api_key: '123456'"}}
+[info] >  } {"user":"}","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"\u001b[90m> \u001b[39m }"}}
+[info] >  req.headers.referer: local-postman {"user":"req.headers.referer: local-postman","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"\u001b[90m> \u001b[39m req.headers.referer: local-postman"}}
+[info] >  allowedReferers: [ 'https://www.learning-center.iil.com/', 'local-postman' ] {"user":"allowedReferers: [ 'https://www.learning-center.iil.com/', 'local-postman' ]","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"\u001b[90m> \u001b[39m allowedReferers: [ 'https://www.learning-center.iil.com/', 'local-postman' ]"}}
+[info] >  isRefererValid: true {"user":"isRefererValid: true","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"\u001b[90m> \u001b[39m isRefererValid: true"}}
+[info] >  /send-segment-event called {"user":"/send-segment-event called","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"\u001b[90m> \u001b[39m /send-segment-event called"}}
+[info] >  analytics.track finished calling {"user":"analytics.track finished calling","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"\u001b[90m> \u001b[39m analytics.track finished calling"}}
+[debug] [2025-01-29T16:25:17.974Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-iil" in 430.8868ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"Finished \"us-central1-iil\" in 430.8868ms"}}
+[debug] [2025-01-29T16:25:17.975Z] [worker-us-central1-iil-5f0993d4-963d-4639-8068-37e17fb8c9b0]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"[worker-us-central1-iil-5f0993d4-963d-4639-8068-37e17fb8c9b0]: IDLE"}}
+[debug] [2025-01-29T16:25:17.975Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2025-01-29T16:25:17.975Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2025-01-29T16:25:17.976Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2025-01-29T16:29:02.967Z] File D:\All Projects\telesApps\functions\src\iil.ts changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File D:\\All Projects\\telesApps\\functions\\src\\iil.ts changed, reloading triggers"}}
+[debug] [2025-01-29T16:29:03.981Z] Validating nodejs source
+[warn] !  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[debug] [2025-01-29T16:29:04.767Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "lint": "eslint --ext .js,.ts .",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "@segment/analytics-node": "^2.2.1",
+    "axios": "^1.7.7",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "eslint": "^8.9.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.25.4",
+    "firebase-functions-test": "^3.1.0",
+    "typescript": "^4.9.0"
+  },
+  "private": true
+}
+[debug] [2025-01-29T16:29:04.767Z] Building nodejs source
+[debug] [2025-01-29T16:29:04.768Z] Failed to find version of module node: reached end of search path D:\All Projects\telesApps\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2025-01-29T16:29:04.769Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-01-29T16:29:04.774Z] Found firebase-functions binary at 'D:\All Projects\telesApps\functions\node_modules\.bin\firebase-functions'
+[debug] [2025-01-29T16:29:04.779Z] File D:\All Projects\telesApps\functions\src\iil.ts changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File D:\\All Projects\\telesApps\\functions\\src\\iil.ts changed, reloading triggers"}}
+[info] Serving at port 8005
+
+[debug] [2025-01-29T16:29:05.531Z] Got response from /__/functions.yaml {"endpoints":{"api":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"api"},"mock":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"mock"},"iil":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"iil"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2025-01-29T16:29:05.792Z] Validating nodejs source
+[warn] !  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[debug] [2025-01-29T16:29:06.529Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "lint": "eslint --ext .js,.ts .",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "@segment/analytics-node": "^2.2.1",
+    "axios": "^1.7.7",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "eslint": "^8.9.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.25.4",
+    "firebase-functions-test": "^3.1.0",
+    "typescript": "^4.9.0"
+  },
+  "private": true
+}
+[debug] [2025-01-29T16:29:06.529Z] Building nodejs source
+[debug] [2025-01-29T16:29:06.529Z] Failed to find version of module node: reached end of search path D:\All Projects\telesApps\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2025-01-29T16:29:06.532Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-01-29T16:29:06.537Z] Found firebase-functions binary at 'D:\All Projects\telesApps\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8727
+
+[debug] [2025-01-29T16:29:07.378Z] Got response from /__/functions.yaml {"endpoints":{"api":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"api"},"mock":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"mock"},"iil":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"iil"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2025-01-29T16:29:10.545Z] defaultcredentials: writing to file C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json
+[debug] [2025-01-29T16:29:10.545Z] Setting GAC to C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\claud\\AppData\\Roaming\\firebase\\telesapps85_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: api, mock, iil. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: api, mock, iil."}}
+[debug] [2025-01-29T16:29:10.546Z] [worker-pool] Shutting down IDLE worker (us-central1-iil) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Shutting down IDLE worker (us-central1-iil)"}}
+[debug] [2025-01-29T16:29:10.546Z] [worker-us-central1-iil-5f0993d4-963d-4639-8068-37e17fb8c9b0]: FINISHING {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"[worker-us-central1-iil-5f0993d4-963d-4639-8068-37e17fb8c9b0]: FINISHING"}}
+[debug] [2025-01-29T16:29:10.555Z] [worker-us-central1-iil-5f0993d4-963d-4639-8068-37e17fb8c9b0]: exited {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"[worker-us-central1-iil-5f0993d4-963d-4639-8068-37e17fb8c9b0]: exited"}}
+[debug] [2025-01-29T16:29:10.555Z] [worker-us-central1-iil-5f0993d4-963d-4639-8068-37e17fb8c9b0]: FINISHED {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"[worker-us-central1-iil-5f0993d4-963d-4639-8068-37e17fb8c9b0]: FINISHED"}}
+[debug] [2025-01-29T16:29:12.426Z] defaultcredentials: writing to file C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json
+[debug] [2025-01-29T16:29:12.427Z] Setting GAC to C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\claud\\AppData\\Roaming\\firebase\\telesapps85_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: api, mock, iil. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: api, mock, iil."}}
+[debug] [2025-01-29T16:29:27.250Z] File D:\All Projects\telesApps\functions\src\iil.ts changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File D:\\All Projects\\telesApps\\functions\\src\\iil.ts changed, reloading triggers"}}
+[debug] [2025-01-29T16:29:28.264Z] Validating nodejs source
+[warn] !  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[debug] [2025-01-29T16:29:28.988Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "lint": "eslint --ext .js,.ts .",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "@segment/analytics-node": "^2.2.1",
+    "axios": "^1.7.7",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "eslint": "^8.9.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.25.4",
+    "firebase-functions-test": "^3.1.0",
+    "typescript": "^4.9.0"
+  },
+  "private": true
+}
+[debug] [2025-01-29T16:29:28.988Z] Building nodejs source
+[debug] [2025-01-29T16:29:28.988Z] Failed to find version of module node: reached end of search path D:\All Projects\telesApps\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2025-01-29T16:29:28.991Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-01-29T16:29:28.998Z] Found firebase-functions binary at 'D:\All Projects\telesApps\functions\node_modules\.bin\firebase-functions'
+[debug] [2025-01-29T16:29:29.002Z] File D:\All Projects\telesApps\functions\src\iil.ts changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File D:\\All Projects\\telesApps\\functions\\src\\iil.ts changed, reloading triggers"}}
+[info] Serving at port 8862
+
+[debug] [2025-01-29T16:29:29.811Z] Got response from /__/functions.yaml {"endpoints":{"api":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"api"},"mock":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"mock"},"iil":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"iil"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2025-01-29T16:29:30.011Z] Validating nodejs source
+[warn] !  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[debug] [2025-01-29T16:29:30.792Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "lint": "eslint --ext .js,.ts .",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "@segment/analytics-node": "^2.2.1",
+    "axios": "^1.7.7",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "eslint": "^8.9.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.25.4",
+    "firebase-functions-test": "^3.1.0",
+    "typescript": "^4.9.0"
+  },
+  "private": true
+}
+[debug] [2025-01-29T16:29:30.792Z] Building nodejs source
+[debug] [2025-01-29T16:29:30.792Z] Failed to find version of module node: reached end of search path D:\All Projects\telesApps\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2025-01-29T16:29:30.793Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-01-29T16:29:30.799Z] Found firebase-functions binary at 'D:\All Projects\telesApps\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8018
+
+[debug] [2025-01-29T16:29:31.659Z] Got response from /__/functions.yaml {"endpoints":{"api":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"api"},"mock":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"mock"},"iil":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"iil"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2025-01-29T16:29:34.852Z] defaultcredentials: writing to file C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json
+[debug] [2025-01-29T16:29:34.854Z] Setting GAC to C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\claud\\AppData\\Roaming\\firebase\\telesapps85_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: api, mock, iil. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: api, mock, iil."}}
+[debug] [2025-01-29T16:29:36.695Z] defaultcredentials: writing to file C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json
+[debug] [2025-01-29T16:29:36.696Z] Setting GAC to C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\claud\\AppData\\Roaming\\firebase\\telesapps85_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: api, mock, iil. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: api, mock, iil."}}
+[debug] [2025-01-29T16:45:14.491Z] File D:\All Projects\telesApps\functions\src\iil.ts changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File D:\\All Projects\\telesApps\\functions\\src\\iil.ts changed, reloading triggers"}}
+[debug] [2025-01-29T16:45:15.500Z] Validating nodejs source
+[warn] !  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[debug] [2025-01-29T16:45:16.305Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "lint": "eslint --ext .js,.ts .",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "@segment/analytics-node": "^2.2.1",
+    "axios": "^1.7.7",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "eslint": "^8.9.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.25.4",
+    "firebase-functions-test": "^3.1.0",
+    "typescript": "^4.9.0"
+  },
+  "private": true
+}
+[debug] [2025-01-29T16:45:16.305Z] Building nodejs source
+[debug] [2025-01-29T16:45:16.305Z] Failed to find version of module node: reached end of search path D:\All Projects\telesApps\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2025-01-29T16:45:16.306Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-01-29T16:45:16.311Z] Found firebase-functions binary at 'D:\All Projects\telesApps\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8929
+
+[debug] [2025-01-29T16:45:17.147Z] Got response from /__/functions.yaml {"endpoints":{"api":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"api"},"mock":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"mock"},"iil":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"iil"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2025-01-29T16:45:17.318Z] File D:\All Projects\telesApps\functions\src\iil.ts changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File D:\\All Projects\\telesApps\\functions\\src\\iil.ts changed, reloading triggers"}}
+[debug] [2025-01-29T16:45:18.326Z] Validating nodejs source
+[warn] !  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[debug] [2025-01-29T16:45:18.981Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "lint": "eslint --ext .js,.ts .",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "@segment/analytics-node": "^2.2.1",
+    "axios": "^1.7.7",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "eslint": "^8.9.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.25.4",
+    "firebase-functions-test": "^3.1.0",
+    "typescript": "^4.9.0"
+  },
+  "private": true
+}
+[debug] [2025-01-29T16:45:18.982Z] Building nodejs source
+[debug] [2025-01-29T16:45:18.982Z] Failed to find version of module node: reached end of search path D:\All Projects\telesApps\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2025-01-29T16:45:18.984Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-01-29T16:45:18.989Z] Found firebase-functions binary at 'D:\All Projects\telesApps\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8329
+
+[debug] [2025-01-29T16:45:19.798Z] Got response from /__/functions.yaml {"endpoints":{"api":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"api"},"mock":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"mock"},"iil":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"iil"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2025-01-29T16:45:22.182Z] defaultcredentials: writing to file C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json
+[debug] [2025-01-29T16:45:22.184Z] Setting GAC to C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\claud\\AppData\\Roaming\\firebase\\telesapps85_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: api, mock, iil. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: api, mock, iil."}}
+[debug] [2025-01-29T16:45:24.840Z] defaultcredentials: writing to file C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json
+[debug] [2025-01-29T16:45:24.846Z] Setting GAC to C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\claud\\AppData\\Roaming\\firebase\\telesapps85_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: api, mock, iil. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: api, mock, iil."}}
+[debug] [2025-01-29T16:45:43.163Z] File D:\All Projects\telesApps\functions\src\iil.ts changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File D:\\All Projects\\telesApps\\functions\\src\\iil.ts changed, reloading triggers"}}
+[debug] [2025-01-29T16:45:44.172Z] Validating nodejs source
+[warn] !  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[debug] [2025-01-29T16:45:44.936Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "lint": "eslint --ext .js,.ts .",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "@segment/analytics-node": "^2.2.1",
+    "axios": "^1.7.7",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "eslint": "^8.9.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.25.4",
+    "firebase-functions-test": "^3.1.0",
+    "typescript": "^4.9.0"
+  },
+  "private": true
+}
+[debug] [2025-01-29T16:45:44.936Z] Building nodejs source
+[debug] [2025-01-29T16:45:44.936Z] Failed to find version of module node: reached end of search path D:\All Projects\telesApps\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2025-01-29T16:45:44.937Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-01-29T16:45:44.942Z] Found firebase-functions binary at 'D:\All Projects\telesApps\functions\node_modules\.bin\firebase-functions'
+[debug] [2025-01-29T16:45:45.151Z] File D:\All Projects\telesApps\functions\src\iil.ts changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File D:\\All Projects\\telesApps\\functions\\src\\iil.ts changed, reloading triggers"}}
+[info] Serving at port 8252
+
+[debug] [2025-01-29T16:45:45.803Z] Got response from /__/functions.yaml {"endpoints":{"api":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"api"},"mock":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"mock"},"iil":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"iil"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2025-01-29T16:45:46.156Z] Validating nodejs source
+[warn] !  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[debug] [2025-01-29T16:45:46.862Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "lint": "eslint --ext .js,.ts .",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "@segment/analytics-node": "^2.2.1",
+    "axios": "^1.7.7",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "eslint": "^8.9.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.25.4",
+    "firebase-functions-test": "^3.1.0",
+    "typescript": "^4.9.0"
+  },
+  "private": true
+}
+[debug] [2025-01-29T16:45:46.863Z] Building nodejs source
+[debug] [2025-01-29T16:45:46.863Z] Failed to find version of module node: reached end of search path D:\All Projects\telesApps\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2025-01-29T16:45:46.865Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-01-29T16:45:46.871Z] Found firebase-functions binary at 'D:\All Projects\telesApps\functions\node_modules\.bin\firebase-functions'
+[debug] [2025-01-29T16:45:46.875Z] File D:\All Projects\telesApps\functions\src\iil.ts changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File D:\\All Projects\\telesApps\\functions\\src\\iil.ts changed, reloading triggers"}}
+[info] Serving at port 8084
+
+[debug] [2025-01-29T16:45:47.714Z] Got response from /__/functions.yaml {"endpoints":{"api":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"api"},"mock":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"mock"},"iil":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"iil"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2025-01-29T16:45:47.890Z] Validating nodejs source
+[warn] !  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[debug] [2025-01-29T16:45:48.636Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "lint": "eslint --ext .js,.ts .",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "@segment/analytics-node": "^2.2.1",
+    "axios": "^1.7.7",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "eslint": "^8.9.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.25.4",
+    "firebase-functions-test": "^3.1.0",
+    "typescript": "^4.9.0"
+  },
+  "private": true
+}
+[debug] [2025-01-29T16:45:48.636Z] Building nodejs source
+[debug] [2025-01-29T16:45:48.636Z] Failed to find version of module node: reached end of search path D:\All Projects\telesApps\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2025-01-29T16:45:48.637Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-01-29T16:45:48.641Z] Found firebase-functions binary at 'D:\All Projects\telesApps\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8866
+
+[debug] [2025-01-29T16:45:49.526Z] Got response from /__/functions.yaml {"endpoints":{"api":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"api"},"mock":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"mock"},"iil":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"iil"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2025-01-29T16:45:50.245Z] File D:\All Projects\telesApps\functions\src\iil.ts changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File D:\\All Projects\\telesApps\\functions\\src\\iil.ts changed, reloading triggers"}}
+[debug] [2025-01-29T16:45:50.841Z] defaultcredentials: writing to file C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json
+[debug] [2025-01-29T16:45:50.842Z] Setting GAC to C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\claud\\AppData\\Roaming\\firebase\\telesapps85_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: api, mock, iil. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: api, mock, iil."}}
+[debug] [2025-01-29T16:45:51.256Z] Validating nodejs source
+[warn] !  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[debug] [2025-01-29T16:45:51.980Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "lint": "eslint --ext .js,.ts .",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "@segment/analytics-node": "^2.2.1",
+    "axios": "^1.7.7",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "eslint": "^8.9.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.25.4",
+    "firebase-functions-test": "^3.1.0",
+    "typescript": "^4.9.0"
+  },
+  "private": true
+}
+[debug] [2025-01-29T16:45:51.980Z] Building nodejs source
+[debug] [2025-01-29T16:45:51.980Z] Failed to find version of module node: reached end of search path D:\All Projects\telesApps\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2025-01-29T16:45:51.981Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-01-29T16:45:51.986Z] Found firebase-functions binary at 'D:\All Projects\telesApps\functions\node_modules\.bin\firebase-functions'
+[debug] [2025-01-29T16:45:51.990Z] File D:\All Projects\telesApps\functions\src\iil.ts changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File D:\\All Projects\\telesApps\\functions\\src\\iil.ts changed, reloading triggers"}}
+[info] Serving at port 8969
+
+[debug] [2025-01-29T16:45:52.740Z] defaultcredentials: writing to file C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json
+[debug] [2025-01-29T16:45:52.740Z] Setting GAC to C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\claud\\AppData\\Roaming\\firebase\\telesapps85_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: api, mock, iil. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: api, mock, iil."}}
+[debug] [2025-01-29T16:45:52.807Z] Got response from /__/functions.yaml {"endpoints":{"api":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"api"},"mock":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"mock"},"iil":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"iil"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2025-01-29T16:45:52.996Z] Validating nodejs source
+[warn] !  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[debug] [2025-01-29T16:45:53.773Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "lint": "eslint --ext .js,.ts .",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "@segment/analytics-node": "^2.2.1",
+    "axios": "^1.7.7",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "eslint": "^8.9.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.25.4",
+    "firebase-functions-test": "^3.1.0",
+    "typescript": "^4.9.0"
+  },
+  "private": true
+}
+[debug] [2025-01-29T16:45:53.773Z] Building nodejs source
+[debug] [2025-01-29T16:45:53.773Z] Failed to find version of module node: reached end of search path D:\All Projects\telesApps\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2025-01-29T16:45:53.775Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-01-29T16:45:53.781Z] Found firebase-functions binary at 'D:\All Projects\telesApps\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8079
+
+[debug] [2025-01-29T16:45:54.543Z] defaultcredentials: writing to file C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json
+[debug] [2025-01-29T16:45:54.544Z] Setting GAC to C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\claud\\AppData\\Roaming\\firebase\\telesapps85_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: api, mock, iil. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: api, mock, iil."}}
+[debug] [2025-01-29T16:45:54.571Z] Got response from /__/functions.yaml {"endpoints":{"api":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"api"},"mock":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"mock"},"iil":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"iil"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2025-01-29T16:45:57.867Z] defaultcredentials: writing to file C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json
+[debug] [2025-01-29T16:45:57.869Z] Setting GAC to C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\claud\\AppData\\Roaming\\firebase\\telesapps85_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: api, mock, iil. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: api, mock, iil."}}
+[debug] [2025-01-29T16:45:59.615Z] defaultcredentials: writing to file C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json
+[debug] [2025-01-29T16:45:59.617Z] Setting GAC to C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\claud\\AppData\\Roaming\\firebase\\telesapps85_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: api, mock, iil. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: api, mock, iil."}}
+[debug] [2025-01-29T16:46:18.849Z] File D:\All Projects\telesApps\functions\lib\api.js.map changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File D:\\All Projects\\telesApps\\functions\\lib\\api.js.map changed, reloading triggers"}}
+[debug] [2025-01-29T16:46:18.850Z] File D:\All Projects\telesApps\functions\lib\api.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File D:\\All Projects\\telesApps\\functions\\lib\\api.js changed, reloading triggers"}}
+[debug] [2025-01-29T16:46:18.867Z] File D:\All Projects\telesApps\functions\lib\iil.js.map changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File D:\\All Projects\\telesApps\\functions\\lib\\iil.js.map changed, reloading triggers"}}
+[debug] [2025-01-29T16:46:18.868Z] File D:\All Projects\telesApps\functions\lib\iil.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File D:\\All Projects\\telesApps\\functions\\lib\\iil.js changed, reloading triggers"}}
+[debug] [2025-01-29T16:46:18.884Z] File D:\All Projects\telesApps\functions\lib\mock.js.map changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File D:\\All Projects\\telesApps\\functions\\lib\\mock.js.map changed, reloading triggers"}}
+[debug] [2025-01-29T16:46:18.884Z] File D:\All Projects\telesApps\functions\lib\mock.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File D:\\All Projects\\telesApps\\functions\\lib\\mock.js changed, reloading triggers"}}
+[debug] [2025-01-29T16:46:18.888Z] File D:\All Projects\telesApps\functions\lib\index.js.map changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File D:\\All Projects\\telesApps\\functions\\lib\\index.js.map changed, reloading triggers"}}
+[debug] [2025-01-29T16:46:18.888Z] File D:\All Projects\telesApps\functions\lib\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File D:\\All Projects\\telesApps\\functions\\lib\\index.js changed, reloading triggers"}}
+[debug] [2025-01-29T16:46:19.891Z] Validating nodejs source
+[warn] !  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[debug] [2025-01-29T16:46:20.631Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "lint": "eslint --ext .js,.ts .",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "@segment/analytics-node": "^2.2.1",
+    "axios": "^1.7.7",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "eslint": "^8.9.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.25.4",
+    "firebase-functions-test": "^3.1.0",
+    "typescript": "^4.9.0"
+  },
+  "private": true
+}
+[debug] [2025-01-29T16:46:20.631Z] Building nodejs source
+[debug] [2025-01-29T16:46:20.631Z] Failed to find version of module node: reached end of search path D:\All Projects\telesApps\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2025-01-29T16:46:20.635Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-01-29T16:46:20.641Z] Found firebase-functions binary at 'D:\All Projects\telesApps\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8881
+
+[debug] [2025-01-29T16:46:21.419Z] Got response from /__/functions.yaml {"endpoints":{"api":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"api"},"mock":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"mock"},"iil":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"iil"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2025-01-29T16:46:26.462Z] defaultcredentials: writing to file C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json
+[debug] [2025-01-29T16:46:26.464Z] Setting GAC to C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\claud\\AppData\\Roaming\\firebase\\telesapps85_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: api, mock, iil. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: api, mock, iil."}}
+[debug] [2025-01-29T16:47:41.502Z] File D:\All Projects\telesApps\functions\lib\api.js.map changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File D:\\All Projects\\telesApps\\functions\\lib\\api.js.map changed, reloading triggers"}}
+[debug] [2025-01-29T16:47:41.502Z] File D:\All Projects\telesApps\functions\lib\api.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File D:\\All Projects\\telesApps\\functions\\lib\\api.js changed, reloading triggers"}}
+[debug] [2025-01-29T16:47:41.518Z] File D:\All Projects\telesApps\functions\lib\iil.js.map changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File D:\\All Projects\\telesApps\\functions\\lib\\iil.js.map changed, reloading triggers"}}
+[debug] [2025-01-29T16:47:41.519Z] File D:\All Projects\telesApps\functions\lib\iil.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File D:\\All Projects\\telesApps\\functions\\lib\\iil.js changed, reloading triggers"}}
+[debug] [2025-01-29T16:47:41.534Z] File D:\All Projects\telesApps\functions\lib\mock.js.map changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File D:\\All Projects\\telesApps\\functions\\lib\\mock.js.map changed, reloading triggers"}}
+[debug] [2025-01-29T16:47:41.535Z] File D:\All Projects\telesApps\functions\lib\mock.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File D:\\All Projects\\telesApps\\functions\\lib\\mock.js changed, reloading triggers"}}
+[debug] [2025-01-29T16:47:41.538Z] File D:\All Projects\telesApps\functions\lib\index.js.map changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File D:\\All Projects\\telesApps\\functions\\lib\\index.js.map changed, reloading triggers"}}
+[debug] [2025-01-29T16:47:41.539Z] File D:\All Projects\telesApps\functions\lib\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File D:\\All Projects\\telesApps\\functions\\lib\\index.js changed, reloading triggers"}}
+[debug] [2025-01-29T16:47:42.543Z] Validating nodejs source
+[warn] !  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[debug] [2025-01-29T16:47:43.367Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "lint": "eslint --ext .js,.ts .",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "@segment/analytics-node": "^2.2.1",
+    "axios": "^1.7.7",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "eslint": "^8.9.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.25.4",
+    "firebase-functions-test": "^3.1.0",
+    "typescript": "^4.9.0"
+  },
+  "private": true
+}
+[debug] [2025-01-29T16:47:43.368Z] Building nodejs source
+[debug] [2025-01-29T16:47:43.368Z] Failed to find version of module node: reached end of search path D:\All Projects\telesApps\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2025-01-29T16:47:43.369Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-01-29T16:47:43.374Z] Found firebase-functions binary at 'D:\All Projects\telesApps\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8234
+
+[debug] [2025-01-29T16:47:44.102Z] Got response from /__/functions.yaml {"endpoints":{"api":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"api"},"mock":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"mock"},"iil":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"iil"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2025-01-29T16:47:49.146Z] defaultcredentials: writing to file C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json
+[debug] [2025-01-29T16:47:49.147Z] Setting GAC to C:\Users\claud\AppData\Roaming\firebase\telesapps85_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\claud\\AppData\\Roaming\\firebase\\telesapps85_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: api, mock, iil. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: api, mock, iil."}}
+[debug] [2025-01-29T16:48:12.250Z] [work-queue] {"queuedWork":["/telesapps-c8f5a/us-central1/iil/send-segment-event-2025-01-29T16:48:12.249Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2025-01-29T16:48:12.250Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/telesapps-c8f5a/us-central1/iil/send-segment-event-2025-01-29T16:48:12.249Z"],"workRunningCount":1}
+[debug] [2025-01-29T16:48:12.250Z] Accepted request POST /telesapps-c8f5a/us-central1/iil/send-segment-event --> us-central1-iil
+[debug] [2025-01-29T16:48:12.254Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2025-01-29T16:48:12.254Z] [functions] Got req.url=/telesapps-c8f5a/us-central1/iil/send-segment-event, mapping to path=/send-segment-event {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/telesapps-c8f5a/us-central1/iil/send-segment-event, mapping to path=/send-segment-event"}}
+[debug] [2025-01-29T16:48:12.254Z] [worker-pool] Cleaned up workers for us-central1-iil: 1 --> 0 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Cleaned up workers for us-central1-iil: 1 --> 0"}}
+[debug] [2025-01-29T16:48:12.260Z] [worker-pool] addWorker(us-central1-iil) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] addWorker(us-central1-iil)"}}
+[debug] [2025-01-29T16:48:12.260Z] [worker-pool] Adding worker with key us-central1-iil, total=1 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Adding worker with key us-central1-iil, total=1"}}
+[debug] [2025-01-29T16:48:13.543Z] [runtime-status] [24264] Resolved module firebase-admin {"declared":true,"installed":true,"version":"12.7.0","resolution":"D:\\All Projects\\telesApps\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"[runtime-status] [24264] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"12.7.0\",\"resolution\":\"D:\\\\All Projects\\\\telesApps\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2025-01-29T16:48:13.544Z] [runtime-status] [24264] Resolved module firebase-functions {"declared":true,"installed":true,"version":"6.1.0","resolution":"D:\\All Projects\\telesApps\\functions\\node_modules\\firebase-functions\\lib\\v2\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"[runtime-status] [24264] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"6.1.0\",\"resolution\":\"D:\\\\All Projects\\\\telesApps\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v2\\\\index.js\"}"}}
+[debug] [2025-01-29T16:48:13.545Z] [runtime-status] [24264] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"[runtime-status] [24264] Outgoing network have been stubbed. [{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"net\",\"status\":\"mocked\"}]"}}
+[debug] [2025-01-29T16:48:13.545Z] [runtime-status] [24264] Resolved module firebase-functions {"declared":true,"installed":true,"version":"6.1.0","resolution":"D:\\All Projects\\telesApps\\functions\\node_modules\\firebase-functions\\lib\\v2\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"[runtime-status] [24264] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"6.1.0\",\"resolution\":\"D:\\\\All Projects\\\\telesApps\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v2\\\\index.js\"}"}}
+[debug] [2025-01-29T16:48:13.906Z] [runtime-status] [24264] Checked functions.config() {"config":{}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"[runtime-status] [24264] Checked functions.config() {\"config\":{}}"}}
+[debug] [2025-01-29T16:48:13.907Z] [runtime-status] [24264] firebase-functions has been stubbed. {"functionsResolution":{"declared":true,"installed":true,"version":"6.1.0","resolution":"D:\\All Projects\\telesApps\\functions\\node_modules\\firebase-functions\\lib\\v2\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"[runtime-status] [24264] firebase-functions has been stubbed. {\"functionsResolution\":{\"declared\":true,\"installed\":true,\"version\":\"6.1.0\",\"resolution\":\"D:\\\\All Projects\\\\telesApps\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v2\\\\index.js\"}}"}}
+[debug] [2025-01-29T16:48:13.907Z] [runtime-status] [24264] Resolved module firebase-functions {"declared":true,"installed":true,"version":"6.1.0","resolution":"D:\\All Projects\\telesApps\\functions\\node_modules\\firebase-functions\\lib\\v2\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"[runtime-status] [24264] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"6.1.0\",\"resolution\":\"D:\\\\All Projects\\\\telesApps\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v2\\\\index.js\"}"}}
+[debug] [2025-01-29T16:48:13.913Z] [runtime-status] [24264] Resolved module firebase-admin {"declared":true,"installed":true,"version":"12.7.0","resolution":"D:\\All Projects\\telesApps\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"[runtime-status] [24264] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"12.7.0\",\"resolution\":\"D:\\\\All Projects\\\\telesApps\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2025-01-29T16:48:13.916Z] [runtime-status] [24264] Resolved module firebase-functions {"declared":true,"installed":true,"version":"6.1.0","resolution":"D:\\All Projects\\telesApps\\functions\\node_modules\\firebase-functions\\lib\\v2\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"[runtime-status] [24264] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"6.1.0\",\"resolution\":\"D:\\\\All Projects\\\\telesApps\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v2\\\\index.js\"}"}}
+[debug] [2025-01-29T16:48:13.917Z] [runtime-status] [24264] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"12.7.0","resolution":"D:\\All Projects\\telesApps\\functions\\node_modules\\firebase-admin\\lib\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"[runtime-status] [24264] firebase-admin has been stubbed. {\"adminResolution\":{\"declared\":true,\"installed\":true,\"version\":\"12.7.0\",\"resolution\":\"D:\\\\All Projects\\\\telesApps\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}}"}}
+[debug] [2025-01-29T16:48:14.109Z] [runtime-status] [24264] initializeApp(DEFAULT) {"storageBucket":"telesapps-c8f5a.appspot.com","databaseURL":"http://127.0.0.1:9000/?ns=telesapps-c8f5a-default-rtdb","projectId":"telesapps-c8f5a"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"[runtime-status] [24264] initializeApp(DEFAULT) {\"storageBucket\":\"telesapps-c8f5a.appspot.com\",\"databaseURL\":\"http://127.0.0.1:9000/?ns=telesapps-c8f5a-default-rtdb\",\"projectId\":\"telesapps-c8f5a\"}"}}
+[debug] [2025-01-29T16:48:14.224Z] [runtime-status] [24264] Functions runtime initialized. {"cwd":"D:\\All Projects\\telesApps\\functions","node_version":"20.12.0"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"[runtime-status] [24264] Functions runtime initialized. {\"cwd\":\"D:\\\\All Projects\\\\telesApps\\\\functions\",\"node_version\":\"20.12.0\"}"}}
+[debug] [2025-01-29T16:48:14.225Z] [runtime-status] [24264] Listening to port: \\?\pipe\fire_emu_ca557727aac10116 {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"[runtime-status] [24264] Listening to port: \\\\?\\pipe\\fire_emu_ca557727aac10116"}}
+[debug] [2025-01-29T16:48:14.329Z] [worker-us-central1-iil-963b20d8-8689-4f1e-8900-8c2e723ba29d]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"[worker-us-central1-iil-963b20d8-8689-4f1e-8900-8c2e723ba29d]: IDLE"}}
+[debug] [2025-01-29T16:48:14.329Z] [worker-pool] submitRequest(triggerId=us-central1-iil) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-iil)"}}
+[info] i  functions: Beginning execution of "us-central1-iil" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"Beginning execution of \"us-central1-iil\""}}
+[debug] [2025-01-29T16:48:14.329Z] [worker-us-central1-iil-963b20d8-8689-4f1e-8900-8c2e723ba29d]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"[worker-us-central1-iil-963b20d8-8689-4f1e-8900-8c2e723ba29d]: BUSY"}}
+[info] >  validating request {"user":"validating request","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"\u001b[90m> \u001b[39m validating request"}}
+[info] >  doc.exists:  true {"user":"doc.exists:  true","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"\u001b[90m> \u001b[39m doc.exists:  true"}}
+[info] >  doc.data():  { {"user":"doc.data():  {","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"\u001b[90m> \u001b[39m doc.data():  {"}}
+[info] >    allowed_referer: [ 'https://www.learning-center.iil.com/', 'local-postman' ], {"user":"  allowed_referer: [ 'https://www.learning-center.iil.com/', 'local-postman' ],","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"\u001b[90m> \u001b[39m   allowed_referer: [ 'https://www.learning-center.iil.com/', 'local-postman' ],"}}
+[info] >    api_key: '123456' {"user":"  api_key: '123456'","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"\u001b[90m> \u001b[39m   api_key: '123456'"}}
+[info] >  } {"user":"}","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"\u001b[90m> \u001b[39m }"}}
+[info] >  retreived config from firestore: { {"user":"retreived config from firestore: {","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"\u001b[90m> \u001b[39m retreived config from firestore: {"}}
+[info] >    allowed_referer: [ 'https://www.learning-center.iil.com/', 'local-postman' ], {"user":"  allowed_referer: [ 'https://www.learning-center.iil.com/', 'local-postman' ],","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"\u001b[90m> \u001b[39m   allowed_referer: [ 'https://www.learning-center.iil.com/', 'local-postman' ],"}}
+[info] >    api_key: '123456' {"user":"  api_key: '123456'","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"\u001b[90m> \u001b[39m   api_key: '123456'"}}
+[info] >  } {"user":"}","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"\u001b[90m> \u001b[39m }"}}
+[info] >  req.headers.referer: local-postman {"user":"req.headers.referer: local-postman","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"\u001b[90m> \u001b[39m req.headers.referer: local-postman"}}
+[info] >  allowedReferers: [ 'https://www.learning-center.iil.com/', 'local-postman' ] {"user":"allowedReferers: [ 'https://www.learning-center.iil.com/', 'local-postman' ]","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"\u001b[90m> \u001b[39m allowedReferers: [ 'https://www.learning-center.iil.com/', 'local-postman' ]"}}
+[info] >  isRefererValid: true {"user":"isRefererValid: true","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"\u001b[90m> \u001b[39m isRefererValid: true"}}
+[info] >  /send-segment-event called {"user":"/send-segment-event called","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"\u001b[90m> \u001b[39m /send-segment-event called"}}
+[info] >  analytics.track finished calling {"user":"analytics.track finished calling","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"\u001b[90m> \u001b[39m analytics.track finished calling"}}
+[debug] [2025-01-29T16:48:14.718Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-iil" in 388.6747ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"Finished \"us-central1-iil\" in 388.6747ms"}}
+[debug] [2025-01-29T16:48:14.719Z] [worker-us-central1-iil-963b20d8-8689-4f1e-8900-8c2e723ba29d]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"[worker-us-central1-iil-963b20d8-8689-4f1e-8900-8c2e723ba29d]: IDLE"}}
+[debug] [2025-01-29T16:48:14.719Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2025-01-29T16:48:14.719Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-iil"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2025-01-29T16:48:14.719Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
