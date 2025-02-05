@@ -32,6 +32,7 @@ export class AppComponent {
 
   constructor(public storage: StorageService, public animation: AnimationService) {
     this.storage.changeTheme('dark-theme');
+    console.log('app-version: versions to be established')
   }
 
   prepareRoute(outlet: RouterOutlet) {
