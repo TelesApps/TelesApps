@@ -4,7 +4,10 @@
       <app-nav-links (closeSidebar)="drawer.close()"></app-nav-links>
     </mat-drawer>
   
-    <app-header (openNavBar)="drawer.toggle()"></app-header>
+    <!-- If statement specific for the ba Assistant feature, remove it if not using it -->
+     @if(!isRoute('baa')) {
+       <app-header (openNavBar)="drawer.toggle()"></app-header>
+     }
     <main [@routeAnimations]="prepareRoute(outlet)">
       <router-outlet  #outlet="outlet"></router-outlet>
     </main>

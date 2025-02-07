@@ -2,7 +2,7 @@ import * as express from "express";
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import axios from "axios";
-const { Analytics } = require('@segment/analytics-node')
+const { Analytics } = require("@segment/analytics-node");
 const cors = require("cors")({ origin: true });
 const app = express();
 
@@ -21,14 +21,14 @@ if (!admin.apps.length) {
     admin.initializeApp();
 }
 // instantiation of the Analytics client
-const analytics = new Analytics({ writeKey: 'p0D6uv6kPHMP0UfI6Hpls5lIgbRGmT3n' })
+const analytics = new Analytics({ writeKey: "p0D6uv6kPHMP0UfI6Hpls5lIgbRGmT3n" });
 
 // Middleware to validate API key and referer
 const validateRequest = async (req: any, res: any, next: any) => {
     console.log("validating request");
     try {
         // Fetch allowed referer and API key from Firestore
-        const doc = await admin.firestore().collection('app').doc('app-data').get();
+        const doc = await admin.firestore().collection("app").doc("app-data").get();
 
         console.log("doc.exists: ", doc.exists);
         console.log("doc.data(): ", doc.data());
@@ -40,11 +40,11 @@ const validateRequest = async (req: any, res: any, next: any) => {
         const config = doc.data();
         console.log("retreived config from firestore:", config);
         const allowedReferers = config?.allowed_referer || [];
-        const validApiKey = config?.api_key || '';
+        const validApiKey = config?.api_key || "";
 
         // Extract referer and API key from the request
-        const referer = req.headers.referer || '';
-        const apiKey = req.headers['teles-apps-key'];
+        const referer = req.headers.referer || "";
+        const apiKey = req.headers["teles-apps-key"];
 
         console.log("req.headers.referer:", req.headers.referer);
         console.log("allowedReferers:", allowedReferers);
@@ -82,9 +82,9 @@ const getOAuthToken = async () => {
             "grant_type=client_credentials", // Form-urlencoded body
             {
                 headers: {
-                    Authorization: `Basic ${encodedCredentials}`,
-                    "Content-Type": "application/x-www-form-urlencoded"
-                }
+                    "Authorization": `Basic ${encodedCredentials}`,
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
             }
         );
         return response.data.access_token; // Return the access token
@@ -137,49 +137,48 @@ app.post("/create-invitation", async (req, res) => {
             serviceReviewInvitation: {
                 templateId,
                 redirectUri: "https://telesapps.com", // Update with your redirect URI
-                tags
+                tags,
             },
         };
 
-        // Make the POST request to Trustpilot's API
+        // Make the POST request to Trustpilot"s API
         console.log("Making request to Trustpilot API with payload:", payload);
         const response = await axios.post(
             `https://invitations-api.trustpilot.com/v1/private/business-units/${businessUnitId}/email-invitations`,
             payload,
             {
                 headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                    "Content-Type": "application/json"
-                }
+                    "Authorization": `Bearer ${accessToken}`,
+                    "Content-Type": "application/json",
+                },
             }
         );
 
         // Respond to the client with the Trustpilot API response
         res.status(200).send({
             message: "Invitation created successfully",
-            data: response.data
+            data: response.data,
         });
     } catch (error: any) {
         console.log("Call to TrustPilot API failed");
         console.error("Error creating invitation:", error.response?.data || error.message);
         res.status(500).send({
             message: "Error creating invitation",
-            error: error.response?.data || error.message
+            error: error.response?.data || error.message,
         });
     }
 });
 
 app.post("/send-segment-event", async (req, res) => {
-
     // Identify the user
     // console.log("calling to identify user");
     // try {
     //     analytics.identify({
-    //         userId: 'f4ca124298',
+    //         userId: "f4ca124298",
     //         traits: {
-    //             name: 'Claudio Teles',
-    //             email: 'claudioteles85@gmail.com',
-    //             createdAt: new Date('2025-01-29T15:09:16+00:00')
+    //             name: "Claudio Teles",
+    //             email: "claudioteles85@gmail.com",
+    //             createdAt: new Date("2025-01-29T15:09:16+00:00")
     //         }
     //     });
     //     console.log("analytics.identify fisnished calling");
@@ -223,7 +222,7 @@ app.post("/send-segment-event", async (req, res) => {
                         "quantity": 1,
                         "category": "toycars",
                         "url": "https://example.com/toy-car.html",
-                        "image_url": "https://example.com/toy-car-1.jpg"
+                        "image_url": "https://example.com/toy-car-1.jpg",
                     }
                 ]
 
@@ -231,15 +230,9 @@ app.post("/send-segment-event", async (req, res) => {
         });
         console.log("analytics.track finished calling");
         res.status(200).send({ message: "Event sent to Segment" });
-    }
-    catch (error: any) {
+    } catch (error: any) {
         console.error("Error sending segment event:", error);
         res.status(500).send({ message: "Internal server error", error: error });
     }
-    // res.status(200).send({ message: "analytics identify success", }); 
 });
-
-
-
-
 export const IIL = functions.https.onRequest(app);

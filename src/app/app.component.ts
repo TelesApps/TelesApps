@@ -1,6 +1,6 @@
 import { Component, AfterViewInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterLinkActive, RouterModule, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, RouterLink, RouterLinkActive, RouterModule, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { MatButtonModule } from '@angular/material/button';
 import { StorageService } from './services/storage.service';
@@ -30,9 +30,14 @@ import { AnimationService } from './services/animation.service';
 export class AppComponent {
   title = 'telesApps';
 
-  constructor(public storage: StorageService, public animation: AnimationService) {
+  constructor(public storage: StorageService, public animation: AnimationService, private route: ActivatedRoute) {
     this.storage.changeTheme('dark-theme');
-    console.log('app-version: versions to be established')
+    console.log('app-version: versions to be established');
+  }
+
+  // Function below is specifically for the ba-assistant page, delete it if feature not in use.
+  isRoute(route: string) {
+    return this.route.snapshot.firstChild?.routeConfig?.path === route;
   }
 
   prepareRoute(outlet: RouterOutlet) {

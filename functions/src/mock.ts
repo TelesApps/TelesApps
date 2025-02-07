@@ -41,7 +41,7 @@ app.get("/info", (req, res) => {
 app.get("/get-public-json", async (req, res) => {
     console.log("/get-json called");
     // Fetch the json data from Firestore
-    const doc = await admin.firestore().collection('mock-data').doc('public').get();
+    const doc = await admin.firestore().collection("mock-data").doc("public").get();
     const data = doc.data();
     console.log("data", data);
     // data is a string, so we need to parse it to JSON
@@ -57,7 +57,9 @@ app.post("/set-public-json", async (req, res) => {
     console.log("/set-json called");
     // body should contain a JSON and a key first verify key exists and is valid
     if (!req.body || !req.body.api_key) {
-        return res.status(400).send({ message: "Invalid request, API requires an api_key and value in the body  - HINT Lazy Login top row" });
+        return res.status(400).send({
+            message: "Invalid request, API requires an api_key and value in the body  - HINT Lazy Login top row"
+        });
     }
     const key = req.body.api_key;
     // hardcoded key for now
@@ -70,28 +72,29 @@ app.post("/set-public-json", async (req, res) => {
     if (!data) {
         return res.status(400).send({ message: "Invalid request, JSON data is required" });
     }
-    await admin.firestore().collection('mock-data').doc('public').set({ json: JSON.stringify(data) });
+    await admin.firestore().collection("mock-data").doc("public").set({ json: JSON.stringify(data) });
     return res.status(200).send({ message: "Data saved" });
-    
 });
 
 app.get("/get-json", async (req, res) => {
     // this will fetch specific json data from firestore so the body should contain the name or id of the json
     // body should contain a JSON and a key first verify key exists and is valid
     if (!req.body || !req.body.api_key) {
-        return res.status(400).send({ message: "Invalid request, API requires an api_key and value in the body - HINT Lazy Login top row" });
+        return res.status(400).send({
+            message: "Invalid request, API requires an api_key and value in the body - HINT Lazy Login top row"
+        });
     }
     const key = req.body.api_key;
     // hardcoded key for now
     if (key !== "987][p}{P") {
         return res.status(403).send({ message: "Invalid api_key - HINT Its the Lazy Login top row" });
     }
-    if(!req.body.id) {
+    if (!req.body.id) {
         return res.status(400).send({ message: "Invalid request, JSON id is required" });
     }
     const id = req.body.id;
     // Fetch the json data from Firestore
-    const doc = await admin.firestore().collection('mock-data').doc(id).get();
+    const doc = await admin.firestore().collection("mock-data").doc(id).get();
     const data = doc.data();
     // data is a string, so we need to parse it to JSON
     if (!data) {
@@ -106,17 +109,21 @@ app.post("/set-json", async (req, res) => {
     // this will fetch specific json data from firestore so the body should contain the name or id of the json
     // body should contain a JSON and a key first verify key exists and is valid
     if (!req.body || !req.body.api_key) {
-        return res.status(400).send({ message: "Invalid request, API requires an api_key and value in the body - HINT Lazy Login top row" });
+        return res.status(400).send({
+            message: "Invalid request, API requires an api_key and value in the body - HINT Lazy Login top row"
+        });
     }
     const key = req.body.api_key;
     // hardcoded key for now
     if (key !== "987][p}{P") {
         return res.status(403).send({ message: "Invalid api_key - HINT Its the Lazy Login top row" });
     }
-    if(!req.body.id) {
-        return res.status(400).send({ message: "Invalid request, JSON id is required - TIP - Name your id to something readable" });
+    if (!req.body.id) {
+        return res.status(400).send({
+            message: "Invalid request, JSON id is required - TIP - Name your id to something readable"
+        });
     }
-    if(!req.body.json) {
+    if (!req.body.json) {
         return res.status(400).send({ message: "Invalid request, JSON data is required" });
     }
     const id = req.body.id;
@@ -124,12 +131,12 @@ app.post("/set-json", async (req, res) => {
     const data = {
         id: id,
         json: JSON.stringify(req.body.json)
-    }
+    };
     // verify data is a valid JSON
     if (!data) {
         return res.status(400).send({ message: "Invalid request, JSON data is required" });
     }
-    await admin.firestore().collection('mock-data').doc(id).set(data);
+    await admin.firestore().collection("mock-data").doc(id).set(data);
     return res.status(200).send({ message: "Data saved" });
 });
 
