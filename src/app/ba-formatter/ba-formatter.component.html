@@ -1,0 +1,19 @@
+<div class="page">
+    <div class="content-width">
+        <div style="text-align: center;">
+            <h1>BA Formatter</h1>
+            <p>BA Formatter allows you to easily format the data received from specific pages in Builder Assistant</p>
+        </div>
+        <mat-form-field appearance="fill">
+            <mat-label>URL</mat-label>
+            <input matInput [(ngModel)]="urlInput" placeholder="Placeholder" (input)="onChange()" />
+
+            <mat-error *ngIf="error">Show Your Error Here</mat-error>
+        </mat-form-field>
+        <div>
+            <a [href]="apiUrl" target="_blank">
+                {{ apiUrl }}
+            </a>
+        </div>
+    </div>
+</div>

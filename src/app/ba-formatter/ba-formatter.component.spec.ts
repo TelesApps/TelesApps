@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BaAssistantPageComponent } from './ba-assistant-page.component';
+import { BaFormatterComponent } from './ba-formatter.component';
 
-describe('BaAssistantPageComponent', () => {
-  let component: BaAssistantPageComponent;
-  let fixture: ComponentFixture<BaAssistantPageComponent>;
+describe('BaFormatterComponent', () => {
+  let component: BaFormatterComponent;
+  let fixture: ComponentFixture<BaFormatterComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BaAssistantPageComponent]
+      imports: [BaFormatterComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(BaAssistantPageComponent);
+    fixture = TestBed.createComponent(BaFormatterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

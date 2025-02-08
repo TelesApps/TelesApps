@@ -5,7 +5,7 @@ import { BackEndPageComponent } from './back-end-page/back-end-page.component';
 import { DatabasePageComponent } from './database-page/database-page.component';
 import { AiPageComponent } from './ai-page/ai-page.component';
 import { ContactPageComponent } from './contact-page/contact-page.component';
-import { BaAssistantPageComponent } from './ba-assistant-page/ba-assistant-page.component';
+import { BaFormatterComponent } from './ba-formatter/ba-formatter.component';
 
 export const routes: Routes = [
     {
@@ -44,8 +44,8 @@ export const routes: Routes = [
         data: { animation: 'contact' }
     },
     {
-        path: 'baa',
-        component: BaAssistantPageComponent,
+        path: 'baf',
+        component: BaFormatterComponent,
     },
     {
         path: '**',

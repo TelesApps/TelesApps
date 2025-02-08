@@ -1,0 +1,11 @@
+@use 'assets/theme/app-theme.scss' as theme;
+
+a {
+    text-decoration: underline;
+    color: map-get(theme.$telesApps-app-accent, darker);
+    cursor: pointer;
+}
+
+mat-form-field {
+    width: clamp(300px, 90%, 580px);
+}

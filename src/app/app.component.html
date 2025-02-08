@@ -5,7 +5,7 @@
     </mat-drawer>
   
     <!-- If statement specific for the ba Assistant feature, remove it if not using it -->
-     @if(!isRoute('baa')) {
+     @if(!isRoute('baf')) {
        <app-header (openNavBar)="drawer.toggle()"></app-header>
      }
     <main [@routeAnimations]="prepareRoute(outlet)">
