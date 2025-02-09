@@ -4,16 +4,26 @@
             <h1>BA Formatter</h1>
             <p>BA Formatter allows you to easily format the data received from specific pages in Builder Assistant</p>
         </div>
+        <p>1) First paste the url of the volunteer's events page here:</p>
         <mat-form-field appearance="fill">
             <mat-label>URL</mat-label>
             <input matInput [(ngModel)]="urlInput" placeholder="Placeholder" (input)="onChange()" />
 
             <mat-error *ngIf="error">Show Your Error Here</mat-error>
         </mat-form-field>
+        <p>2) click the link bellow or and paste it into a new browser window, this will reveal the code containing the
+            data from that web page</p>
         <div>
             <a [href]="apiUrl" target="_blank">
                 {{ apiUrl }}
             </a>
         </div>
+        <p>3) Copy the code from that new browser window and paste it in the input field bellow</p>
+        <mat-form-field appearance="fill">
+            <mat-label>Code</mat-label>
+            <textarea matInput [(ngModel)]="codeInput" placeholder="Placeholder" (input)="onCodeChange()"></textarea>
+
+            <mat-error *ngIf="error">Show Your Error Here</mat-error>
+        </mat-form-field>
     </div>
 </div>

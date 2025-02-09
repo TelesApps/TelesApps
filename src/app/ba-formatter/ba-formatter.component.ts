@@ -4,6 +4,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { VolunteerEvents } from '../interfaces/volunteerEvents';
 
 @Component({
   selector: 'app-ba-formatter',
@@ -19,6 +20,8 @@ export class BaFormatterComponent {
 
 
   urlInput: string = '';
+  codeInput: string = '';
+
   baseUrl: string = 'https://ba.jw.org/api/volunteers/';
   userId: string = '';
   params: string = '?pagingOptions.skip=0&pagingOptions.sortColumn=32&pagingOptions.sortOrder=1&pagingOptions.take=100'
@@ -31,7 +34,7 @@ export class BaFormatterComponent {
   onChange() {
     const { baseUrl, baPage, userId, baPageTab } = this.parseUrl();
     console.log('userId', userId);
-    if(baPageTab !== 'events') {
+    if (baPageTab !== 'events') {
       this.error = 'Invalid URL: Please make sure to navigate to the events tab.';
       return;
     }
@@ -40,23 +43,40 @@ export class BaFormatterComponent {
   }
 
   parseUrl(): { baseUrl: string; baPage: string; userId: string; baPageTab: string } {
-  // Split the URL into the part before the '#' and the fragment.
-  const [base, fragment] = this.urlInput.split('#');
-  if (!fragment) {
-    throw new Error('Invalid URL: Missing hash (#) fragment.');
-  }
-  // The base URL is the part before the hash plus the '#' symbol.
-  const baseUrl = `${base}#`;
-  // Remove any leading slash from the fragment (if present) and split it.
-  const normalizedFragment = fragment.replace(/^\//, '');
-  const parts = normalizedFragment.split('/');
-  if (parts.length < 3) {
-    throw new Error('Invalid URL: Not enough parts in the fragment.');
-  }
-  // Destructure the parts array.
-  const [baPage, userId, baPageTab] = parts;
+    // Split the URL into the part before the '#' and the fragment.
+    const [base, fragment] = this.urlInput.split('#');
+    if (!fragment) {
+      throw new Error('Invalid URL: Missing hash (#) fragment.');
+    }
+    // The base URL is the part before the hash plus the '#' symbol.
+    const baseUrl = `${base}#`;
+    // Remove any leading slash from the fragment (if present) and split it.
+    const normalizedFragment = fragment.replace(/^\//, '');
+    const parts = normalizedFragment.split('/');
+    if (parts.length < 3) {
+      throw new Error('Invalid URL: Not enough parts in the fragment.');
+    }
+    // Destructure the parts array.
+    const [baPage, userId, baPageTab] = parts;
 
-  return { baseUrl, baPage, userId, baPageTab };
-}
+    return { baseUrl, baPage, userId, baPageTab };
+  }
+
+  onCodeChange() {
+    this.error = '';
+    let json: any;
+    let volunteerEvents: VolunteerEvents = {} as VolunteerEvents;
+    try {
+      json = JSON.parse(this.codeInput);
+      console.log(json);
+      if (json) {
+        volunteerEvents = json;
+        console.log(volunteerEvents);
+        console.log(volunteerEvents.items[0].eventId);
+      }
+    } catch (e) {
+      this.error = 'Invalid JSON: Please check your input.';
+    }
+  }
 
 }
