@@ -11,7 +11,7 @@
 
             <mat-error *ngIf="error">Show Your Error Here</mat-error>
         </mat-form-field>
-        <p>2) click the link bellow or and paste it into a new browser window, this will reveal the code containing the
+        <p>2) click the link below or and paste it into a new browser window, this will reveal the code containing the
             data from that web page</p>
         <div>
             <a [href]="apiUrl" target="_blank">
@@ -25,5 +25,18 @@
 
             <mat-error *ngIf="error">Show Your Error Here</mat-error>
         </mat-form-field>
+        <div class="data">
+            <p>totalDaysInvited: {{ totalDaysInvited }}</p>
+            <p>totalDaysAccepted: {{ totalDaysAccepted }}</p>
+            <p>totalWeeksInvited: {{ totalWeeksInvited }}</p>
+            <p>totalWeeksAccepted: {{ totalWeeksAccepted }}</p>
+            <p>totalDaysWorked: {{ totalDaysWorked }}</p>
+            <p>totalWeeksWorked: {{ totalWeeksWorked }}</p>
+            <p>isOverworked: {{ isOverworked }}</p>
+            <p>isOverInvited: {{isOverInvited}}</p>
+            <p>lastAvailableDate {{lastAvailableDate}}</p>
+            <p>nextAvailableDate {{nextAvailableDate}}</p>
+            <p>maxWorkedInWindow {{maxWorkedInWindow}}</p>
+        </div>
     </div>
 </div>
