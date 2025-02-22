@@ -4,6 +4,7 @@
             <h1>BA Formatter</h1>
             <p>BA Formatter allows you to easily format the data received from specific pages in Builder Assistant</p>
         </div>
+        <p><b>Twelve Weeks Ago Is: {{ twelveWeeksAgo | date }}</b></p>
         <p>1) First paste the url of the volunteer's events page here:</p>
         <mat-form-field appearance="fill">
             <mat-label>URL</mat-label>
@@ -21,21 +22,27 @@
         <p>3) Copy the code from that new browser window and paste it in the input field bellow</p>
         <mat-form-field appearance="fill">
             <mat-label>Code</mat-label>
-            <textarea matInput [(ngModel)]="codeInput" placeholder="Placeholder" (input)="onCodeChange()"></textarea>
+            <textarea matInput [(ngModel)]="codeInput" placeholder="Placeholder" (input)="onCodeChange($event)"></textarea>
 
             <mat-error *ngIf="error">Show Your Error Here</mat-error>
         </mat-form-field>
         <div class="data">
-            <p>totalDaysInvited: {{ totalDaysInvited }}</p>
-            <p>totalDaysAccepted: {{ totalDaysAccepted }}</p>
-            <p>totalWeeksInvited: {{ totalWeeksInvited }}</p>
-            <p>totalWeeksAccepted: {{ totalWeeksAccepted }}</p>
-            <p>totalDaysWorked: {{ totalDaysWorked }}</p>
-            <p>totalWeeksWorked: {{ totalWeeksWorked }}</p>
+            <p><b>Recent Event Date: {{ mostRecentEventDate | date}}</b></p>
+            <!-- <p><b>eightyFourFromRecent {{ eightyFourFromRecent | date }}</b></p> -->
+            <p><b>Six Weeks Back: {{ fourtyTwoFromRecent | date }}</b></p>
+            <!-- <p>From All Days Invited: {{ total84DaysInvited }}</p>
+            <p>From All Days Accepted: {{ total84DaysAccepted }}</p>
+            <p>From All Weeks Invited: {{ total12WeeksInvited }}</p>
+            <p>from All Weeks Accepted: {{ total12WeeksAccepted }}</p> -->
+            <p>Days Invited: {{ totalDaysInvited }}</p>
+            <p>Days Accepted: {{ totalDaysAccepted }}</p>
+            <p>Weeks Invited: {{ totalWeeksInvited }}</p>
+            <p>Weeks Accepted: {{ totalWeeksAccepted }}</p>
+            <p>Days Worked As Of Today: {{ totalDaysWorked }}</p>
+            <p>Weeks Worked As Of Today: {{ totalWeeksWorked }}</p>
             <p>isOverworked: {{ isOverworked }}</p>
             <p>isOverInvited: {{isOverInvited}}</p>
-            <p>lastAvailableDate {{lastAvailableDate}}</p>
-            <p>nextAvailableDate {{nextAvailableDate}}</p>
+            <!-- <p>nextAvailableDate {{nextAvailableDate | date}}</p> -->
             <p>maxWorkedInWindow {{maxWorkedInWindow}}</p>
         </div>
     </div>
