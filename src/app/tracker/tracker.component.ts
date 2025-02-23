@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { StorageService } from '../services/storage.service';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-tracker',
-  imports: [],
+  imports: [MatTabsModule],
   templateUrl: './tracker.component.html',
   styleUrl: './tracker.component.scss'
 })
