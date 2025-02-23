@@ -6,6 +6,7 @@ import { DatabasePageComponent } from './database-page/database-page.component';
 import { AiPageComponent } from './ai-page/ai-page.component';
 import { ContactPageComponent } from './contact-page/contact-page.component';
 import { BaFormatterComponent } from './ba-formatter/ba-formatter.component';
+import { TrackerComponent } from './tracker/tracker.component';
 
 export const routes: Routes = [
     {
@@ -46,6 +47,10 @@ export const routes: Routes = [
     {
         path: 'baf',
         component: BaFormatterComponent,
+    },
+    {
+        path: 'tracker',
+        component: TrackerComponent,
     },
     {
         path: '**',
