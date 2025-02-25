@@ -4,9 +4,9 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { initializeApp } from 'firebase/app';
-import { getAnalytics } from "firebase/analytics";
 import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -24,5 +24,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideClientHydration(), provideHttpClient(withFetch()), provideAnimations()]
+  providers: [
+    provideRouter(routes), 
+    provideClientHydration(), 
+    provideHttpClient(withFetch()), 
+    provideAnimations(),
+    provideFirebaseApp(() => initializeApp({ ...firebaseConfig })),
+  ]
 };

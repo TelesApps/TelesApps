@@ -4,3 +4,8 @@ export const environment = {
 
     recaptchaSiteKey: '6Lc',
   };
+
+  export const actionCodeSettings = {
+    url: 'https://telesapps.com/tracker?email-verified',
+    handleCodeInApp: true
+  }

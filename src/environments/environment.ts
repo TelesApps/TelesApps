@@ -4,3 +4,8 @@ export const environment = {
 
     recaptchaSiteKey: '6Lc',
   };
+
+  export const actionCodeSettings = {
+    url: 'http://10.0.0.2:4200/',
+    handleCodeInApp: true
+  }
