@@ -1,0 +1,63 @@
+<div class="page-content">
+    <div class="form-area">
+        <div *ngIf="errorMessage" class="error-box">
+            <mat-icon class="cursor" aria-hidden="false" aria-label="Example home icon" (click)="errorMessage = ''">
+                close</mat-icon>
+            {{ errorMessage }}
+        </div>
+        <div style="text-align: center; margin: 60px 0px;">
+            <h2 style="margin: 0px;">Currently this is a private Dashboard</h2>
+            <span>Please only attempt to login if you were invited</span>
+        </div>
+        <div>
+            <form [formGroup]="loginForm" action="submit">
+                <!-- EMAIL -->
+                <mat-form-field class="full-width" appearance="fill">
+                    <mat-label>Email</mat-label>
+                    <input type="email" matInput placeholder="username@instnt.com" [formControl]="email" required>
+                </mat-form-field>
+                <div class="error-div-style" *ngIf="email.errors && (email.dirty || email.touched)">
+                    <mat-error class="error-msg-style"
+                        *ngIf="email.errors && (email.dirty || email.touched) && email.errors['required']">Email is
+                        required
+                    </mat-error>
+                    <mat-error class="error-msg-style"
+                        *ngIf="email.errors && (email.dirty || email.touched) && email.errors['pattern']">Sorry, only
+                        letters (a-z),
+                        numbers (0-9), plus sign (+) and periods (.) are allowed.</mat-error>
+                    <mat-error class="error-msg-style"
+                        *ngIf="email.errors && (email.dirty || email.touched) && email.errors['maxlength']">Email should
+                        not have
+                        more than 100 characters ({{ email.errors['maxlength'].actualLength }})</mat-error>
+                </div>
+                <!-- PASSWORD -->
+                <mat-form-field class="full-width" appearance="fill">
+                    <mat-label>Password</mat-label>
+                    <input type="password" matInput placeholder="username@instnt.com" [formControl]="password" required>
+                </mat-form-field>
+                <div class="error-div-style" *ngIf="password.errors && (password.dirty || password.touched)">
+                    <mat-error class="error-msg-style"
+                        *ngIf="password.errors && (password.dirty || password.touched) && password.errors['required']">
+                        Password is required
+                    </mat-error>
+                    <mat-error class="error-msg-style"
+                        *ngIf="password.errors && (password.dirty || password.touched) && password.errors['minlength']">
+                        Password must be at least 6 characters long ({{ password.errors['minlength'].actualLength }})
+                    </mat-error>
+                </div>
+            </form>
+            <div style="text-align: end;">
+                <button mat-raised-button color="primary" [disabled]="!loginForm.valid"
+                    (click)="onLogin()">Login</button>
+            </div>
+        </div>
+        <div class="google-login-area">
+            <div class="google-login">
+                <button mat-raised-button color="primary" (click)="onLoginWithGoogle()">
+                    <i class="fab fa-google"></i>
+                    Login with Google
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

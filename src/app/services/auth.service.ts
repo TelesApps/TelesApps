@@ -1,113 +1,149 @@
-import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
-import { Observable, of, switchMap, take } from 'rxjs';
-import { CreateUser, User } from '../interfaces/user.interface';
-import { actionCodeSettings } from '../../environments/environment';
-import * as firebase from 'firebase/auth';
+import { Injectable, inject } from '@angular/core';
+import {
+  Auth,
+  authState,
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+  updateEmail,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+  signOut
+} from '@angular/fire/auth';
+
+import {
+  Firestore,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  setDoc,
+  query,
+  where
+} from '@angular/fire/firestore';
+
+import { Observable, of, from } from 'rxjs';
+import { map, switchMap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { CreateUser, User } from '../interfaces/user.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  user$: Observable<User | null>;
 
-  public User$: Observable<any>;
+  constructor(
+    public auth: Auth,
+    private firestore: Firestore,
+    private router: Router
+  ) {
+    console.log('AuthService initializing');
 
-  constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router) {
-    this.User$ = this.afAuth.authState.pipe(switchMap((user => {
-      if (user) {
-        return this.afs.doc<any>(`users/${user.uid}`).valueChanges();
-      } else {
-        return of(null);
-      }
-    })))
+    // Debug raw auth state
+    authState(this.auth).subscribe(authUser => {
+      console.log('Auth state changed:', authUser?.uid || 'No user');
+    });
+
+    // Create user$ using a more direct approach
+    this.user$ = authState(this.auth).pipe(
+      switchMap(user => {
+        if (!user) {
+          console.log('No authenticated user');
+          return of(null);
+        }
+
+        console.log('Auth user found, fetching Firestore data:', user.uid);
+
+        // Convert the document fetch to a promise, then to an observable
+        return from(this.getUserData(user.uid));
+      })
+    );
+
+    // Debug the user$ observable
+    this.user$.subscribe(user => {
+      console.log('user$ value updated:', user?.userId || 'null');
+    });
   }
 
-  // Register New User via email and password signup
-  registerNewUser(email: string, password: string, userName: string) {
-    return this.afAuth.createUserWithEmailAndPassword(email, password).catch(
-      (error) => {
-        console.log(error);
-        return Promise.reject(error);
-      }
-    ).then(async (response) => {
-      const authUser = await this.afAuth.currentUser;
-      if (authUser) {
-        let user = CreateUser(authUser.uid, authUser.displayName || '',
-          authUser.email || '', authUser.emailVerified, authUser.photoURL || '');
-
-        user.displayName = userName;
-        this.updateUserData(user);
-        return authUser.sendEmailVerification(actionCodeSettings);
-      }
-    }
-    )
-  }
-
-  async resendVerificationEmail(email: string) {
-    let user = await this.afAuth.currentUser;
-    return await user?.updateEmail(email).then(async () => {
-      return await user.sendEmailVerification(actionCodeSettings)
-    }).catch((error) => {
-      return Promise.reject(error);
-    })
-  }
-
-  // Sign in with email and password
-  signinWithEmailAndPassword(email: string, password: string) {
-    return this.afAuth.signInWithEmailAndPassword(email, password);
-  }
-
-  // Sign in with Google
-  signInWithGoogle() {
+  // Create a method that directly uses promises instead of observables
+  async getUserData(userId: string): Promise<User | null> {
     try {
-      console.log('login with google called');
-      const provider = new firebase.GoogleAuthProvider();
-      this.oAuthLogin(provider);
+      const docRef = doc(this.firestore, 'users', userId);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        console.log('User document found');
+        const data = docSnap.data() as User;
+        return {
+          ...data,
+          userId // Ensure userId is present
+        };
+      } else {
+        console.log('User document not found');
+        return null;
+      }
     } catch (error) {
-      console.error('Error Loging in with google');
-      console.error(error);
+      console.error('Error fetching user data:', error);
+      return null;
     }
   }
 
-  private async oAuthLogin(provider: firebase.GoogleAuthProvider) {
-    this.afAuth.signInWithPopup(provider)
-      .then((credential) => {
-        this.User$.pipe(take(1)).subscribe((user) => {
-          // Create New User if User is Null
-          if (!user) {
-            console.log('Creating a new User Profile');
-            const cred = credential.user;
-            if (cred) {
-              const userData: User = CreateUser(cred.uid, cred.displayName || '', cred.email || '', cred.emailVerified, cred.photoURL || '');
-              this.router.navigate(['/tracker']);
-              return this.updateUserData(userData);
-            } else {
-              console.error('Credential is null');
-              return;
-            }
-          } else {
-            if (credential && credential.user && user.photoUrl === '' && credential.user.photoURL !== '') {
-              user.photoUrl = credential.user.photoURL;
-              this.updateUserData(user);
-              this.router.navigate(['/tracker']);
-              return this.afs.doc(`users/${credential.user.uid}`);
-            }
-          }
-        });
-      }).catch((err) => { console.error(err) });
+  async signInWithGoogle() {
+    try {
+      console.log('Google sign-in initiated');
+      const provider = new GoogleAuthProvider();
+      provider.addScope('profile');
+      provider.addScope('email');
+      provider.setCustomParameters({ prompt: 'select_account' });
+
+      const result = await signInWithPopup(this.auth, provider);
+      console.log('Google sign-in successful, user ID:', result.user.uid);
+
+      // Check if user exists
+      const userData = await this.getUserData(result.user.uid);
+
+      if (!userData) {
+        console.log('User document does not exist, creating new profile');
+        const newUserData = CreateUser(
+          result.user.uid,
+          result.user.displayName || '',
+          result.user.email || '',
+          result.user.emailVerified,
+          result.user.photoURL || ''
+        );
+
+        await this.updateUserData(newUserData);
+        console.log('User document created successfully');
+      } else {
+        console.log('User document already exists');
+      }
+
+      return result;
+    } catch (error) {
+      console.error('Error during Google sign-in:', error);
+      throw error;
+    }
   }
 
-  // Update User information in Firebase Database
-  updateUserData(userData: User) {
-    console.log('updating user data with the following data', userData);
-    const docRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${userData.id}`);
-    return docRef.set(userData, { merge: true });
+  async updateUserData(userData: User) {
+    try {
+      console.log('Updating user data:', userData);
+      const docRef = doc(this.firestore, 'users', userData.userId);
+      await setDoc(docRef, { userData }, { merge: true });
+
+      console.log('User data updated successfully');
+      return true;
+    } catch (error) {
+      console.error('Error updating user data:', error);
+      throw error;
+    }
   }
+
+  // Keep your other methods...
 
   logOut() {
-    this.afAuth.signOut().then(() => {
+    return signOut(this.auth).then(() => {
       console.log('User has been logged out');
       this.router.navigate(['/login']);
     });

@@ -1,5 +1,5 @@
 export interface User {
-    id: string;
+    userId: string;
     email: string;
     displayName: string;
     photoURL?: string | null;
@@ -17,7 +17,7 @@ export function CreateUser(
     photoURL?: string,
 ): User {
     return {
-        id: id,
+        userId: id,
         displayName: displayName,
         email: email,
         emailVerified: emailVerified,

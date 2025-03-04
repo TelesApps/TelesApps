@@ -7,6 +7,7 @@ import { AiPageComponent } from './ai-page/ai-page.component';
 import { ContactPageComponent } from './contact-page/contact-page.component';
 import { BaFormatterComponent } from './ba-formatter/ba-formatter.component';
 import { TrackerComponent } from './tracker/tracker.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
     {
@@ -51,6 +52,11 @@ export const routes: Routes = [
     {
         path: 'tracker',
         component: TrackerComponent,
+        canActivate: [authGuard],
+    },
+    {
+        path: 'login',
+        loadComponent: () => import('./login-page/login-page.component').then(m => m.LoginPageComponent),
     },
     {
         path: '**',

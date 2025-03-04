@@ -1,34 +1,44 @@
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, inject, PLATFORM_ID, REQUEST } from '@angular/core';
 import { provideRouter } from '@angular/router';
-
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient, withFetch } from '@angular/common/http';
-import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { isPlatformBrowser } from '@angular/common';
+
+// Import from @angular/fire
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyDlLKHGBCmJea2aDAblXobANWgX6wto55E",
-  authDomain: "telesapps-c8f5a.firebaseapp.com",
-  projectId: "telesapps-c8f5a",
-  storageBucket: "telesapps-c8f5a.appspot.com",
-  messagingSenderId: "1095550930048",
-  appId: "1:1095550930048:web:9c6f8462bcfc71bbbdaa65",
-  measurementId: "G-ZZ1MP3DF02"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+import { getAuth, provideAuth, setPersistence, browserLocalPersistence } from '@angular/fire/auth';
+import { environment } from '../environments/environment';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes), 
-    provideClientHydration(), 
-    provideHttpClient(withFetch()), 
+    provideRouter(routes),
+    provideClientHydration(),
+    provideHttpClient(withFetch()),
     provideAnimations(),
-    provideFirebaseApp(() => initializeApp({ ...firebaseConfig })),
+    // Provide Firebase app
+    provideFirebaseApp(() => {
+      const app = initializeApp(environment.firebaseConfig);
+      console.log('Firebase app initialized:', app.name);
+      return app;
+    }),
+    // Provide Auth with persistence
+    provideAuth(() => {
+      const auth = getAuth();
+      if (isPlatformBrowser(inject(PLATFORM_ID))) {
+        setPersistence(auth, browserLocalPersistence)
+          .then(() => console.log('Auth persistence set to LOCAL'))
+          .catch(error => console.error('Error setting auth persistence:', error));
+      }
+      return auth;
+    }),
+    // Provide Firestore
+    provideFirestore(() => {
+      const firestore = getFirestore();
+      console.log('Firestore initialized');
+      return firestore;
+    })
   ]
 };
