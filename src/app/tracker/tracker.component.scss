@@ -27,14 +27,33 @@
     margin: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     margin-top: 20px;
     width: clamp(300px, 30vw, 600px);
     margin: auto;
     margin-top: 20px;
     mat-form-field {
         width: 100%;
+    }
+}
+
+.detail-btn {
+    text-align: end;
+    margin-top: -16px;
+    margin-bottom: 20px;
+    button {
+        height: 30px;
+    }
+}
+
+.distance-card {
+    padding: 10px;
+    margin-bottom: 6px;
+    text-align: center;
+    mat-card-title {
+        b {
+            color: var(--accent-darker);
+            font-size: 18pt;
+        }
     }
 }
 

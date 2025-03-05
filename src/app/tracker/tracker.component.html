@@ -9,7 +9,8 @@
             <mat-card class="record-card" appearance="outlined">
               <mat-card-header>
                 <mat-card-title>3-5 Miles</mat-card-title>
-                <mat-card-subtitle>First Place: <b>{{ stats.threeToFiveMiles.time| fireTimeRecord  }}</b></mat-card-subtitle>
+                <mat-card-subtitle>First Place: <b>{{ stats.threeToFiveMiles.time| fireTimeRecord
+                    }}</b></mat-card-subtitle>
               </mat-card-header>
               <mat-card-content>
                 <p>Level: <b>{{ stats.threeToFiveMiles.level }}</b></p>
@@ -19,7 +20,7 @@
             <mat-card class="record-card" appearance="outlined">
               <mat-card-header>
                 <mat-card-title>Mile Sprint</mat-card-title>
-                <mat-card-subtitle>First Place: <b>{{ stats.mileSprint.time | fireTimeRecord  }}</b></mat-card-subtitle>
+                <mat-card-subtitle>First Place: <b>{{ stats.mileSprint.time | fireTimeRecord }}</b></mat-card-subtitle>
               </mat-card-header>
               <mat-card-content>
                 <p>Level: <b>{{ stats.mileSprint.level }}</b></p>
@@ -34,6 +35,26 @@
           </ng-template>
           <!-- ADD NEW RECORDS -->
           <div class="form-area">
+            <!-- course selection -->
+            <mat-form-field appearance="fill" color="accent">
+              <mat-label>Course</mat-label>
+              <mat-select [(value)]="course" (selectionChange)="onCourseChange()">
+                <mat-option value="mileSprint">Mile Sprint</mat-option>
+                <mat-option value="lakeRun1x">Lake Run 1x</mat-option>
+                <mat-option value="lakeRun2x">Lake Run 2x</mat-option>
+                <mat-option value="lake2xSOption">Lake Run 2x S.Option</mat-option>
+                <mat-option value="lakeRun3x">Lake Run 3x</mat-option>
+                <mat-option value="lake3xSOption">Lake Run 3x S.Option</mat-option>
+                <mat-option value="hospitalRun">Hospital Run</mat-option>
+                <mat-option value="hospitalGymRun">Hospital & Gym Run</mat-option>
+                <mat-option value="adriandaleLakeRun">Adriandale & Lake Run</mat-option>
+                <mat-option value="custom">Custom Course</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div class="detail-btn">
+              <button mat-raised-button color="primary">Course Details</button>
+            </div>
+            <!-- race type -->
             <mat-form-field appearance="fill" color="accent">
               <mat-label>Race Type</mat-label>
               <mat-select [(value)]="raceType">
@@ -45,11 +66,19 @@
                 <mat-option value="gym_postrun">Gym Pre-Run</mat-option>
               </mat-select>
             </mat-form-field>
-
-            <mat-slide-toggle color="primary" [(ngModel)]="isAverageTime">
-              {{ isAverageTime? 'Minute Per Mile':'TotalTime Ran' }}
+            <div class="distance">
+              <mat-card class="distance-card">
+                <mat-card-subtitle>Distance: miles || kilometers</mat-card-subtitle>
+                <mat-card-title>
+                  <b>{{ totalDistance.miles | number: '1.1-2' }}</b> || <b>{{ totalDistance.kilometers | number: '1.1-1' }}</b>
+                </mat-card-title>
+              </mat-card>
+            </div>
+            <!-- slider for average or total -->
+            <mat-slide-toggle color="primary" [(ngModel)]="isTotalTime">
+              {{ isTotalTime? 'Total Time':'Minute Per Mile' }}
             </mat-slide-toggle>
-
+            <!-- time input -->
             <span>{{ time | timeRecord }}</span>
             <mat-form-field appearance="fill" color="accent">
               <mat-label>Time</mat-label>
@@ -59,8 +88,8 @@
 
           </div>
           <div style="text-align: end;">
-            <button mat-raised-button color="primary" [disabled]="!raceType || !time"
-              (click)="onSaveRecord()">Add Record</button>
+            <button mat-raised-button color="primary" [disabled]="!raceType || !time" (click)="onSaveRecord()">Add
+              Record</button>
           </div>
         </div>
       </div>

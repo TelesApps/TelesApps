@@ -29,3 +29,16 @@ export interface SwimTracker {
     timePerLap: number;
     currentLevel: number;
 }
+
+export interface Route {
+    slug: string;
+    name: string
+    miles: number;
+    kilometers: number;
+}
+
+export interface Course {
+    slug: string;
+    name: string;
+    routes: Route[];
+}
