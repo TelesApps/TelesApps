@@ -2,10 +2,10 @@ export interface JoggingTracker {
     id: string;
     userId: string;
     date: string;
-    jogType: 'mile sprint' | '3-5 miles' | 'swim pre-run' | 'gym prerun';
+    jogType: 'mile_sprint' | 'miles_1-3' | 'miles_3-5' | 'miles_5-7' | 'swim_prerun' | 'gym_prerun';
     course: string;
-    distance: number;
-    measurement: 'miles' | 'kilometers';
+    distanceMiles: number;
+    distanceKilometers: number;
     time: number;
     pace: number;
     firstPlaceTime: number;

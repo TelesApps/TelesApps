@@ -1,12 +1,74 @@
 <mat-tab-group>
-<mat-tab label="Jogging Tracker">
-  <ng-template matTabContent>
-    The First Content
-  </ng-template>
-</mat-tab>
-<mat-tab label="Swimming Tracker">
-  <ng-template matTabContent>
-    The Second Content
-  </ng-template>
-</mat-tab>
-</mat-tab-group>F
+  <mat-tab label="Jogging Tracker">
+    <ng-template matTabContent>
+      <div class="page">
+        <div class="content-width">
+          <!-- LIST OF RECORDS -->
+          <div *ngIf="user() && user()?.trackerStats as stats; else noStats" class="record-list">
+            <!-- 3 TO 5 MILES -->
+            <mat-card class="record-card" appearance="outlined">
+              <mat-card-header>
+                <mat-card-title>3-5 Miles</mat-card-title>
+                <mat-card-subtitle>First Place: <b>{{ stats.threeToFiveMiles.time| fireTimeRecord  }}</b></mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <p>Level: <b>{{ stats.threeToFiveMiles.level }}</b></p>
+              </mat-card-content>
+            </mat-card>
+            <!-- MILE SPRINT -->
+            <mat-card class="record-card" appearance="outlined">
+              <mat-card-header>
+                <mat-card-title>Mile Sprint</mat-card-title>
+                <mat-card-subtitle>First Place: <b>{{ stats.mileSprint.time | fireTimeRecord  }}</b></mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <p>Level: <b>{{ stats.mileSprint.level }}</b></p>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          <ng-template #noStats>
+            <div style="display: flex;">
+              <mat-icon>error</mat-icon>
+              <div>No stats available. Please start tracking your jogs!</div>
+            </div>
+          </ng-template>
+          <!-- ADD NEW RECORDS -->
+          <div class="form-area">
+            <mat-form-field appearance="fill" color="accent">
+              <mat-label>Race Type</mat-label>
+              <mat-select [(value)]="raceType">
+                <mat-option value="mile_sprint">Mile Sprint</mat-option>
+                <mat-option value="miles_1-3">1 to 3 Miles Run</mat-option>
+                <mat-option value="miles_3-5">3 to 5 Miles Run</mat-option>
+                <mat-option value="miles_5-7">5 to 7 Miles Run</mat-option>
+                <mat-option value="swim_prerun">Swim Pre-Run</mat-option>
+                <mat-option value="gym_postrun">Gym Pre-Run</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-slide-toggle color="primary" [(ngModel)]="isAverageTime">
+              {{ isAverageTime? 'Minute Per Mile':'TotalTime Ran' }}
+            </mat-slide-toggle>
+
+            <span>{{ time | timeRecord }}</span>
+            <mat-form-field appearance="fill" color="accent">
+              <mat-label>Time</mat-label>
+              <input matInput type="number" [(ngModel)]="time" placeholder="Enter time in minutes"
+                onfocus="this.select()" (input)="onTimeChange()">
+            </mat-form-field>
+
+          </div>
+          <div style="text-align: end;">
+            <button mat-raised-button color="primary" [disabled]="!raceType || !time"
+              (click)="onSaveRecord()">Add Record</button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="Swimming Tracker">
+    <ng-template matTabContent>
+      The Second Content
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>

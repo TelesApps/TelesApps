@@ -1,3 +1,4 @@
+@use 'assets/theme/app-theme.scss' as theme;
 
 .page-content {
     height: 100%;
@@ -18,5 +19,18 @@
 
 .full-width {
     width: 100%;
+}
+
+.error-box {
+    color: var(--warn-main);
+    border-radius: 4px;
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;
+    mat-icon {
+        position: relative;
+        top: 6px;
+        cursor: pointer;
+    }
 }
 

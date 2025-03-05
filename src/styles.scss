@@ -7,12 +7,16 @@
 @include mat.app-background();
 
 // Be sure that you only ever include this mixin once!
+// Utility classes
+@include mat.elevation-classes();
+@include mat.app-background();
 
 @include mat.all-component-themes(theme.$telesApps-light-theme);
 // Include additional themes bellow under css classes on the application
 .dark-theme {
     @include mat.all-component-themes(theme.$telesApps-dark-theme);
 }
+
 
 /* You can add global styles to this file, and also import other style files */
 

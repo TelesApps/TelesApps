@@ -1,0 +1,84 @@
+.page {
+    margin: 40px;
+}
+
+.record-list {
+    display: flex;
+}
+
+.record-card {
+    margin: 10px;
+    mat-card-title {
+        color: var(--accent-darker);
+    }
+    mat-card-subtitle {
+        color: var(--foreground-main);
+    }
+    mat-card-content {
+        b {
+            position: relative;
+            top: 2px;
+            font-size: 16pt;
+        }
+    }
+}
+
+.form-area {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    width: clamp(300px, 30vw, 600px);
+    margin: auto;
+    margin-top: 20px;
+    mat-form-field {
+        width: 100%;
+    }
+}
+
+mat-slide-toggle {
+    margin-bottom: 8px;
+}
+
+// Add this to tracker.component.scss
+.mat-mdc-slide-toggle {
+    // Base styles for the unselected (off) state - using accent color
+    --mdc-switch-unselected-track-color: var(--accent-main);
+    --mdc-switch-unselected-handle-color: var(--accent-main);
+    --mdc-switch-unselected-hover-handle-color: var(--accent-main);
+    --mdc-switch-unselected-hover-track-color: var(--accent-main);
+    --mdc-switch-unselected-focus-handle-color: var(--accent-main);
+    --mdc-switch-unselected-focus-track-color: var(--accent-main);
+    --mdc-switch-unselected-pressed-handle-color: var(--accent-main);
+    --mdc-switch-unselected-pressed-track-color: var(--accent-main);
+    
+    // For the thumb in the off position, you might want to use the contrast color
+    --mdc-switch-unselected-icon-color: var(--accent-contrast-main);
+    
+    // Primary color styles for the on state
+    &.mat-primary {
+      // Selected state
+      --mdc-switch-selected-icon-color: var(--primary-contrast-main);
+      --mdc-switch-selected-handle-color: var(--primary-main);
+      --mdc-switch-selected-track-color: var(--primary-main);
+      --mdc-switch-selected-focus-handle-color: var(--primary-main);
+      --mdc-switch-selected-focus-track-color: var(--primary-main);
+      --mdc-switch-selected-hover-handle-color: var(--primary-main);
+      --mdc-switch-selected-hover-track-color: var(--primary-main);
+      --mdc-switch-selected-pressed-handle-color: var(--primary-main);
+      --mdc-switch-selected-pressed-track-color: var(--primary-main);
+      
+      // State layer colors (ripple effects)
+      --mdc-switch-selected-focus-state-layer-color: var(--primary-main);
+      --mdc-switch-selected-hover-state-layer-color: var(--primary-main);
+      --mdc-switch-selected-pressed-state-layer-color: var(--primary-main);
+    }
+  
+  }
+
+
+
+
+

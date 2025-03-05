@@ -58,9 +58,9 @@ export class LoginPageComponent implements OnInit {
           }
         });
       }, 500);
-    } catch (err) {
+    } catch (err: any) {
       console.error('Google login failed:', err);
-      this.errorMessage = 'Failed to login with Google. Please try again.';
+      this.errorMessage = err.message;
     }
   }
 
