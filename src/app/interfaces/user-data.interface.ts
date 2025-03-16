@@ -11,13 +11,21 @@ export interface UserData {
 }
 
 export interface TrackerStats {
-    mileSprint: {time: number, level: number};
-    oneToThreeMiles: {time: number, level: number};
-    threeToFiveMiles: {time: number, level: number};
-    fiveToSevenMiles: {time: number, level: number};
-    swimPreRun: {time: number, level: number};
-    gymPreRun: {time: number, level: number};
+    // mileSprint: {time: number, level: number};
+    // oneToThreeMiles: {time: number, level: number};
+    // threeToFiveMiles: {time: number, level: number};
+    // fiveToSevenMiles: {time: number, level: number};
+    // swimPreRun: {time: number, level: number};
+    // gymPreRun: {time: number, level: number};
+    raceTypes: RaceType[];
     swimRecords: SwimRecord[];
+}
+
+export interface RaceType {
+    slug: string;
+    name: string
+    time: number;
+    level: number;
 }
 
 export interface SwimRecord {
@@ -44,12 +52,20 @@ export function CreateUser(
         status: 'client',
         role: 'user',
         trackerStats: {
-            mileSprint: {time: 0, level: 0},
-            oneToThreeMiles: {time: 0, level: 0},
-            threeToFiveMiles: {time: 0, level: 0},
-            fiveToSevenMiles: {time: 0, level: 0},
-            swimPreRun: {time: 0, level: 0},
-            gymPreRun: {time: 0, level: 0},
+            // mileSprint: {time: 0, level: 0},
+            // oneToThreeMiles: {time: 0, level: 0},
+            // threeToFiveMiles: {time: 0, level: 0},
+            // fiveToSevenMiles: {time: 0, level: 0},
+            // swimPreRun: {time: 0, level: 0},
+            // gymPreRun: {time: 0, level: 0},
+            raceTypes: [
+                { slug: 'mile_sprint', name: 'Mile Sprint', time: 0, level: 0 },
+                { slug: 'miles_1-3', name: '1-3 Miles', time: 0, level: 0 },
+                { slug: 'miles_3-5', name: '3-5 Miles', time: 0, level: 0 },
+                { slug: 'miles_5-7', name: '5-7 Miles', time: 0, level: 0 },
+                { slug: 'swim_prerun', name: 'Swim Pre-Run', time: 0, level: 0 },
+                { slug: 'gym_prerun', name: 'Gym Pre-Run', time: 0, level: 0 }
+            ],
             swimRecords: []
         }
     };

@@ -2,14 +2,16 @@ export interface JoggingTracker {
     id: string;
     userId: string;
     date: string;
-    jogType: 'mile_sprint' | 'miles_1-3' | 'miles_3-5' | 'miles_5-7' | 'swim_prerun' | 'gym_prerun';
+    raceType: 'mile_sprint' | 'miles_1-3' | 'miles_3-5' | 'miles_5-7' | 'swim_prerun' | 'gym_prerun';
     course: string;
+    routes: Route[];
     distanceMiles: number;
     distanceKilometers: number;
     time: number;
     pace: number;
     firstPlaceTime: number;
-    currentLevel: number;
+    placement: number; // every 10 seconds is a placement point
+    currentLevel: number; // ranges from 1 to 5
 }
 
 export interface SwimTracker {

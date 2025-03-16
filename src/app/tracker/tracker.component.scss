@@ -1,13 +1,38 @@
+@use "@angular/material" as mat;
+
 .page {
-    margin: 40px;
+    margin-top: 6px;
+    margin-bottom: 6px;
 }
 
 .record-list {
     display: flex;
+    flex-wrap: wrap;
+}
+
+mat-expansion-panel {
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: calc(-50vw + 4px);
+    margin-right: calc(-50vw + 4px);
+    width: calc(100vw - 8px);
+    margin-bottom: 2px;
+    margin-top: 2px;
+    mat-expansion-panel-header {
+        height: 45px;
+    }
+    @include mat.expansion-overrides((
+    container-background-color: var(--background-main),
+    header-text-size: 16px,
+  ));
 }
 
 .record-card {
     margin: 10px;
+    width: clamp(100px, 36vw, 600px) !important;
+    flex-grow: 1;
+    max-width: 380px;
     mat-card-title {
         color: var(--accent-darker);
     }
@@ -33,6 +58,8 @@
     margin-top: 20px;
     mat-form-field {
         width: 100%;
+        padding: 0px;
+        margin: 0px;
     }
 }
 
@@ -72,32 +99,35 @@ mat-slide-toggle {
     --mdc-switch-unselected-focus-track-color: var(--accent-main);
     --mdc-switch-unselected-pressed-handle-color: var(--accent-main);
     --mdc-switch-unselected-pressed-track-color: var(--accent-main);
-    
+
     // For the thumb in the off position, you might want to use the contrast color
     --mdc-switch-unselected-icon-color: var(--accent-contrast-main);
-    
+
     // Primary color styles for the on state
     &.mat-primary {
-      // Selected state
-      --mdc-switch-selected-icon-color: var(--primary-contrast-main);
-      --mdc-switch-selected-handle-color: var(--primary-main);
-      --mdc-switch-selected-track-color: var(--primary-main);
-      --mdc-switch-selected-focus-handle-color: var(--primary-main);
-      --mdc-switch-selected-focus-track-color: var(--primary-main);
-      --mdc-switch-selected-hover-handle-color: var(--primary-main);
-      --mdc-switch-selected-hover-track-color: var(--primary-main);
-      --mdc-switch-selected-pressed-handle-color: var(--primary-main);
-      --mdc-switch-selected-pressed-track-color: var(--primary-main);
-      
-      // State layer colors (ripple effects)
-      --mdc-switch-selected-focus-state-layer-color: var(--primary-main);
-      --mdc-switch-selected-hover-state-layer-color: var(--primary-main);
-      --mdc-switch-selected-pressed-state-layer-color: var(--primary-main);
+        // Selected state
+        --mdc-switch-selected-icon-color: var(--primary-contrast-main);
+        --mdc-switch-selected-handle-color: var(--primary-main);
+        --mdc-switch-selected-track-color: var(--primary-main);
+        --mdc-switch-selected-focus-handle-color: var(--primary-main);
+        --mdc-switch-selected-focus-track-color: var(--primary-main);
+        --mdc-switch-selected-hover-handle-color: var(--primary-main);
+        --mdc-switch-selected-hover-track-color: var(--primary-main);
+        --mdc-switch-selected-pressed-handle-color: var(--primary-main);
+        --mdc-switch-selected-pressed-track-color: var(--primary-main);
+
+        // State layer colors (ripple effects)
+        --mdc-switch-selected-focus-state-layer-color: var(--primary-main);
+        --mdc-switch-selected-hover-state-layer-color: var(--primary-main);
+        --mdc-switch-selected-pressed-state-layer-color: var(--primary-main);
     }
-  
+}
+
+@media (min-width: 1288px) {
+    mat-expansion-panel {
+      left: 0;
+      margin: 4px auto;
+      width: 100%;
+      max-width: 1280px;
+    }
   }
-
-
-
-
-

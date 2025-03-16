@@ -1,32 +1,48 @@
-<mat-tab-group>
+<mat-tab-group dynamicHeight>
   <mat-tab label="Jogging Tracker">
     <ng-template matTabContent>
       <div class="page">
         <div class="content-width">
-          <!-- LIST OF RECORDS -->
-          <div *ngIf="user() && user()?.trackerStats as stats; else noStats" class="record-list">
-            <!-- 3 TO 5 MILES -->
-            <mat-card class="record-card" appearance="outlined">
-              <mat-card-header>
-                <mat-card-title>3-5 Miles</mat-card-title>
-                <mat-card-subtitle>First Place: <b>{{ stats.threeToFiveMiles.time| fireTimeRecord
-                    }}</b></mat-card-subtitle>
-              </mat-card-header>
-              <mat-card-content>
-                <p>Level: <b>{{ stats.threeToFiveMiles.level }}</b></p>
-              </mat-card-content>
-            </mat-card>
-            <!-- MILE SPRINT -->
-            <mat-card class="record-card" appearance="outlined">
-              <mat-card-header>
-                <mat-card-title>Mile Sprint</mat-card-title>
-                <mat-card-subtitle>First Place: <b>{{ stats.mileSprint.time | fireTimeRecord }}</b></mat-card-subtitle>
-              </mat-card-header>
-              <mat-card-content>
-                <p>Level: <b>{{ stats.mileSprint.level }}</b></p>
-              </mat-card-content>
-            </mat-card>
-          </div>
+          <mat-accordion>
+            <!-- LIST OF ALL RECORDS HERE -->
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title> All Records </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div *ngIf="user() && user()?.trackerStats as stats; else noStats" class="record-list">
+                @for (raceType of stats.raceTypes; track raceType.slug) {
+                  <mat-card class="record-card" appearance="outlined">
+                    <mat-card-header>
+                      <mat-card-title>{{ raceType.name }}</mat-card-title>
+                      <mat-card-subtitle>First Place: <b>{{ raceType.time| fireTimeRecord
+                          }}</b></mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                      <p>Level: <b>{{ raceType.level }}</b></p>
+                    </mat-card-content>
+                  </mat-card>
+                }
+                
+              </div>
+            </mat-expansion-panel>
+            <!-- ONLY RECORDS RELEVANT TO CURRENT SELECTIONS -->
+            <mat-expansion-panel expanded="true">
+              <mat-expansion-panel-header>
+                <mat-panel-title>Current Record</mat-panel-title>
+              </mat-expansion-panel-header>
+              <!-- Card Relevant to user's Selection -->
+              <mat-card class="record-card" appearance="outlined">
+                <mat-card-header>
+                  <mat-card-title>{{ relevantRecord.name }}</mat-card-title>
+                  <mat-card-subtitle>1st: <b>{{ relevantRecord.time | fireTimeRecord
+                      }}</b></mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                  <p>Level: <b>{{ relevantRecord.level }}</b></p>
+                </mat-card-content>
+              </mat-card>
+            </mat-expansion-panel>
+          </mat-accordion>
           <ng-template #noStats>
             <div style="display: flex;">
               <mat-icon>error</mat-icon>
@@ -40,6 +56,7 @@
               <mat-label>Course</mat-label>
               <mat-select [(value)]="course" (selectionChange)="onCourseChange()">
                 <mat-option value="mileSprint">Mile Sprint</mat-option>
+                <mat-option value="postSwimRunHome">Post Swim Run</mat-option>
                 <mat-option value="lakeRun1x">Lake Run 1x</mat-option>
                 <mat-option value="lakeRun2x">Lake Run 2x</mat-option>
                 <mat-option value="lake2xSOption">Lake Run 2x S.Option</mat-option>
@@ -70,12 +87,22 @@
               <mat-card class="distance-card">
                 <mat-card-subtitle>Distance: miles || kilometers</mat-card-subtitle>
                 <mat-card-title>
-                  <b>{{ totalDistance.miles | number: '1.1-2' }}</b> || <b>{{ totalDistance.kilometers | number: '1.1-1' }}</b>
+                  <b>{{ totalDistance.miles | number: '1.1-2' }}</b> || <b>{{ totalDistance.kilometers | number: '1.1-1'
+                    }}</b>
+                </mat-card-title>
+              </mat-card>
+            </div>
+            <div class="averages">
+              <mat-card class="distance-card">
+                <mat-card-subtitle>Minutes per: miles || kilometers</mat-card-subtitle>
+                <mat-card-title>
+                  <b>{{ secondsPace.miles | timeRecord: 'seconds' }}</b> || <b>{{ secondsPace.kilometers | timeRecord:
+                    'seconds' }}</b>
                 </mat-card-title>
               </mat-card>
             </div>
             <!-- slider for average or total -->
-            <mat-slide-toggle color="primary" [(ngModel)]="isTotalTime">
+            <mat-slide-toggle color="primary" [(ngModel)]="isTotalTime" (ngModelChange)="onTimeChange()">
               {{ isTotalTime? 'Total Time':'Minute Per Mile' }}
             </mat-slide-toggle>
             <!-- time input -->
@@ -83,7 +110,7 @@
             <mat-form-field appearance="fill" color="accent">
               <mat-label>Time</mat-label>
               <input matInput type="number" [(ngModel)]="time" placeholder="Enter time in minutes"
-                onfocus="this.select()" (input)="onTimeChange()">
+                onfocus="this.select()" (input)="onTimeChange()" #timeInput (keyup.enter)="timeInput.blur()">
             </mat-form-field>
 
           </div>

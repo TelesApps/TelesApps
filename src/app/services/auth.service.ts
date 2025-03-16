@@ -236,17 +236,7 @@ export class AuthService {
       console.log('Updating user data:', userData);
       const userRef = doc(this.firestore, 'users', userData.userId);
       
-      await setDoc(userRef, {
-        userId: userData.userId,
-        email: userData.email,
-        displayName: userData.displayName,
-        photoURL: userData.photoURL,
-        phoneNumber: userData.phoneNumber || null,
-        emailVerified: userData.emailVerified,
-        status: userData.status || 'client',
-        role: userData.role || 'user',
-        trackerStats: userData.trackerStats || null
-      }, { merge: true });
+      await setDoc(userRef, userData, { merge: true });
       
       console.log('User data updated successfully');
     } catch (error) {

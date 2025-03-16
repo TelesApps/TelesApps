@@ -2,9 +2,9 @@ import { Component, OnDestroy, OnInit, signal, WritableSignal } from '@angular/c
 import { StorageService } from '../services/storage.service';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
-import { UserData } from '../interfaces/user-data.interface';
+import { RaceType, TrackerStats, UserData } from '../interfaces/user-data.interface';
 import { AuthService } from '../services/auth.service';
-import { Subscription } from 'rxjs';
+import { lastValueFrom, Subscription, take } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -17,6 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FireTimeRecordPipe } from '../shared/pipes/fire-time-record.pipe';
 import { Course } from '../interfaces/tracker.interface';
 import { Route } from '../interfaces/tracker.interface';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-tracker',
@@ -32,7 +33,8 @@ import { Route } from '../interfaces/tracker.interface';
     MatFormFieldModule,
     MatSelectModule,
     MatSlideToggleModule,
-    MatButtonModule
+    MatButtonModule,
+    MatExpansionModule
   ],
   templateUrl: './tracker.component.html',
   styleUrl: './tracker.component.scss'
@@ -49,6 +51,9 @@ export class TrackerComponent implements OnInit, OnDestroy {
   isTotalTime: boolean = true;
   selectedRoutes: Route[] = [];
   totalDistance: { miles: number, kilometers: number } = { miles: 0, kilometers: 0 };
+  secondsPace: { miles: number, kilometers: number } = { miles: 0, kilometers: 0 };
+
+  relevantRecord: RaceType = { slug: '', name: '', time: 0, level: 0 };
 
   // Course definitions are based on https://us.mapometer.com/ 
   routes: Route[] = [
@@ -135,15 +140,28 @@ export class TrackerComponent implements OnInit, OnDestroy {
       name: 'Mile Sprint',
       miles: 1.0,
       kilometers: 1.62,
-    }
+    },
+    {
+      slug: 'postSwimRunHome',
+      name: 'Post Swim Run Home',
+      miles: 0.9688,
+      kilometers: 1.56,
+    },
   ]
-  
+
   courses: Course[] = [
     {
       slug: 'mileSprint',
       name: 'Mile Sprint',
       routes: [
         this.routes.find(route => route.slug === 'mileSprint') || this.routes[12]
+      ]
+    },
+    {
+      slug: 'postSwimRunHome',
+      name: 'Post Swim Run Home',
+      routes: [
+        this.routes.find(route => route.slug === 'postSwimRunHome') || this.routes[14]
       ]
     },
     {
@@ -237,21 +255,24 @@ export class TrackerComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     console.log('TrackerComponent initialized');
-    this.onCourseChange();
+    this.auth.user$.pipe(take(1)).subscribe(user => {this.onCourseChange();});
   }
 
   onCourseChange() {
     const course = this.courses.find(c => c.slug === this.course);
     if (course) {
       this.selectedRoutes = course.routes;
+      console.log('selectedRoutes:', this.selectedRoutes);
       this.totalDistance = this.selectedRoutes.reduce((acc, route) => {
         acc.miles += route.miles;
         acc.kilometers += route.kilometers;
         return acc;
       }, { miles: 0, kilometers: 0 });
     }
-    if (this.totalDistance.miles < 1) {
+    if (this.totalDistance.miles < 2) {
       this.raceType = 'mile_sprint';
+      if (this.course === 'postSwimRunHome')
+        this.raceType = 'swim_prerun';
     } else if (this.totalDistance.miles < 3) {
       this.raceType = 'miles_1-3';
     } else if (this.totalDistance.miles < 5) {
@@ -259,13 +280,21 @@ export class TrackerComponent implements OnInit, OnDestroy {
     } else if (this.totalDistance.miles < 7) {
       this.raceType = 'miles_5-7';
     }
+    const userData = this.user();
+    if (userData && userData.trackerStats && userData.trackerStats.raceTypes) {
+      const raceType = userData.trackerStats.raceTypes.find((raceType: RaceType) => raceType.slug === this.raceType);
+      this.relevantRecord = raceType || { slug: '', name: '', time: 0, level: 0 };
+    }
+    this.calculatePace();
   }
 
   onTimeChange() {
     if (this.time == null || isNaN(this.time)) {
       return;
     }
+    console.log('Input value:', this.time);
     const strValue = this.time.toString();
+    console.log('strValue:', strValue);
     let totalSeconds: number;
     if (strValue.includes('.')) {
       // If the input is in decimal format (e.g. 38.54)
@@ -292,7 +321,29 @@ export class TrackerComponent implements OnInit, OnDestroy {
     // Now totalSeconds holds the converted value.
     console.log('Converted time in seconds:', totalSeconds);
     this.totalSeconds = totalSeconds;
+    this.calculatePace();
 
+  }
+
+  calculatePace() {
+    if (this.totalSeconds > 0) {
+      const miles = this.totalDistance.miles;
+      const kilometers = this.totalDistance.kilometers;
+      if (this.isTotalTime) {
+        // Pace in seconds per mile
+        this.secondsPace.miles = this.totalSeconds / miles;
+        // Pace in seconds per kilometer
+        this.secondsPace.kilometers = this.totalSeconds / kilometers;
+      } else {
+        // user is inputing the pace per mile, so we just need to calculate what the kilometer average would be
+        this.secondsPace.miles = this.totalSeconds;
+        this.secondsPace.kilometers = this.totalSeconds * 1.60934; // 1 mile = 1.60934 kilometers (approx)
+
+      }
+    } else {
+      this.secondsPace.miles = 0;
+      this.secondsPace.kilometers = 0;
+    }
   }
 
   onSaveRecord() {
@@ -300,28 +351,41 @@ export class TrackerComponent implements OnInit, OnDestroy {
     if (user && user.trackerStats) {
       let stats = user.trackerStats
       if (this.raceType === 'miles_3-5') {
-        const tracker = {
-          mileSprint: { time: 600, level: 3 },
-          oneToThreeMiles: { time: 0, level: 0 },
-          threeToFiveMiles: { time: 675, level: 5 },
-          fiveToSevenMiles: { time: 0, level: 0 },
-          swimPreRun: { time: 690, level: 3 },
-          gymPreRun: { time: 0, level: 0 },
+        // const tracker = {
+        //   mileSprint: { time: 600, level: 3 },
+        //   oneToThreeMiles: { time: 0, level: 0 },
+        //   threeToFiveMiles: { time: 675, level: 4 },
+        //   fiveToSevenMiles: { time: 0, level: 0 },
+        //   swimPreRun: { time: 690, level: 3 },
+        //   gymPreRun: { time: 0, level: 0 },
+        //   swimRecords: []
+        // };
+        const trackerStats: TrackerStats = {
+          raceTypes: [
+            { slug: 'mile_sprint', name: 'Mile Sprint', time: 600, level: 3 },
+            { slug: 'miles_1-3', name: '1-3 Miles', time: 680, level: 2 },
+            { slug: 'miles_3-5', name: '3-5 Miles', time: 680, level: 4 },
+            { slug: 'miles_5-7', name: '5-7 Miles', time: 0, level: 0 },
+            { slug: 'swim_prerun', name: 'Swim PreRun', time: 690, level: 3 },
+            { slug: 'gym_prerun', name: 'Gym PreRun', time: 0, level: 0 }
+          ],
           swimRecords: []
-        };
-        user.trackerStats = tracker;
+        }
+        user.trackerStats = trackerStats;
         this.auth.updateUserData(user);
       }
     } else {
       if (user) {
         console.log('User data is missing trackerStats, initializing...');
         user['trackerStats'] = {
-          mileSprint: { time: 600, level: 3 },
-          oneToThreeMiles: { time: 0, level: 0 },
-          threeToFiveMiles: { time: 675, level: 5 },
-          fiveToSevenMiles: { time: 0, level: 0 },
-          swimPreRun: { time: 690, level: 3 },
-          gymPreRun: { time: 0, level: 0 },
+          raceTypes: [
+            { slug: 'mile_sprint', name: 'Mile Sprint', time: 600, level: 3 },
+            { slug: 'miles_1-3', name: '1-3 Miles', time: 680, level: 2 },
+            { slug: 'miles_3-5', name: '3-5 Miles', time: 680, level: 4 },
+            { slug: 'miles_5-7', name: '5-7 Miles', time: 0, level: 0 },
+            { slug: 'swim_prerun', name: 'Swim PreRun', time: 690, level: 3 },
+            { slug: 'gym_prerun', name: 'Gym PreRun', time: 0, level: 0 }
+          ],
           swimRecords: []
         }
         this.auth.updateUserData(user);
