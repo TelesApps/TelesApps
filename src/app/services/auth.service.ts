@@ -22,6 +22,7 @@ import { map, switchMap, catchError, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { CreateUser, UserData } from '../interfaces/user-data.interface';
 import { environment } from '../../environments/environment';
+import { JoggingTracker } from '../interfaces/tracker.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -241,6 +242,24 @@ export class AuthService {
       console.log('User data updated successfully');
     } catch (error) {
       console.error('Error updating user data:', error);
+      throw error;
+    }
+  }
+
+  // Update run-records in Firestore
+  async updateRunRecord(userId: string, runRecord: JoggingTracker): Promise<void> {
+    // Assign an ID to the run record based on the user's email (not hashed) and the current timestamp
+    const email = this.auth.currentUser?.email || 'unknown';
+    const timestamp = new Date().toISOString();
+    const runRecordId = `${email}_${timestamp}`;
+    runRecord.id = runRecordId;
+    try {
+      console.log('Updating run record:', runRecord);
+      const runRecordRef = doc(this.firestore, 'run-records', runRecordId);
+      await setDoc(runRecordRef, runRecord, { merge: true });
+      console.log('Run record updated successfully');
+    } catch (error) {
+      console.error('Error updating run record:', error);
       throw error;
     }
   }

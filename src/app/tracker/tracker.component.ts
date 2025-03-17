@@ -15,7 +15,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { TimeRecordPipe } from '../shared/pipes/time-record.pipe';
 import { MatButtonModule } from '@angular/material/button';
 import { FireTimeRecordPipe } from '../shared/pipes/fire-time-record.pipe';
-import { Course } from '../interfaces/tracker.interface';
+import { Course, JoggingTracker } from '../interfaces/tracker.interface';
 import { Route } from '../interfaces/tracker.interface';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { OrdinalPipe } from '../shared/pipes/ordinal.pipe';
@@ -47,7 +47,7 @@ export class TrackerComponent implements OnInit, OnDestroy {
   userSubscription: Subscription
 
   course: string = 'lakeRun2x';
-  raceType: string = 'miles_3-5';
+  raceType: 'mile_sprint' | 'miles_1-3' | 'miles_3-5' | 'miles_5-7' | 'swim_prerun' | 'gym_prerun' = 'miles_3-5';
   time: any = '';
   totalSeconds: number = 0;
   isTotalTime: boolean = true;
@@ -417,11 +417,38 @@ export class TrackerComponent implements OnInit, OnDestroy {
     this.currentPosition = placement;
   }
 
+  createNewJoggingRecord(user: UserData): JoggingTracker {
+    const record: JoggingTracker = {
+      id: '',
+      userId: user.userId,
+      date: new Date().toISOString(),
+      raceType: this.raceType,
+      course: this.course,
+      routes: this.selectedRoutes,
+      distanceMiles: this.totalDistance.miles,
+      distanceKilometers: this.totalDistance.kilometers,
+      time: this.totalSeconds,
+      pace: this.secondsPace.miles,
+      firstPlaceTime: this.relevantRecord.time,
+      placement: this.currentPosition,
+      currentLevel: this.relevantRecord.level
+    }
+    return record;
+
+  }
 
   onSaveRecord() {
     const user = this.user();
     if (user && user.trackerStats) {
       const userStats = user.trackerStats;
+      const joggingRecord = this.createNewJoggingRecord(user);
+      // Update records in firebase
+      this.auth.updateRunRecord(user.userId, joggingRecord).then(() => {
+        console.log('Run record updated successfully');
+      }).catch(error => {
+        console.error('Error updating run record:', error);
+      });
+      // Update user stats in firebase
       userStats.raceTypes.forEach(raceType => {
         if (raceType.slug === this.toUpdateRaceType.slug) {
           console.log('updating raceType', raceType);
@@ -430,28 +457,49 @@ export class TrackerComponent implements OnInit, OnDestroy {
           console.log('Updated to', raceType);
         }
       });
-
       console.log('updating user', user);
-      // this.auth.updateUserData(user);
-
+      this.resetForm();
+      this.auth.updateUserData(user).then(() => {
+        this.onCourseChange();
+      }).catch(error => {
+        console.error('Error initializing trackerStats:', error);
+      });
+      // Reset the form and relevant variables
 
     } else {
       if (user) {
         console.log('User data is missing trackerStats, initializing...');
         user['trackerStats'] = {
           raceTypes: [
-            { slug: 'mile_sprint', name: 'Mile Sprint', time: 600, level: 3 },
-            { slug: 'miles_1-3', name: '1-3 Miles', time: 680, level: 2 },
-            { slug: 'miles_3-5', name: '3-5 Miles', time: 680, level: 4 },
-            { slug: 'miles_5-7', name: '5-7 Miles', time: 0, level: 0 },
-            { slug: 'swim_prerun', name: 'Swim PreRun', time: 690, level: 3 },
-            { slug: 'gym_prerun', name: 'Gym PreRun', time: 0, level: 0 }
+            { slug: 'mile_sprint', name: 'Mile Sprint', time: 0, level: 2 },
+            { slug: 'miles_1-3', name: '1-3 Miles', time: 0, level: 2 },
+            { slug: 'miles_3-5', name: '3-5 Miles', time: 0, level: 2 },
+            { slug: 'miles_5-7', name: '5-7 Miles', time: 0, level: 2 },
+            { slug: 'swim_prerun', name: 'Swim PreRun', time: 0, level: 2 },
+            { slug: 'gym_prerun', name: 'Gym PreRun', time: 0, level: 2 }
           ],
           swimRecords: []
         }
-        this.auth.updateUserData(user);
+        this.auth.updateUserData(user).then(() => {
+          this.onCourseChange();
+        }).catch(error => {
+          console.error('Error initializing trackerStats:', error);
+        });
       }
     }
+  }
+
+  resetForm() {
+    this.time = '';
+    this.totalSeconds = 0;
+    this.isTotalTime = true;
+    this.selectedRoutes = [];
+    this.totalDistance = { miles: 0, kilometers: 0 };
+    this.secondsPace = { miles: 0, kilometers: 0 };
+    this.relevantRecord = { slug: '', name: '', time: 0, level: 0 };
+    this.toUpdateRaceType = { slug: '', name: '', time: 0, level: 0 };
+    this.isRankingUp = false;
+    this.isRankingDown = false;
   }
 
   ngOnDestroy(): void {
