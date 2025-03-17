@@ -22,10 +22,12 @@ mat-expansion-panel {
     mat-expansion-panel-header {
         height: 45px;
     }
-    @include mat.expansion-overrides((
-    container-background-color: var(--background-main),
-    header-text-size: 16px,
-  ));
+    @include mat.expansion-overrides(
+        (
+            container-background-color: var(--background-main),
+            header-text-size: 16px
+        )
+    );
 }
 
 .record-card {
@@ -38,6 +40,7 @@ mat-expansion-panel {
     }
     mat-card-subtitle {
         color: var(--foreground-main);
+        font-size: 12pt;
     }
     mat-card-content {
         b {
@@ -84,6 +87,33 @@ mat-expansion-panel {
     }
 }
 
+.cross-out {
+    position: relative;
+    display: inline-block;
+    margin-right: 6px;
+    
+    &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: -25%; // extend to the left beyond the text
+        width: 160%; // extend the line wider than the text element
+        height: 2px; // thickness of the line
+        background-color: currentColor;
+        transform: rotate(-45deg);
+        transform-origin: center;
+        pointer-events: none;
+    }
+}
+
+.level-down {
+    color: var(--warn-darker);
+}
+
+.level-up {
+    color: var(--success-darker);
+}
+
 mat-slide-toggle {
     margin-bottom: 8px;
 }
@@ -125,9 +155,9 @@ mat-slide-toggle {
 
 @media (min-width: 1288px) {
     mat-expansion-panel {
-      left: 0;
-      margin: 4px auto;
-      width: 100%;
-      max-width: 1280px;
+        left: 0;
+        margin: 4px auto;
+        width: 100%;
+        max-width: 1280px;
     }
-  }
+}

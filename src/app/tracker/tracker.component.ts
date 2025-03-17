@@ -18,12 +18,14 @@ import { FireTimeRecordPipe } from '../shared/pipes/fire-time-record.pipe';
 import { Course } from '../interfaces/tracker.interface';
 import { Route } from '../interfaces/tracker.interface';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { OrdinalPipe } from '../shared/pipes/ordinal.pipe';
 
 @Component({
   selector: 'app-tracker',
   imports: [
     TimeRecordPipe,
     FireTimeRecordPipe,
+    OrdinalPipe,
     CommonModule,
     FormsModule,
     MatTabsModule,
@@ -54,6 +56,14 @@ export class TrackerComponent implements OnInit, OnDestroy {
   secondsPace: { miles: number, kilometers: number } = { miles: 0, kilometers: 0 };
 
   relevantRecord: RaceType = { slug: '', name: '', time: 0, level: 0 };
+  positioningTimer: number = 10; // first second and third placement is determine by every positioningTimer in seconds.
+  currentPosition: number = 1;
+
+  toUpdateRaceType: RaceType = { slug: '', name: '', time: 0, level: 0 };
+  isRankingUp: boolean = false;
+  isRankingDown: boolean = false;
+  // rankingUp: { time?: number, level?: number } = {};
+  // rankingDown: { time?: number, level?: number } = {};
 
   // Course definitions are based on https://us.mapometer.com/ 
   routes: Route[] = [
@@ -240,6 +250,11 @@ export class TrackerComponent implements OnInit, OnDestroy {
         this.routes.find(route => route.slug === 'lakeLoop') || this.routes[2],
         this.routes.find(route => route.slug === 'straightAway') || this.routes[3],
       ]
+    },
+    {
+      slug: 'customCourse',
+      name: 'Custom Course',
+      routes: []
     }
   ]
 
@@ -255,7 +270,7 @@ export class TrackerComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     console.log('TrackerComponent initialized');
-    this.auth.user$.pipe(take(1)).subscribe(user => {this.onCourseChange();});
+    this.auth.user$.pipe(take(1)).subscribe(user => { this.onCourseChange(); });
   }
 
   onCourseChange() {
@@ -269,7 +284,7 @@ export class TrackerComponent implements OnInit, OnDestroy {
         return acc;
       }, { miles: 0, kilometers: 0 });
     }
-    if (this.totalDistance.miles < 2) {
+    if (this.totalDistance.miles < 1.01) {
       this.raceType = 'mile_sprint';
       if (this.course === 'postSwimRunHome')
         this.raceType = 'swim_prerun';
@@ -285,7 +300,12 @@ export class TrackerComponent implements OnInit, OnDestroy {
       const raceType = userData.trackerStats.raceTypes.find((raceType: RaceType) => raceType.slug === this.raceType);
       this.relevantRecord = raceType || { slug: '', name: '', time: 0, level: 0 };
     }
-    this.calculatePace();
+    this.onTimeChange();
+  }
+
+  onRaceTypeChange() {
+    this.course = 'custom';
+    this.onCourseChange();
   }
 
   onTimeChange() {
@@ -317,12 +337,9 @@ export class TrackerComponent implements OnInit, OnDestroy {
         totalSeconds = minutes * 60 + seconds;
       }
     }
-
-    // Now totalSeconds holds the converted value.
-    console.log('Converted time in seconds:', totalSeconds);
     this.totalSeconds = totalSeconds;
     this.calculatePace();
-
+    this.determineFinishStats();
   }
 
   calculatePace() {
@@ -346,34 +363,78 @@ export class TrackerComponent implements OnInit, OnDestroy {
     }
   }
 
+  determineFinishStats() {
+    const userData = this.user();
+    let placement = 1;
+    if (userData && userData.trackerStats && userData.trackerStats.raceTypes) {
+      const userRaceType = userData.trackerStats.raceTypes.find(
+        (raceType: RaceType) => raceType.slug === this.raceType
+      );
+      this.toUpdateRaceType = {
+        ...(userRaceType || { slug: '', name: '', time: 0, level: 0 })
+      };
+      if (this.secondsPace.miles < this.toUpdateRaceType.time) {
+        console.log('new record');
+        if (this.toUpdateRaceType.level === 5) {
+          const difference = this.secondsPace.miles - this.toUpdateRaceType.time;
+          const isRankUp = difference <= -this.positioningTimer * 2;
+          if (isRankUp) {
+            this.isRankingUp = true;
+            this.toUpdateRaceType = {
+              ...this.toUpdateRaceType,
+              level: 2,
+              time: this.toUpdateRaceType.time - this.positioningTimer
+            }
+          } else {
+            this.isRankingUp = false;
+          }
+
+        } else {
+          this.isRankingUp = false;
+          this.toUpdateRaceType.level++;
+        }
+      } else {
+        console.log('not a new record');
+        const differene = this.secondsPace.miles - this.toUpdateRaceType.time;
+        placement += Math.floor(differene / this.positioningTimer) + 1;
+        this.toUpdateRaceType.level--;
+        console.log('placement', placement);
+        console.log('difference', differene);
+        console.log('raceType.level', this.toUpdateRaceType.level)
+        if (this.toUpdateRaceType.level < 1) {
+          this.isRankingDown = true;
+          this.toUpdateRaceType = {
+            ...this.toUpdateRaceType,
+            level: 5,
+            time: this.toUpdateRaceType.time + this.positioningTimer
+          }
+        } else {
+          this.isRankingDown = false;
+        }
+
+      }
+    }
+    this.currentPosition = placement;
+  }
+
+
   onSaveRecord() {
     const user = this.user();
     if (user && user.trackerStats) {
-      let stats = user.trackerStats
-      if (this.raceType === 'miles_3-5') {
-        // const tracker = {
-        //   mileSprint: { time: 600, level: 3 },
-        //   oneToThreeMiles: { time: 0, level: 0 },
-        //   threeToFiveMiles: { time: 675, level: 4 },
-        //   fiveToSevenMiles: { time: 0, level: 0 },
-        //   swimPreRun: { time: 690, level: 3 },
-        //   gymPreRun: { time: 0, level: 0 },
-        //   swimRecords: []
-        // };
-        const trackerStats: TrackerStats = {
-          raceTypes: [
-            { slug: 'mile_sprint', name: 'Mile Sprint', time: 600, level: 3 },
-            { slug: 'miles_1-3', name: '1-3 Miles', time: 680, level: 2 },
-            { slug: 'miles_3-5', name: '3-5 Miles', time: 680, level: 4 },
-            { slug: 'miles_5-7', name: '5-7 Miles', time: 0, level: 0 },
-            { slug: 'swim_prerun', name: 'Swim PreRun', time: 690, level: 3 },
-            { slug: 'gym_prerun', name: 'Gym PreRun', time: 0, level: 0 }
-          ],
-          swimRecords: []
+      const userStats = user.trackerStats;
+      userStats.raceTypes.forEach(raceType => {
+        if (raceType.slug === this.toUpdateRaceType.slug) {
+          console.log('updating raceType', raceType);
+          raceType.time = this.toUpdateRaceType.time;
+          raceType.level = this.toUpdateRaceType.level;
+          console.log('Updated to', raceType);
         }
-        user.trackerStats = trackerStats;
-        this.auth.updateUserData(user);
-      }
+      });
+
+      console.log('updating user', user);
+      // this.auth.updateUserData(user);
+
+
     } else {
       if (user) {
         console.log('User data is missing trackerStats, initializing...');

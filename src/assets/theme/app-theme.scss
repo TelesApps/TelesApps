@@ -69,6 +69,11 @@ body {
     --background-main: #{map-get($telesApps-background, main)};
     --background-lighter: #{map-get($telesApps-background, lighter)};
     --background-darker: #{map-get($telesApps-background, darker)};
+    // Lets add a custom Success color for the app
+    --success-main: #4CAF50; // Green color for success
+    --success-lighter: #81C784; // Lighter green for success
+    --success-darker: #388E3C; // Darker green for success
+
     // save main contrast colors for later use
     --primary-contrast-main: #{map-get(map-get($telesApps-primary, contrast), main)};
     --accent-contrast-main: #{map-get(map-get($telesApps-accent, contrast), main)};
@@ -95,6 +100,10 @@ body {
     --background-main: #{map-get($telesApps-dark-background, main)};
     --background-lighter: #{map-get($telesApps-dark-background, lighter)};
     --background-darker: #{map-get($telesApps-dark-background, darker)};
+    // Lets add a custom Success color for the app
+    --success-main: #4CAF50; // Green color for success
+    --success-lighter: #81C784; // Lighter green for success
+    --success-darker: #388E3C; // Darker green for success
 }
 
 // Screen Size Break Points
