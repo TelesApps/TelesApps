@@ -27,9 +27,7 @@ export class RoutesDialogComponent {
   lakeLoopLaps = 0;
 
   constructor() {
-    console.log('dialog data', this.data);
     this.selectedRoutes = this.data.selectedRoutes;
-    console.log('selected routes', this.selectedRoutes);
     this.routes.forEach((route) => {
       if (this.selectedRoutes.some((selected) => selected.slug === route.slug)) {
         route.isSelected = true;
@@ -44,7 +42,6 @@ export class RoutesDialogComponent {
 
   calculateRoute() {
     if (this.lakeLoopLaps < 0) this.lakeLoopLaps = 0;
-    console.log('this.routes', this.routes);
     this.totalDistance = { miles: 0, kilometers: 0 };
     this.selectedRoutes = [];
     this.routes.forEach((route) => {

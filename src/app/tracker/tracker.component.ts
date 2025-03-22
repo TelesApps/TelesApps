@@ -264,14 +264,12 @@ export class TrackerComponent implements OnInit, OnDestroy {
     this.storage.changeTheme();
     this.userSubscription = this.auth.user$.subscribe(user => {
       if (user) {
-        console.log('User data received:', user);
         this.user.set(user);
       }
     });
   }
 
   ngOnInit(): void {
-    console.log('TrackerComponent initialized');
     this.auth.user$.pipe(take(1)).subscribe(user => { this.onCourseChange(); });
   }
 
@@ -279,7 +277,6 @@ export class TrackerComponent implements OnInit, OnDestroy {
     const course = this.courses.find(c => c.slug === this.course);
     if (course) {
       this.selectedRoutes = course.routes;
-      console.log('selectedRoutes:', this.selectedRoutes);
       this.totalDistance = this.selectedRoutes.reduce((acc, route) => {
         acc.miles += route.miles;
         acc.kilometers += route.kilometers;
@@ -312,8 +309,6 @@ export class TrackerComponent implements OnInit, OnDestroy {
       data: { routes: this.routes, course: this.course, selectedRoutes: this.selectedRoutes },
     });
     dialogRef.afterClosed().pipe(take(1)).subscribe(result => {
-      console.log('The dialog was closed');
-      console.log('result', result);
       if (result) {
         this.selectedRoutes = result.selectedRoutes;
         this.totalDistance = result.totalDistance;
@@ -326,7 +321,6 @@ export class TrackerComponent implements OnInit, OnDestroy {
   onRaceTypeChange() {
     this.course = 'custom';
     const relevantRaceType = this.user().trackerStats?.raceTypes.find((raceType: RaceType) => raceType.slug === this.raceType);
-    console.log('relevantRaceType:', relevantRaceType);
     this.relevantRecord = relevantRaceType || this.relevantRecord;
     this.onCourseChange(true);
   }
@@ -335,9 +329,7 @@ export class TrackerComponent implements OnInit, OnDestroy {
     if (this.time == null || isNaN(this.time)) {
       return;
     }
-    console.log('Input value:', this.time);
     const strValue = this.time.toString();
-    console.log('strValue:', strValue);
     let totalSeconds: number;
     if (strValue.includes('.')) {
       // If the input is in decimal format (e.g. 38.54)
@@ -397,7 +389,6 @@ export class TrackerComponent implements OnInit, OnDestroy {
         ...(userRaceType || { slug: '', name: '', time: 0, level: 0 })
       };
       if (this.secondsPace.miles < this.toUpdateRaceType.time) {
-        console.log('new record');
         if (this.toUpdateRaceType.level === 5) {
           const difference = this.secondsPace.miles - this.toUpdateRaceType.time;
           const isRankUp = difference <= -this.positioningTimer * 2;
@@ -417,13 +408,9 @@ export class TrackerComponent implements OnInit, OnDestroy {
           this.toUpdateRaceType.level++;
         }
       } else {
-        console.log('not a new record');
         const differene = this.secondsPace.miles - this.toUpdateRaceType.time;
         placement += Math.floor(differene / this.positioningTimer) + 1;
         this.toUpdateRaceType.level--;
-        console.log('placement', placement);
-        console.log('difference', differene);
-        console.log('raceType.level', this.toUpdateRaceType.level)
         if (this.toUpdateRaceType.level < 1) {
           this.isRankingDown = true;
           this.toUpdateRaceType = {
@@ -467,20 +454,16 @@ export class TrackerComponent implements OnInit, OnDestroy {
       const joggingRecord = this.createNewJoggingRecord(user);
       // Update records in firebase
       this.auth.updateRunRecord(user.userId, joggingRecord).then(() => {
-        console.log('Run record updated successfully');
       }).catch(error => {
         console.error('Error updating run record:', error);
       });
       // Update user stats in firebase
       userStats.raceTypes.forEach(raceType => {
         if (raceType.slug === this.toUpdateRaceType.slug) {
-          console.log('updating raceType', raceType);
           raceType.time = this.toUpdateRaceType.time;
           raceType.level = this.toUpdateRaceType.level;
-          console.log('Updated to', raceType);
         }
       });
-      console.log('updating user', user);
       this.resetForm();
       this.auth.updateUserData(user).then(() => {
         this.onCourseChange();
@@ -491,7 +474,6 @@ export class TrackerComponent implements OnInit, OnDestroy {
 
     } else {
       if (user) {
-        console.log('User data is missing trackerStats, initializing...');
         user['trackerStats'] = {
           raceTypes: [
             { slug: 'mile_sprint', name: 'Mile Sprint', time: 0, level: 2 },
