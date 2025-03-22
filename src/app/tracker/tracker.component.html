@@ -49,16 +49,16 @@
                     <mat-card-title>{{ currentPosition | ordinal }} Place</mat-card-title>
                     <mat-card-subtitle>
                       @if(currentPosition > 1) {
-                        @if(isRankingDown) {
-                          <span class="level-down">Ranking down: <b>{{ toUpdateRaceType.time | fireTimeRecord }}</b></span>
-                        } @else { <span class="level-down">Leveling down</span> }
+                      @if(isRankingDown) {
+                      <span class="level-down">Ranking down: <b>{{ toUpdateRaceType.time | fireTimeRecord }}</b></span>
+                      } @else { <span class="level-down">Leveling down</span> }
                       } @else {
-                        @if(isRankingUp) {
-                          <span class="level-up">Ranking up: <b>{{ toUpdateRaceType.time | fireTimeRecord }}</b></span>
-                        } @else {
-                          <span *ngIf="toUpdateRaceType.level +1 > 5">Level Remains</span>
-                          <span class="level-up" *ngIf="toUpdateRaceType.level +1 < 6">Leveling up</span>
-                        }
+                      @if(isRankingUp) {
+                      <span class="level-up">Ranking up: <b>{{ toUpdateRaceType.time | fireTimeRecord }}</b></span>
+                      } @else {
+                      <span *ngIf="toUpdateRaceType.level +1 > 5">Level Remains</span>
+                      <span class="level-up" *ngIf="toUpdateRaceType.level +1 < 6">Leveling up</span>
+                      }
                       }
                     </mat-card-subtitle>
                   </mat-card-header>
@@ -113,7 +113,7 @@
               </mat-select>
             </mat-form-field>
             <div class="detail-btn">
-              <button mat-raised-button color="primary">Course Details</button>
+              <button mat-raised-button color="primary" (click)="onOpenCourseDetails()">Course Details</button>
             </div>
             <!-- race type -->
             <mat-form-field appearance="fill" color="accent">

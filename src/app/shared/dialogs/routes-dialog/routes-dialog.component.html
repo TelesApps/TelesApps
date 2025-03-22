@@ -1,0 +1,35 @@
+<div class="title">
+    <span mat-dialog-title>Distance:</span>
+    <span mat-dialog-title><b>{{ totalDistance.miles | number: '1.1-2' }}</b> || <b>{{ totalDistance.kilometers |
+            number: '1.1-1' }}</b></span>
+</div>
+<mat-dialog-content>
+    <div class="content">
+        <mat-selection-list>
+            @for (route of routes; track route.slug) {
+            @if(route.slug === 'lakeLoop') {
+            <mat-list-item class="lake-loop-item">
+                <div class="lake-laps">
+                    <div>{{ route.name }}</div>
+                    <div class="laps-ctrl">
+                        <mat-icon
+                            (click)="lakeLoopLaps = lakeLoopLaps - 1; calculateRoute()">do_not_disturb_on</mat-icon>
+                        <span>{{ lakeLoopLaps }}</span>
+                        <mat-icon (click)="lakeLoopLaps = lakeLoopLaps + 1; calculateRoute()">add_circle</mat-icon>
+                    </div>
+                </div>
+            </mat-list-item>
+            } @else {
+            <mat-list-option [(selected)]="route.isSelected" (click)="calculateRoute()">
+                {{ route.name }}
+            </mat-list-option>
+            }
+            }
+        </mat-selection-list>
+    </div>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-raised-button mat-dialog-close color="primary">Close</button>
+    <button mat-raised-button color="accent" [mat-dialog-close]="{selectedRoutes, totalDistance}">Update</button>
+</mat-dialog-actions>

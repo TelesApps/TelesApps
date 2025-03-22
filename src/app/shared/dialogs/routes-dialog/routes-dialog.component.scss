@@ -1,0 +1,37 @@
+.title {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--background-main);
+    border-bottom: 1px solid var(--foreground-lighter);
+}
+
+mat-dialog-content {
+    padding-top: 2px;
+}
+
+mat-list-item {
+    cursor: default;
+}
+
+.lake-laps {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .laps-ctrl {
+        position: relative;
+        left: 15px;
+        display: flex;
+        align-items: center;
+    }
+    span {
+        margin: 0 2px;
+    }
+    mat-icon {
+        cursor: pointer;
+    }
+}
+
+mat-dialog-actions {
+    display: flex;
+    justify-content: space-between;
+}

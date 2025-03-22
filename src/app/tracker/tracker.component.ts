@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, signal, WritableSignal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal, WritableSignal } from '@angular/core';
 import { StorageService } from '../services/storage.service';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
@@ -19,6 +19,8 @@ import { Course, JoggingTracker } from '../interfaces/tracker.interface';
 import { Route } from '../interfaces/tracker.interface';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { OrdinalPipe } from '../shared/pipes/ordinal.pipe';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { RoutesDialogComponent } from '../shared/dialogs/routes-dialog/routes-dialog.component';
 
 @Component({
   selector: 'app-tracker',
@@ -36,7 +38,7 @@ import { OrdinalPipe } from '../shared/pipes/ordinal.pipe';
     MatSelectModule,
     MatSlideToggleModule,
     MatButtonModule,
-    MatExpansionModule
+    MatExpansionModule,
   ],
   templateUrl: './tracker.component.html',
   styleUrl: './tracker.component.scss'
@@ -70,8 +72,8 @@ export class TrackerComponent implements OnInit, OnDestroy {
     {
       slug: 'lakeSouthOption',
       name: 'Lake South Option',
-      miles: 0.4846,
-      kilometers: 0.78,
+      miles: 0.6027,
+      kilometers: 0.97,
     },
     {
       slug: 'lakeMainStart',
@@ -82,13 +84,13 @@ export class TrackerComponent implements OnInit, OnDestroy {
     {
       slug: 'lakeLoop',
       name: 'Lake Loop',
-      miles: 1.3670,
+      miles: 1.3680,
       kilometers: 2.20,
     },
     {
       slug: 'straightAway',
       name: 'Straight Away',
-      miles: 0.2609,
+      miles: 0.2610,
       kilometers: 0.42,
     },
     {
@@ -258,7 +260,7 @@ export class TrackerComponent implements OnInit, OnDestroy {
     }
   ]
 
-  constructor(public storage: StorageService, private auth: AuthService) {
+  constructor(public storage: StorageService, private auth: AuthService, public dialog: MatDialog) {
     this.storage.changeTheme();
     this.userSubscription = this.auth.user$.subscribe(user => {
       if (user) {
@@ -273,7 +275,7 @@ export class TrackerComponent implements OnInit, OnDestroy {
     this.auth.user$.pipe(take(1)).subscribe(user => { this.onCourseChange(); });
   }
 
-  onCourseChange() {
+  onCourseChange(isRaceTypeSelection: boolean = false) {
     const course = this.courses.find(c => c.slug === this.course);
     if (course) {
       this.selectedRoutes = course.routes;
@@ -284,16 +286,18 @@ export class TrackerComponent implements OnInit, OnDestroy {
         return acc;
       }, { miles: 0, kilometers: 0 });
     }
-    if (this.totalDistance.miles < 1.01) {
-      this.raceType = 'mile_sprint';
-      if (this.course === 'postSwimRunHome')
-        this.raceType = 'swim_prerun';
-    } else if (this.totalDistance.miles < 3) {
-      this.raceType = 'miles_1-3';
-    } else if (this.totalDistance.miles < 5) {
-      this.raceType = 'miles_3-5';
-    } else if (this.totalDistance.miles < 7) {
-      this.raceType = 'miles_5-7';
+    if(!isRaceTypeSelection) {
+      if (this.totalDistance.miles < 1.01) {
+        this.raceType = 'mile_sprint';
+        if (this.course === 'postSwimRunHome')
+          this.raceType = 'swim_prerun';
+      } else if (this.totalDistance.miles < 3) {
+        this.raceType = 'miles_1-3';
+      } else if (this.totalDistance.miles < 5) {
+        this.raceType = 'miles_3-5';
+      } else if (this.totalDistance.miles < 7) {
+        this.raceType = 'miles_5-7';
+      }
     }
     const userData = this.user();
     if (userData && userData.trackerStats && userData.trackerStats.raceTypes) {
@@ -303,9 +307,28 @@ export class TrackerComponent implements OnInit, OnDestroy {
     this.onTimeChange();
   }
 
+  onOpenCourseDetails() {
+    const dialogRef = this.dialog.open(RoutesDialogComponent, {
+      data: { routes: this.routes, course: this.course, selectedRoutes: this.selectedRoutes },
+    });
+    dialogRef.afterClosed().pipe(take(1)).subscribe(result => {
+      console.log('The dialog was closed');
+      console.log('result', result);
+      if (result) {
+        this.selectedRoutes = result.selectedRoutes;
+        this.totalDistance = result.totalDistance;
+        this.course = 'custom';
+        this.onCourseChange();
+      }
+    });
+  }
+
   onRaceTypeChange() {
     this.course = 'custom';
-    this.onCourseChange();
+    const relevantRaceType = this.user().trackerStats?.raceTypes.find((raceType: RaceType) => raceType.slug === this.raceType);
+    console.log('relevantRaceType:', relevantRaceType);
+    this.relevantRecord = relevantRaceType || this.relevantRecord;
+    this.onCourseChange(true);
   }
 
   onTimeChange() {
