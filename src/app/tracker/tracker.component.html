@@ -1,174 +1,31 @@
-<mat-tab-group dynamicHeight>
+<mat-tab-group dynamicHeight [selectedIndex]="0">
   <mat-tab label="Jogging Tracker">
+    <ng-template matTabContent>
+      <app-jogging-tracker></app-jogging-tracker>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="Jogging Records">
     <ng-template matTabContent>
       <div class="page">
         <div class="content-width">
-          <mat-accordion>
-            <!-- LIST OF ALL RECORDS HERE -->
-            <mat-expansion-panel>
-              <mat-expansion-panel-header>
-                <mat-panel-title> All Records </mat-panel-title>
-              </mat-expansion-panel-header>
-              <div *ngIf="user() && user()?.trackerStats as stats; else noStats" class="record-list">
-                @for (raceType of stats.raceTypes; track raceType.slug) {
-                <mat-card class="record-card" appearance="outlined">
-                  <mat-card-header>
-                    <mat-card-title>{{ raceType.name }}</mat-card-title>
-                    <mat-card-subtitle>First Place: <b>{{ raceType.time| fireTimeRecord
-                        }}</b></mat-card-subtitle>
-                  </mat-card-header>
-                  <mat-card-content>
-                    <p>Level: <b>{{ raceType.level }}</b></p>
-                  </mat-card-content>
-                </mat-card>
-                }
-
-              </div>
-            </mat-expansion-panel>
-            <!-- ONLY RECORDS RELEVANT TO CURRENT SELECTIONS -->
-            <mat-expansion-panel expanded="true">
-              <mat-expansion-panel-header>
-                <mat-panel-title>Current Record</mat-panel-title>
-              </mat-expansion-panel-header>
-              <div class="record-list">
-                <!-- Card Relevant to user's Selection -->
-                <mat-card class="record-card" appearance="outlined">
-                  <mat-card-header>
-                    <mat-card-title>{{ relevantRecord.name }}</mat-card-title>
-                    <mat-card-subtitle>1st: <b>{{ relevantRecord.time | fireTimeRecord
-                        }}</b></mat-card-subtitle>
-                  </mat-card-header>
-                  <mat-card-content>
-                    <p>Level: <b>{{ relevantRecord.level }}</b></p>
-                  </mat-card-content>
-                </mat-card>
-                @if (totalSeconds > 0) {
-                <!-- Placement Card -->
-                <mat-card class="record-card" appearance="outlined">
-                  <mat-card-header>
-                    <mat-card-title>{{ currentPosition | ordinal }} Place</mat-card-title>
-                    <mat-card-subtitle>
-                      @if(currentPosition > 1) {
-                      @if(isRankingDown) {
-                      <span class="level-down">Ranking down: <b>{{ toUpdateRaceType.time | fireTimeRecord }}</b></span>
-                      } @else { <span class="level-down">Leveling down</span> }
-                      } @else {
-                      @if(isRankingUp) {
-                      <span class="level-up">Ranking up: <b>{{ toUpdateRaceType.time | fireTimeRecord }}</b></span>
-                      } @else {
-                      <span *ngIf="toUpdateRaceType.level +1 > 5">Level Remains</span>
-                      <span class="level-up" *ngIf="toUpdateRaceType.level +1 < 6">Leveling up</span>
-                      }
-                      }
-                    </mat-card-subtitle>
-                  </mat-card-header>
-                  <mat-card-content>
-                    @if (currentPosition > 1) {
-                    <div class="level-down">
-                      <p>Level: <b class="cross-out">{{ relevantRecord.level }}</b>
-                        <b>{{ toUpdateRaceType.level -1 < 1? 5 : toUpdateRaceType.level }} </b>
-                      </p>
-                    </div>
-                    } @else {
-                    <div class="level-up">
-                      @if(isRankingUp) {
-                      <p>Level: <b class="cross-out">{{ relevantRecord.level }}</b><b> 2 </b>
-                      </p>
-                      } @else {
-                      <p>Level: <b class="cross-out">{{ relevantRecord.level }}</b>
-                        <b>{{ toUpdateRaceType.level +1 > 5? 5: toUpdateRaceType.level }} </b>
-                      </p>
-                      }
-                    </div>
-                    }
-                  </mat-card-content>
-                </mat-card>
-                }
-              </div>
-            </mat-expansion-panel>
-          </mat-accordion>
-          <ng-template #noStats>
-            <div style="display: flex;">
-              <mat-icon>error</mat-icon>
-              <div>No stats available. Please start tracking your jogs!</div>
-            </div>
-          </ng-template>
-          <!-- ADD NEW RECORDS -->
-          <div class="form-area">
-            <!-- course selection -->
-            <mat-form-field appearance="fill" color="accent">
-              <mat-label>Course</mat-label>
-              <mat-select [(value)]="course" (selectionChange)="onCourseChange()">
-                <mat-option value="mileSprint">Mile Sprint</mat-option>
-                <mat-option value="postSwimRunHome">Post Swim Run</mat-option>
-                <mat-option value="lakeRun1x">Lake Run 1x</mat-option>
-                <mat-option value="lakeRun2x">Lake Run 2x</mat-option>
-                <mat-option value="lake2xSOption">Lake Run 2x S.Option</mat-option>
-                <mat-option value="lakeRun3x">Lake Run 3x</mat-option>
-                <mat-option value="lake3xSOption">Lake Run 3x S.Option</mat-option>
-                <mat-option value="hospitalRun">Hospital Run</mat-option>
-                <mat-option value="hospitalGymRun">Hospital & Gym Run</mat-option>
-                <mat-option value="adriandaleLakeRun">Adriandale & Lake Run</mat-option>
-                <mat-option value="custom">Custom Course</mat-option>
-              </mat-select>
-            </mat-form-field>
-            <div class="detail-btn">
-              <button mat-raised-button color="primary" (click)="onOpenCourseDetails()">Course Details</button>
-            </div>
-            <!-- race type -->
-            <mat-form-field appearance="fill" color="accent">
-              <mat-label>Race Type</mat-label>
-              <mat-select [(value)]="raceType" (selectionChange)="onRaceTypeChange()">
-                <mat-option value="mile_sprint">Mile Sprint</mat-option>
-                <mat-option value="miles_1-3">1 to 3 Miles Run</mat-option>
-                <mat-option value="miles_3-5">3 to 5 Miles Run</mat-option>
-                <mat-option value="miles_5-7">5 to 7 Miles Run</mat-option>
-                <mat-option value="swim_prerun">Swim Pre-Run</mat-option>
-                <mat-option value="gym_postrun">Gym Pre-Run</mat-option>
-              </mat-select>
-            </mat-form-field>
-            <div class="distance">
-              <mat-card class="distance-card">
-                <mat-card-subtitle>Distance: miles || kilometers</mat-card-subtitle>
-                <mat-card-title>
-                  <b>{{ totalDistance.miles | number: '1.1-2' }}</b> || <b>{{ totalDistance.kilometers | number: '1.1-1'
-                    }}</b>
-                </mat-card-title>
-              </mat-card>
-            </div>
-            <div class="averages">
-              <mat-card class="distance-card">
-                <mat-card-subtitle>Minutes per: miles || kilometers</mat-card-subtitle>
-                <mat-card-title>
-                  <b>{{ secondsPace.miles | timeRecord: 'seconds' }}</b> || <b>{{ secondsPace.kilometers | timeRecord:
-                    'seconds' }}</b>
-                </mat-card-title>
-              </mat-card>
-            </div>
-            <!-- slider for average or total -->
-            <mat-slide-toggle color="primary" [(ngModel)]="isTotalTime" (ngModelChange)="onTimeChange()">
-              {{ isTotalTime? 'Total Time':'Minute Per Mile' }}
-            </mat-slide-toggle>
-            <!-- time input -->
-            <span>{{ time | timeRecord }}</span>
-            <mat-form-field appearance="fill" color="accent">
-              <mat-label>Time</mat-label>
-              <input matInput type="number" [(ngModel)]="time" placeholder="Enter time in minutes"
-                onfocus="this.select()" (input)="onTimeChange()" #timeInput (keyup.enter)="timeInput.blur()">
-            </mat-form-field>
-
-          </div>
-          <div style="text-align: end;">
-            <button mat-raised-button color="primary" [disabled]="!raceType || !time" (click)="onSaveRecord()">Add
-              Record</button>
-          </div>
+          <h2>Jogging Records History</h2>
+          <!-- Records will be implemented here -->
         </div>
       </div>
     </ng-template>
   </mat-tab>
   <mat-tab label="Swimming Tracker">
     <ng-template matTabContent>
-      The Second Content
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="Swimming Records">
+    <ng-template matTabContent>
+      <div class="page">
+        <div class="content-width">
+          <h2>Swimming Records History</h2>
+          <!-- Records will be implemented here -->
+        </div>
+      </div>
     </ng-template>
   </mat-tab>
 </mat-tab-group>
