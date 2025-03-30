@@ -313,14 +313,26 @@ export class JoggingTrackerComponent implements OnInit, OnDestroy {
       if (result) {
         this.selectedRoutes = result.selectedRoutes;
         this.totalDistance = result.totalDistance;
-        this.course = 'custom';
+        // Update the custom course with the new routes
+        const customCourse = this.courses.find(c => c.slug === 'customCourse');
+        if (customCourse) {
+          customCourse.routes = this.selectedRoutes;
+        }
+        this.course = 'customCourse';
         this.onCourseChange();
       }
     });
   }
 
   onRaceTypeChange() {
-    this.course = 'custom';
+    // Keep the current selected routes when changing race type
+    const currentRoutes = this.selectedRoutes;
+    this.course = 'customCourse';
+    // Update the custom course with the current routes
+    const customCourse = this.courses.find(c => c.slug === 'customCourse');
+    if (customCourse) {
+      customCourse.routes = currentRoutes;
+    }
     const relevantRaceType = this.user().trackerStats?.raceTypes.find((raceType: RaceType) => raceType.slug === this.raceType);
     this.relevantRecord = relevantRaceType || this.relevantRecord;
     this.onCourseChange(true);
