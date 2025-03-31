@@ -11,6 +11,43 @@
     text-align: center;
   }
   
+  .no-records-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(20px, 5vw, 40px);
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-radius: 8px;
+    width: 100%;
+    max-width: clamp(300px, 90vw, 600px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    
+    mat-icon {
+      font-size: 48px;
+      height: 48px;
+      width: 48px;
+      margin-bottom: 16px;
+      color: var(--accent-darker);
+      opacity: 0.7;
+    }
+    
+    p {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--accent-darker);
+      
+      &.sub-message {
+        margin-top: 8px;
+        font-size: 14px;
+        font-weight: normal;
+        color: rgba(0, 0, 0, 0.6);
+      }
+    }
+  }
+  
   .years-accordion, .months-accordion {
     width: 100%;
     max-width: clamp(300px, 90vw, 800px);
@@ -44,6 +81,7 @@
     
     .record-item {
       display: flex;
+      flex-direction: column;
       padding: clamp(10px, 2vw, 16px);
       border-radius: 8px;
       background-color: rgba(0, 0, 0, 0.03);
@@ -51,30 +89,77 @@
       width: 100%;
       box-sizing: border-box;
       
-      .record-date {
-        flex: 0 0 clamp(60px, 15%, 80px);
-        font-weight: 500;
-        font-size: clamp(16px, 4vw, 18px);
-        color: var(--accent-darker);
+      .record-header {
         display: flex;
+        justify-content: space-between;
         align-items: center;
+        width: 100%;
+        margin-bottom: 10px;
+        
+        .record-date {
+          flex: 0 0 auto;
+          font-weight: 500;
+          font-size: clamp(16px, 4vw, 18px);
+          color: var(--accent-darker);
+        }
+        
+        .header-right {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          
+          .rank-indicator {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            
+            .rank-icon {
+              font-size: clamp(20px, 5vw, 24px);
+              height: clamp(20px, 5vw, 24px);
+              width: clamp(20px, 5vw, 24px);
+              line-height: clamp(20px, 5vw, 24px);
+            }
+            
+            .rank-value {
+              font-weight: 500;
+              font-size: clamp(14px, 3.5vw, 16px);
+              margin-left: 4px;
+            }
+            
+            .level-up, .time-improved {
+              color: var(--success-darker);
+            }
+            
+            .level-down, .time-worsened {
+              color: var(--warn-darker);
+            }
+          }
+          
+          .edit-btn {
+            margin-left: 8px;
+            cursor: pointer;
+            
+            .edit-icon {
+              color: var(--accent-darker);
+              opacity: 0.7;
+              transition: opacity 0.2s ease;
+              
+              &:hover {
+                opacity: 1;
+              }
+            }
+          }
+        }
       }
       
       .record-details {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        
-        .record-course {
-          font-weight: 500;
-          font-size: clamp(14px, 3.5vw, 16px);
-          margin-bottom: 8px;
-        }
+        width: 100%;
         
         .record-stats {
           display: flex;
           flex-wrap: wrap;
           gap: clamp(8px, 2vw, 16px);
+          justify-content: flex-end;
           
           .stat-item {
             display: flex;
@@ -88,13 +173,53 @@
             
             .stat-value {
               font-weight: 500;
-              font-size: clamp(12px, 3vw, 14px);
+              font-size: clamp(12px, 3.5vw, 14px);
+              display: flex;
+              align-items: center;
+              gap: 4px;
+            }
+            
+            .rank-icon {
+              font-size: 18px;
+              height: 18px;
+              width: 18px;
+              line-height: 18px;
             }
           }
         }
       }
+
     }
   }
+}
+
+// Cross-out styling for level changes
+.cross-out {
+  position: relative;
+  display: inline-block;
+  margin-right: 6px;
+  
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -25%;
+    width: 160%;
+    height: 2px;
+    background-color: currentColor;
+    transform: rotate(-45deg);
+    transform-origin: center;
+    pointer-events: none;
+  }
+}
+
+// Level change styling
+.level-up {
+  color: var(--success-darker);
+}
+
+.level-down {
+  color: var(--warn-darker);
 }
 
 // Apply styles to Angular Material components with minimal ::ng-deep usage
@@ -128,16 +253,6 @@
     .mat-expansion-panel-header-description {
       justify-content: flex-start !important;
       margin-top: 4px !important;
-    }
-  }
-  
-  .records-container {
-    .record-item {
-      flex-direction: column;
-      
-      .record-date {
-        margin-bottom: 8px;
-      }
     }
   }
 }

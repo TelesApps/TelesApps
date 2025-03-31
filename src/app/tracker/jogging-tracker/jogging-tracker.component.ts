@@ -430,6 +430,39 @@ export class JoggingTrackerComponent implements OnInit, OnDestroy {
   }
 
   createNewJoggingRecord(user: UserData): JoggingTracker {
+    // Calculate newLevel based on ranking logic
+    let newLevel: number | undefined = undefined;
+    let newFirstPlaceTime: number | undefined = undefined;
+    
+    // If user is ranking up (getting better)
+    if (this.isRankingUp) {
+      // When ranking up from level 5, new level becomes 2
+      newLevel = 2;
+      // First place time decreases by positioningTimer
+      newFirstPlaceTime = this.relevantRecord.time - this.positioningTimer;
+    } 
+    // If user is ranking down (getting worse)
+    else if (this.isRankingDown) {
+      // When ranking down from level 1, new level becomes 5
+      newLevel = 5;
+      // First place time increases by positioningTimer
+      newFirstPlaceTime = this.relevantRecord.time + this.positioningTimer;
+    }
+    // If user is not changing rank levels but finished in first place
+    else if (this.currentPosition === 1 && !this.isRankingUp) {
+      // Level goes up by 1, but never exceeds 5
+      newLevel = Math.min(this.relevantRecord.level + 1, 5);
+      // First place time stays the same
+      newFirstPlaceTime = this.relevantRecord.time;
+    }
+    // If user did not finish in first place and is not ranking down
+    else if (this.currentPosition > 1 && !this.isRankingDown) {
+      // Level goes down by 1, but never below 1
+      newLevel = Math.max(this.relevantRecord.level - 1, 1);
+      // First place time stays the same
+      newFirstPlaceTime = this.relevantRecord.time;
+    }
+
     const record: JoggingTracker = {
       id: '',
       userId: user.userId,
@@ -444,7 +477,17 @@ export class JoggingTrackerComponent implements OnInit, OnDestroy {
       firstPlaceTime: this.relevantRecord.time,
       placement: this.currentPosition,
       currentLevel: this.relevantRecord.level
+    };
+    
+    // Add optional fields if they were calculated
+    if (newLevel !== undefined) {
+      record.newLevel = newLevel;
     }
+    
+    if (newFirstPlaceTime !== undefined) {
+      record.newFirstPlaceTime = newFirstPlaceTime;
+    }
+    
     return record;
   }
 

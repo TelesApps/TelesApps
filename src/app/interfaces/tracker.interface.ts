@@ -12,6 +12,8 @@ export interface JoggingTracker {
     firstPlaceTime: number;
     placement: number; // every 10 seconds is a placement point
     currentLevel: number; // ranges from 1 to 5
+    newLevel?: number; // The new level is the result of this specific jogging record
+    newFirstPlaceTime?: number; // The new first place time is the result of this specific jogging record
 }
 
 export interface SwimTracker {

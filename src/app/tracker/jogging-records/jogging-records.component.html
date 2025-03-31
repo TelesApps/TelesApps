@@ -1,7 +1,15 @@
 <div class="records-container">
   <h2>Jogging Records</h2>
   
-  <mat-accordion class="years-accordion" multi>
+  <!-- No records message -->
+  <div *ngIf="joggingRecords.length === 0" class="no-records-message">
+    <mat-icon>sentiment_dissatisfied</mat-icon>
+    <p>No jogging records found</p>
+    <p class="sub-message">Start tracking your runs to see them here!</p>
+  </div>
+  
+  <!-- Records by year and month -->
+  <mat-accordion class="years-accordion" *ngIf="joggingRecords.length > 0" multi>
     <ng-container *ngFor="let yearEntry of recordsByYearAndMonth | keyvalue:newestFirst">
       <mat-expansion-panel class="year-panel" [expanded]="isCurrentYear(yearEntry.key)">
         <mat-expansion-panel-header>
@@ -27,11 +35,39 @@
               
               <div class="records-list">
                 <div *ngFor="let record of monthEntry.value" class="record-item">
-                  <div class="record-date">
-                    {{ record.date | date:'MMM d' }}
+                  <!-- Header row with date and rank indicator -->
+                  <div class="record-header">
+                    <div class="record-date">
+                      {{ record.date | date:'MMM d' }}
+                    </div>
+                    
+                    <div class="header-right">
+                      <!-- First place time change indicators -->
+                      <ng-container *ngIf="record.newFirstPlaceTime !== undefined && record.newFirstPlaceTime !== record.firstPlaceTime">
+                        <div class="rank-indicator">
+                          <!-- Only show emoji_events when user ranked up (better time) -->
+                          <ng-container *ngIf="record.newFirstPlaceTime < record.firstPlaceTime">
+                            <mat-icon matTooltip="Ranked Up" class="rank-icon level-up">emoji_events</mat-icon>
+                          </ng-container>
+                          <!-- Only show arrow_downward when user ranked down (worse time) -->
+                          <ng-container *ngIf="record.newFirstPlaceTime > record.firstPlaceTime">
+                            <mat-icon matTooltip="Ranked Down" class="rank-icon level-down">arrow_downward</mat-icon>
+                          </ng-container>
+                          <span class="rank-value" [ngClass]="{'time-improved': record.newFirstPlaceTime < record.firstPlaceTime, 'time-worsened': record.newFirstPlaceTime > record.firstPlaceTime}">
+                            {{ Math.round(record.newFirstPlaceTime) | fireTimeRecord }}
+                          </span>
+                        </div>
+                      </ng-container>
+                      
+                      <!-- Edit button -->
+                      <div class="edit-btn">
+                        <mat-icon matTooltip="Edit" class="edit-icon">edit</mat-icon>
+                      </div>
+                    </div>
                   </div>
+                  
+                  <!-- Stats row -->
                   <div class="record-details">
-                    <div class="record-course">{{ record.course }}</div>
                     <div class="record-stats">
                       <span class="stat-item">
                         <mat-icon matTooltip="Distance">mode_of_travel</mat-icon>
@@ -39,15 +75,25 @@
                       </span>
                       <span class="stat-item">
                         <img matTooltip="Pace" width="24" height="24" src="assets/images/icons/avg_pace.svg" alt="Pace">
-                        <span class="stat-value">{{ formatPace(record.pace) }}</span>
+                        <span class="stat-value">{{ Math.round(record.pace) | fireTimeRecord }}/mi</span>
                       </span>
                       <span class="stat-item">
-                        <img matTooltip="Placement" width="24" height="24" src="assets/images/icons/placement.png" alt="Pace">
+                        <img matTooltip="Placement" width="24" height="24" src="assets/images/icons/placement.png" alt="Placement">
                         <span class="stat-value">{{ record.placement }}</span>
                       </span>
                       <span class="stat-item">
                         <img matTooltip="Level" width="38" height="38" src="assets/images/icons/lvl_icon.png" alt="Level">
-                        <span class="stat-value">{{ record.currentLevel }}</span>
+                        <span class="stat-value">
+                          <ng-container *ngIf="record.newLevel !== undefined">
+                            <span [ngClass]="{'level-up': record.newLevel > record.currentLevel, 'level-down': record.newLevel < record.currentLevel}">
+                              <span class="cross-out">{{ record.currentLevel }}</span>
+                              <span>{{ record.newLevel }}</span>
+                            </span>
+                          </ng-container>
+                          <ng-container *ngIf="record.newLevel === undefined">
+                            {{ record.currentLevel }}
+                          </ng-container>
+                        </span>
                       </span>
                     </div>
                   </div>
