@@ -23,7 +23,7 @@
         
         <mat-accordion class="months-accordion" multi>
           <ng-container *ngFor="let monthEntry of yearEntry.value | keyvalue:newestFirst">
-            <mat-expansion-panel class="month-panel" [expanded]="isCurrentYear(yearEntry.key) && isCurrentMonth(monthEntry.key)">
+            <mat-expansion-panel class="month-panel" [expanded]="isCurrentMonth(yearEntry.key, monthEntry.key)">
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   {{ monthEntry.key }}
@@ -59,9 +59,9 @@
                         </div>
                       </ng-container>
                       
-                      <!-- Edit button -->
+                      <!-- Details button changed to visibility icon -->
                       <div class="edit-btn">
-                        <mat-icon matTooltip="Edit" class="edit-icon">edit</mat-icon>
+                        <mat-icon matTooltip="Details" class="details-icon">visibility</mat-icon>
                       </div>
                     </div>
                   </div>
@@ -86,8 +86,8 @@
                         <span class="stat-value">
                           <ng-container *ngIf="record.newLevel !== undefined">
                             <span [ngClass]="{'level-up': record.newLevel > record.currentLevel, 'level-down': record.newLevel < record.currentLevel}">
-                              <span class="cross-out">{{ record.currentLevel }}</span>
-                              <span>{{ record.newLevel }}</span>
+                              <span class="cross-out" [ngClass]="{'level-up-text': record.newLevel > record.currentLevel, 'level-down-text': record.newLevel < record.currentLevel}">{{ record.currentLevel }}</span>
+                              <span [ngClass]="{'level-up-text': record.newLevel > record.currentLevel, 'level-down-text': record.newLevel < record.currentLevel}">{{ record.newLevel }}</span>
                             </span>
                           </ng-container>
                           <ng-container *ngIf="record.newLevel === undefined">

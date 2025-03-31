@@ -16,7 +16,7 @@ import {
   AuthProvider,
   sendPasswordResetEmail
 } from '@angular/fire/auth';
-import { Firestore, doc, docData, setDoc, getDoc } from '@angular/fire/firestore';
+import { Firestore, doc, docData, setDoc, getDoc, collection, query, where, getDocs, onSnapshot } from '@angular/fire/firestore';
 import { Observable, of, from } from 'rxjs';
 import { map, switchMap, catchError, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -262,6 +262,45 @@ export class AuthService {
       console.error('Error updating run record:', error);
       throw error;
     }
+  }
+
+  // Get all run-records for a specific user
+  getUserRunRecords(userId: string): Observable<JoggingTracker[]> {
+    return new Observable<JoggingTracker[]>(observer => {
+      try {
+        // Create a reference to the run-records collection
+        const runRecordsRef = collection(this.firestore, 'run-records');
+        
+        // Create a query against the collection to filter by userId
+        const q = query(runRecordsRef, where('userId', '==', userId));
+        
+        // Set up a real-time listener
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+          // Map the documents to JoggingTracker objects
+          const runRecords: JoggingTracker[] = [];
+          querySnapshot.forEach((doc) => {
+            const data = doc.data() as JoggingTracker;
+            // Ensure the id is set from the document id
+            data.id = doc.id;
+            runRecords.push(data);
+          });
+          
+          console.log(`Retrieved ${runRecords.length} run records for user ${userId}`);
+          observer.next(runRecords);
+        }, error => {
+          console.error('Error getting user run records:', error);
+          observer.error(error);
+        });
+        
+        // Return the unsubscribe function to clean up when the observable is unsubscribed
+        return unsubscribe;
+      } catch (error) {
+        console.error('Error setting up run records listener:', error);
+        observer.error(error);
+        // Return a no-op function for the unsubscribe
+        return () => {};
+      }
+    });
   }
 
   // Log out

@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { JoggingTracker } from '../../interfaces/tracker.interface';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { KeyValue } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { JoggingTracker } from '../../interfaces/tracker.interface';
 import { FireTimeRecordPipe } from '../../shared/pipes/fire-time-record.pipe';
+import { AuthService } from '../../services/auth.service';
+import { take, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-jogging-records',
@@ -14,8 +16,9 @@ import { FireTimeRecordPipe } from '../../shared/pipes/fire-time-record.pipe';
   templateUrl: './jogging-records.component.html',
   styleUrls: ['./jogging-records.component.scss']
 })
-export class JoggingRecordsComponent implements OnInit {
+export class JoggingRecordsComponent implements OnInit, OnDestroy {
   joggingRecords: JoggingTracker[] = [];
+  isLoading = true;
 
   // Store the pre-computed records by year and month
   recordsByYearAndMonth: { [year: string]: { [month: string]: JoggingTracker[] } } = {};
@@ -30,84 +33,148 @@ export class JoggingRecordsComponent implements OnInit {
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
 
-  constructor() {
-    // Get current date for auto-expansion
+  // For unsubscribing from observables
+  private destroy$ = new Subject<void>();
+
+  // JavaScript Math object for use in the template
+  Math = Math;
+
+  constructor(private authService: AuthService) {
+    // Initialize current year and month
     const now = new Date();
     this.currentYear = now.getFullYear().toString();
-    this.currentMonth = now.toLocaleString('default', { month: 'long' });
+    this.currentMonth = this.monthNames[now.getMonth()];
   }
 
-  ngOnInit(): void {
-    // Compute the records once when the component initializes
-    this.recordsByYearAndMonth = this.computeRecordsByYearAndMonth();
+  ngOnInit() {
+    // Load user's run records from Firebase
+    this.loadUserRunRecords();
   }
 
-  // Check if a panel should be auto-expanded
+  ngOnDestroy() {
+    // Clean up subscriptions when the component is destroyed
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  // Load user's run records from Firebase
+  loadUserRunRecords() {
+    this.isLoading = true;
+    
+    // Get the current user
+    this.authService.user$.pipe(
+      take(1),
+      takeUntil(this.destroy$)
+    ).subscribe(user => {
+      if (user) {
+        // Get the user ID from the user object
+        const userId = user.userId;
+        
+        if (userId) {
+          // Subscribe to the user's run records
+          this.authService.getUserRunRecords(userId)
+            .pipe(takeUntil(this.destroy$))
+            .subscribe({
+              next: (records) => {
+                this.joggingRecords = records;
+                console.log('Loaded jogging records:', this.joggingRecords);
+                // Pre-compute records by year and month
+                this.organizeRecordsByYearAndMonth();
+                this.isLoading = false;
+              },
+              error: (error) => {
+                console.error('Error loading run records:', error);
+                this.joggingRecords = [];
+                this.organizeRecordsByYearAndMonth();
+                this.isLoading = false;
+              }
+            });
+        } else {
+          console.warn('User object does not contain a valid ID');
+          this.joggingRecords = [];
+          this.organizeRecordsByYearAndMonth();
+          this.isLoading = false;
+        }
+      } else {
+        console.warn('No user logged in, cannot load run records');
+        this.joggingRecords = [];
+        this.organizeRecordsByYearAndMonth();
+        this.isLoading = false;
+      }
+    });
+  }
+
+  // Organize records by year and month for display
+  organizeRecordsByYearAndMonth() {
+    this.recordsByYearAndMonth = {};
+    
+    // Process each record
+    for (const record of this.joggingRecords) {
+      // Parse the date
+      const date = new Date(record.date);
+      const year = date.getFullYear().toString();
+      const month = this.monthNames[date.getMonth()];
+      
+      // Initialize year object if it doesn't exist
+      if (!this.recordsByYearAndMonth[year]) {
+        this.recordsByYearAndMonth[year] = {};
+      }
+      
+      // Initialize month array if it doesn't exist
+      if (!this.recordsByYearAndMonth[year][month]) {
+        this.recordsByYearAndMonth[year][month] = [];
+      }
+      
+      // Add record to the appropriate month array
+      this.recordsByYearAndMonth[year][month].push(record);
+    }
+    
+    // Sort records within each month by date (newest first)
+    for (const year in this.recordsByYearAndMonth) {
+      for (const month in this.recordsByYearAndMonth[year]) {
+        this.recordsByYearAndMonth[year][month].sort((a, b) => {
+          return new Date(b.date).getTime() - new Date(a.date).getTime();
+        });
+      }
+    }
+  }
+
+  // Get total records for a year
+  getTotalRecordsForYear(yearData: { [month: string]: JoggingTracker[] }): number {
+    let total = 0;
+    for (const month in yearData) {
+      total += yearData[month].length;
+    }
+    return total;
+  }
+
+  // Check if a year is the current year
   isCurrentYear(year: string): boolean {
     return year === this.currentYear;
   }
 
-  isCurrentMonth(month: string): boolean {
-    return month === this.currentMonth;
+  // Check if a month is the current month in the current year
+  isCurrentMonth(year: string, month: string): boolean {
+    return this.isCurrentYear(year) && month === this.currentMonth;
   }
 
-  // Custom sorting function for KeyValue pipe to ensure newest items are first
-  newestFirst = (a: KeyValue<string, any>, b: KeyValue<string, any>): number => {
-    // For years, sort numerically in descending order
-    if (this.isNumeric(a.key) && this.isNumeric(b.key)) {
-      return Number(b.key) - Number(a.key);
-    }
-    
-    // For months, sort by month index in descending order
-    const aMonthIndex = this.monthNames.indexOf(a.key);
-    const bMonthIndex = this.monthNames.indexOf(b.key);
-    
-    if (aMonthIndex !== -1 && bMonthIndex !== -1) {
-      return bMonthIndex - aMonthIndex;
-    }
-    
-    // Default to alphabetical order if not year or month
-    return a.key.localeCompare(b.key);
+  // Comparator function for sorting years (newest first)
+  newestFirst = (a: any, b: any) => {
+    return b.key.localeCompare(a.key);
   }
 
-  // Helper to check if a string is numeric
-  isNumeric(value: string): boolean {
-    return !isNaN(Number(value));
+  // Comparator function for sorting months chronologically
+  monthComparator = (a: any, b: any) => {
+    return this.monthNames.indexOf(a.key) - this.monthNames.indexOf(b.key);
   }
 
-  // Make Math available to the template
-  Math = Math;
+  // Event handler for year panel opened
+  onYearPanelOpened(year: string) {
+    console.log(`Year panel opened: ${year}`);
+  }
 
-  // Helper method to group records by year and month - only called once on init
-  computeRecordsByYearAndMonth(): { [year: string]: { [month: string]: JoggingTracker[] } } {
-    const groupedRecords: { [year: string]: { [month: string]: JoggingTracker[] } } = {};
-    
-    // Group records by year and month
-    this.joggingRecords.forEach(record => {
-      const date = new Date(record.date);
-      const year = date.getFullYear().toString();
-      const month = date.toLocaleString('default', { month: 'long' });
-      
-      if (!groupedRecords[year]) {
-        groupedRecords[year] = {};
-      }
-      
-      if (!groupedRecords[year][month]) {
-        groupedRecords[year][month] = [];
-      }
-      
-      groupedRecords[year][month].push(record);
-    });
-    
-    // Sort records within each month by date (most recent first)
-    for (const year in groupedRecords) {
-      for (const month in groupedRecords[year]) {
-        groupedRecords[year][month].sort((a, b) => 
-          new Date(b.date).getTime() - new Date(a.date).getTime()
-        );
-      }
-    }
-    
-    return groupedRecords;
+  // Event handler for month panel opened
+  onMonthPanelOpened(year: string, month: string) {
+    console.log(`Month panel opened: ${year} - ${month}`);
   }
 }
