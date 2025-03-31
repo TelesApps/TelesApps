@@ -1,24 +1,33 @@
 <mat-tab-group dynamicHeight [selectedIndex]="1">
-  <mat-tab label="Jogging Tracker">
+  <mat-tab>
+    <ng-template matTabLabel>
+      <mat-icon>directions_run</mat-icon>
+    </ng-template>
     <ng-template matTabContent>
       <app-jogging-tracker></app-jogging-tracker>
     </ng-template>
   </mat-tab>
-  <mat-tab label="Jogging Records">
+  <mat-tab>
+    <ng-template matTabLabel>
+      <mat-icon>directions_run</mat-icon>
+      <mat-icon>history</mat-icon>
+    </ng-template>
     <ng-template matTabContent>
-      <div class="page">
-        <div class="content-width">
-          <h2>Jogging Records History</h2>
-          <!-- Records will be implemented here -->
-        </div>
-      </div>
+      <app-jogging-records></app-jogging-records>
     </ng-template>
   </mat-tab>
-  <mat-tab label="Swimming Tracker">
+  <mat-tab>
+    <ng-template matTabLabel>
+      <mat-icon>pool</mat-icon>
+    </ng-template>
     <ng-template matTabContent>
     </ng-template>
   </mat-tab>
-  <mat-tab label="Swimming Records">
+  <mat-tab>
+    <ng-template matTabLabel>
+      <mat-icon>pool</mat-icon>
+      <mat-icon>history</mat-icon>
+    </ng-template>
     <ng-template matTabContent>
       <div class="page">
         <div class="content-width">

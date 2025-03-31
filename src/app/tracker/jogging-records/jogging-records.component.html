@@ -1,1 +1,62 @@
-<p>jogging-records works!</p>
+<div class="records-container">
+  <h2>Jogging Records</h2>
+  
+  <mat-accordion class="years-accordion" multi>
+    <ng-container *ngFor="let yearEntry of recordsByYearAndMonth | keyvalue:newestFirst">
+      <mat-expansion-panel class="year-panel" [expanded]="isCurrentYear(yearEntry.key)">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ yearEntry.key }}
+          </mat-panel-title>
+          <mat-panel-description>
+            Jogging records from {{ yearEntry.key }}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        
+        <mat-accordion class="months-accordion" multi>
+          <ng-container *ngFor="let monthEntry of yearEntry.value | keyvalue:newestFirst">
+            <mat-expansion-panel class="month-panel" [expanded]="isCurrentYear(yearEntry.key) && isCurrentMonth(monthEntry.key)">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{ monthEntry.key }}
+                </mat-panel-title>
+                <mat-panel-description>
+                  {{ monthEntry.value.length }} record(s)
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              
+              <div class="records-list">
+                <div *ngFor="let record of monthEntry.value" class="record-item">
+                  <div class="record-date">
+                    {{ record.date | date:'MMM d' }}
+                  </div>
+                  <div class="record-details">
+                    <div class="record-course">{{ record.course }}</div>
+                    <div class="record-stats">
+                      <span class="stat-item">
+                        <mat-icon matTooltip="Distance">mode_of_travel</mat-icon>
+                        <span class="stat-value">{{ record.distanceMiles.toFixed(1) }} mi</span>
+                      </span>
+                      <span class="stat-item">
+                        <img matTooltip="Pace" width="24" height="24" src="assets/images/icons/avg_pace.svg" alt="Pace">
+                        <span class="stat-value">{{ formatPace(record.pace) }}</span>
+                      </span>
+                      <span class="stat-item">
+                        <img matTooltip="Placement" width="24" height="24" src="assets/images/icons/placement.png" alt="Pace">
+                        <span class="stat-value">{{ record.placement }}</span>
+                      </span>
+                      <span class="stat-item">
+                        <img matTooltip="Level" width="38" height="38" src="assets/images/icons/lvl_icon.png" alt="Level">
+                        <span class="stat-value">{{ record.currentLevel }}</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-expansion-panel>
+          </ng-container>
+        </mat-accordion>
+      </mat-expansion-panel>
+    </ng-container>
+  </mat-accordion>
+</div>

@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
 import { JoggingTrackerComponent } from './jogging-tracker/jogging-tracker.component';
 import { StorageService } from '../services/storage.service';
+import { MatIconModule } from '@angular/material/icon';
+import { JoggingRecordsComponent } from './jogging-records/jogging-records.component';
 
 @Component({
   selector: 'app-tracker',
@@ -10,7 +12,9 @@ import { StorageService } from '../services/storage.service';
   imports: [
     CommonModule,
     MatTabsModule,
-    JoggingTrackerComponent
+    JoggingTrackerComponent,
+    MatIconModule,
+    JoggingRecordsComponent
   ],
   templateUrl: './tracker.component.html',
   styleUrls: ['./tracker.component.scss']

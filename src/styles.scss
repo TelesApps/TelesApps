@@ -5,6 +5,7 @@
 @use "assets/theme/app-theme.scss" as theme;
 @include mat.elevation-classes();
 @include mat.app-background();
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
 // Be sure that you only ever include this mixin once!
 // Utility classes
@@ -36,6 +37,7 @@ a {
 .lake-loop-item .mdc-list-item__content {
     overflow: visible;
 }
+
 
 
 

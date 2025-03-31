@@ -11,3 +11,4 @@ When working on this project, please follow these guidelines:
 7. Use proper TypeScript types
 8. Perform only functions that explicitly requested by the user
 9. Before performing actions,beyond what the user has explicitly requested, always ask for confirmation or ask additional questions regarding the action
+10. When styling UI for mobile application, it is preferred to use flexbox and Clamp() methods instead of absolute values and @media queries.
