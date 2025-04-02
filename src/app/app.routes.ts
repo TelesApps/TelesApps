@@ -53,6 +53,12 @@ export const routes: Routes = [
         path: 'tracker',
         component: TrackerComponent,
         canActivate: [authGuard],
+        children: [
+            {
+                path: 'record/:id',
+                loadComponent: () => import('./tracker/record-details/record-details.component').then(m => m.RecordDetailsComponent)
+            }
+        ]
     },
     {
         path: 'login',

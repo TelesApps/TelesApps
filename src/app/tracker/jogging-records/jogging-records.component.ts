@@ -8,6 +8,7 @@ import { FireTimeRecordPipe } from '../../shared/pipes/fire-time-record.pipe';
 import { AuthService } from '../../services/auth.service';
 import { take, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-jogging-records',
@@ -39,7 +40,10 @@ export class JoggingRecordsComponent implements OnInit, OnDestroy {
   // JavaScript Math object for use in the template
   Math = Math;
 
-  constructor(private authService: AuthService) {
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {
     // Initialize current year and month
     const now = new Date();
     this.currentYear = now.getFullYear().toString();
@@ -176,5 +180,10 @@ export class JoggingRecordsComponent implements OnInit, OnDestroy {
   // Event handler for month panel opened
   onMonthPanelOpened(year: string, month: string) {
     console.log(`Month panel opened: ${year} - ${month}`);
+  }
+
+  // Add this new method
+  navigateToRecordDetails(record: JoggingTracker) {
+    this.router.navigate(['/tracker/record', record.id]);
   }
 }

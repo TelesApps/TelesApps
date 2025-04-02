@@ -1,4 +1,4 @@
-<mat-tab-group dynamicHeight [selectedIndex]="0">
+<mat-tab-group dynamicHeight [selectedIndex]="0" *ngIf="!isShowingDetails">
   <mat-tab>
     <ng-template matTabLabel>
       <mat-icon>directions_run</mat-icon>
@@ -38,3 +38,5 @@
     </ng-template>
   </mat-tab>
 </mat-tab-group>
+
+<router-outlet></router-outlet>
