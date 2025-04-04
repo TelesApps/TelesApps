@@ -8,12 +8,12 @@ import { FireTimeRecordPipe } from '../../shared/pipes/fire-time-record.pipe';
 import { AuthService } from '../../services/auth.service';
 import { take, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-jogging-records',
   standalone: true,
-  imports: [CommonModule, MatExpansionModule, MatIconModule, MatTooltipModule, FireTimeRecordPipe],
+  imports: [CommonModule, MatExpansionModule, MatIconModule, MatTooltipModule, FireTimeRecordPipe, RouterModule],
   templateUrl: './jogging-records.component.html',
   styleUrls: ['./jogging-records.component.scss']
 })
@@ -182,8 +182,4 @@ export class JoggingRecordsComponent implements OnInit, OnDestroy {
     console.log(`Month panel opened: ${year} - ${month}`);
   }
 
-  // Add this new method
-  navigateToRecordDetails(record: JoggingTracker) {
-    this.router.navigate(['/tracker/record', record.id]);
-  }
 }

@@ -1,13 +1,13 @@
 <div class="records-container">
   <h2>Jogging Records</h2>
-  
+
   <!-- No records message -->
   <div *ngIf="joggingRecords.length === 0" class="no-records-message">
     <mat-icon>sentiment_dissatisfied</mat-icon>
     <p>No jogging records found</p>
     <p class="sub-message">Start tracking your runs to see them here!</p>
   </div>
-  
+
   <!-- Records by year and month -->
   <mat-accordion class="years-accordion" *ngIf="joggingRecords.length > 0" multi>
     <ng-container *ngFor="let yearEntry of recordsByYearAndMonth | keyvalue:newestFirst">
@@ -20,7 +20,7 @@
             Jogging records from {{ yearEntry.key }}
           </mat-panel-description>
         </mat-expansion-panel-header>
-        
+
         <mat-accordion class="months-accordion" multi>
           <ng-container *ngFor="let monthEntry of yearEntry.value | keyvalue:newestFirst">
             <mat-expansion-panel class="month-panel" [expanded]="isCurrentMonth(yearEntry.key, monthEntry.key)">
@@ -32,7 +32,7 @@
                   {{ monthEntry.value.length }} record(s)
                 </mat-panel-description>
               </mat-expansion-panel-header>
-              
+
               <div class="records-list">
                 <div *ngFor="let record of monthEntry.value" class="record-item">
                   <!-- Header row with date and rank indicator -->
@@ -40,10 +40,11 @@
                     <div class="record-date">
                       {{ record.date | date:'MMM d' }}
                     </div>
-                    
+
                     <div class="header-right">
                       <!-- First place time change indicators -->
-                      <ng-container *ngIf="record.newFirstPlaceTime !== undefined && record.newFirstPlaceTime !== record.firstPlaceTime">
+                      <ng-container
+                        *ngIf="record.newFirstPlaceTime !== undefined && record.newFirstPlaceTime !== record.firstPlaceTime">
                         <div class="rank-indicator">
                           <!-- Only show emoji_events when user ranked up (better time) -->
                           <ng-container *ngIf="record.newFirstPlaceTime < record.firstPlaceTime">
@@ -53,19 +54,22 @@
                           <ng-container *ngIf="record.newFirstPlaceTime > record.firstPlaceTime">
                             <mat-icon matTooltip="Ranked Down" class="rank-icon level-down">arrow_downward</mat-icon>
                           </ng-container>
-                          <span class="rank-value" [ngClass]="{'time-improved': record.newFirstPlaceTime < record.firstPlaceTime, 'time-worsened': record.newFirstPlaceTime > record.firstPlaceTime}">
+                          <span class="rank-value"
+                            [ngClass]="{'time-improved': record.newFirstPlaceTime < record.firstPlaceTime, 'time-worsened': record.newFirstPlaceTime > record.firstPlaceTime}">
                             {{ Math.round(record.newFirstPlaceTime) | fireTimeRecord }}
                           </span>
                         </div>
                       </ng-container>
-                      
+
                       <!-- Details button changed to visibility icon -->
                       <div class="edit-btn">
-                        <mat-icon matTooltip="Details" class="details-icon" (click)="navigateToRecordDetails(record)">visibility</mat-icon>
+                        <a [routerLink]="['/tracker/record', record.id]">
+                          <mat-icon matTooltip="Details" class="details-icon">visibility</mat-icon>
+                        </a>
                       </div>
                     </div>
                   </div>
-                  
+
                   <!-- Stats row -->
                   <div class="record-details">
                     <div class="record-stats">
@@ -74,20 +78,31 @@
                         <span class="stat-value">{{ record.distanceMiles.toFixed(1) }} mi</span>
                       </span>
                       <span class="stat-item">
+                        <img matTooltip="Total Time" width="24" height="24" src="assets/images/icons/timer.svg" alt="Pace">
+                        <span class="stat-value">{{ Math.round(record.time) | fireTimeRecord }}</span>
+                      </span>
+                      <span class="stat-item">
                         <img matTooltip="Pace" width="24" height="24" src="assets/images/icons/avg_pace.svg" alt="Pace">
                         <span class="stat-value">{{ Math.round(record.pace) | fireTimeRecord }}/mi</span>
                       </span>
                       <span class="stat-item">
-                        <img matTooltip="Placement" width="24" height="24" src="assets/images/icons/placement.png" alt="Placement">
+                        <img matTooltip="Placement" width="24" height="24" src="assets/images/icons/placement.png"
+                          alt="Placement">
                         <span class="stat-value">{{ record.placement }}</span>
                       </span>
                       <span class="stat-item">
-                        <img matTooltip="Level" width="38" height="38" src="assets/images/icons/lvl_icon.png" alt="Level">
+                        <img matTooltip="Level" width="38" height="38" src="assets/images/icons/lvl_icon.png"
+                          alt="Level">
                         <span class="stat-value">
                           <ng-container *ngIf="record.newLevel !== undefined">
-                            <span [ngClass]="{'level-up': record.newLevel > record.currentLevel, 'level-down': record.newLevel < record.currentLevel}">
-                              <span class="cross-out" [ngClass]="{'level-up-text': record.newLevel > record.currentLevel, 'level-down-text': record.newLevel < record.currentLevel}">{{ record.currentLevel }}</span>
-                              <span [ngClass]="{'level-up-text': record.newLevel > record.currentLevel, 'level-down-text': record.newLevel < record.currentLevel}">{{ record.newLevel }}</span>
+                            <span
+                              [ngClass]="{'level-up': record.newLevel > record.currentLevel, 'level-down': record.newLevel < record.currentLevel}">
+                              <span class="cross-out"
+                                [ngClass]="{'level-up-text': record.newLevel > record.currentLevel, 'level-down-text': record.newLevel < record.currentLevel}">{{
+                                record.currentLevel }}</span>
+                              <span
+                                [ngClass]="{'level-up-text': record.newLevel > record.currentLevel, 'level-down-text': record.newLevel < record.currentLevel}">{{
+                                record.newLevel }}</span>
                             </span>
                           </ng-container>
                           <ng-container *ngIf="record.newLevel === undefined">

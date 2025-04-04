@@ -1,1 +1,229 @@
-<p>record-details works!</p>
+<div class="page" *ngIf="!isLoading && !error">
+    <div class="content-width">
+        <!-- Date Card -->
+        <mat-card class="record-data-card">
+            <mat-card-title>
+                <div class="card-content">
+                    <div class="card-left">
+                        <mat-icon>calendar_today</mat-icon>
+                        <span>Date: </span>
+                    </div>
+                    <div class="card-value">{{ record?.date | date:'MMM d, y' }}</div>
+                    <button mat-icon-button class="edit-button" (click)="toggleEdit('date')">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </div>
+                <div class="edit-content" *ngIf="editModes['date']">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Date</mat-label>
+                        <input matInput [matDatepicker]="picker" [(ngModel)]="tempValues['date']">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                    <div class="edit-actions">
+                        <button mat-button color="warn" (click)="cancelEdit('date')">Cancel</button>
+                        <button mat-button color="primary" (click)="saveField('date')">Save</button>
+                    </div>
+                </div>
+            </mat-card-title>
+        </mat-card>
+
+        <!-- Distance Card -->
+        <mat-card class="record-data-card">
+            <mat-card-title>
+                <div class="card-content">
+                    <div class="card-left">
+                        <mat-icon matTooltip="Distance">mode_of_travel</mat-icon>
+                        <span>Distance: </span>
+                    </div>
+                    <div class="card-value">{{ record?.distanceMiles?.toFixed(1) || '0.0' }} mi || {{ record?.distanceKilometers?.toFixed(1) || '0.0' }} km</div>
+                    <button mat-icon-button class="edit-button" (click)="toggleEdit('distance')">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </div>
+                <div class="edit-content" *ngIf="editModes['distance']">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Distance (miles)</mat-label>
+                        <input matInput type="number" step="0.1" [(ngModel)]="tempValues['distanceMiles']">
+                    </mat-form-field>
+                    <div class="edit-actions">
+                        <button mat-button color="warn" (click)="cancelEdit('distance')">Cancel</button>
+                        <button mat-button color="primary" (click)="saveField('distance')">Save</button>
+                    </div>
+                </div>
+            </mat-card-title>
+        </mat-card>
+
+        <!-- Time Card -->
+        <mat-card class="record-data-card">
+            <mat-card-title>
+                <div class="card-content">
+                    <div class="card-left">
+                        <mat-icon matTooltip="Total Time">timer</mat-icon>
+                        <span>Total Time:</span>
+                    </div>
+                    <div class="card-value">{{ record?.time | fireTimeRecord }}</div>
+                    <button mat-icon-button class="edit-button" (click)="toggleEdit('time')">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </div>
+                <div class="edit-content" *ngIf="editModes['time']">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Total Time (MM.SS)</mat-label>
+                        <input matInput [(ngModel)]="timeInputs['time']" placeholder="00.00">
+                    </mat-form-field>
+                    <div class="edit-actions">
+                        <button mat-button color="warn" (click)="cancelEdit('time')">Cancel</button>
+                        <button mat-button color="primary" (click)="saveField('time')">Save</button>
+                    </div>
+                </div>
+            </mat-card-title>
+        </mat-card>
+
+        <!-- Pace Card -->
+        <mat-card class="record-data-card">
+            <mat-card-title>
+                <div class="card-content">
+                    <div class="card-left">
+                        <mat-icon matTooltip="Pace">speed</mat-icon>
+                        <span>Pace:</span>
+                    </div>
+                    <div class="card-value">{{ record && record.pace !== undefined ? (Math.round(record.pace) | fireTimeRecord) : '0m00s' }}/mi</div>
+                    <button mat-icon-button class="edit-button" (click)="toggleEdit('pace')">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </div>
+                <div class="edit-content" *ngIf="editModes['pace']">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Pace (MM.SS)</mat-label>
+                        <input matInput [(ngModel)]="timeInputs['pace']" placeholder="00.00">
+                    </mat-form-field>
+                    <div class="edit-actions">
+                        <button mat-button color="warn" (click)="cancelEdit('pace')">Cancel</button>
+                        <button mat-button color="primary" (click)="saveField('pace')">Save</button>
+                    </div>
+                </div>
+            </mat-card-title>
+        </mat-card>
+
+        <!-- First Place Time Card -->
+        <mat-card class="record-data-card">
+            <mat-card-title>
+                <div class="card-content">
+                    <div class="card-left">
+                        <mat-icon>emoji_events</mat-icon>
+                        <span>First Place Time:</span>
+                    </div>
+                    <div class="card-value">{{ record?.firstPlaceTime | fireTimeRecord }}</div>
+                    <button mat-icon-button class="edit-button" (click)="toggleEdit('firstPlaceTime')">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </div>
+                <div class="edit-content" *ngIf="editModes['firstPlaceTime']">
+                    <mat-form-field appearance="fill">
+                        <mat-label>First Place Time (MM.SS)</mat-label>
+                        <input matInput [(ngModel)]="timeInputs['firstPlaceTime']" placeholder="00.00">
+                    </mat-form-field>
+                    <div class="edit-actions">
+                        <button mat-button color="warn" (click)="cancelEdit('firstPlaceTime')">Cancel</button>
+                        <button mat-button color="primary" (click)="saveField('firstPlaceTime')">Save</button>
+                    </div>
+                </div>
+            </mat-card-title>
+        </mat-card>
+
+        <!-- Placement Card -->
+        <mat-card class="record-data-card">
+            <mat-card-title>
+                <div class="card-content">
+                    <div class="card-left">
+                        <mat-icon>leaderboard</mat-icon>
+                        <span>Placement:</span>
+                    </div>
+                    <div class="card-value">{{ record && record.placement !== undefined ? (record.placement | ordinal) : '' }}</div>
+                    <button mat-icon-button class="edit-button" (click)="toggleEdit('placement')">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </div>
+                <div class="edit-content" *ngIf="editModes['placement']">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Placement</mat-label>
+                        <input matInput type="number" min="1" [(ngModel)]="tempValues['placement']">
+                    </mat-form-field>
+                    <div class="edit-actions">
+                        <button mat-button color="warn" (click)="cancelEdit('placement')">Cancel</button>
+                        <button mat-button color="primary" (click)="saveField('placement')">Save</button>
+                    </div>
+                </div>
+            </mat-card-title>
+        </mat-card>
+
+        <!-- Current Level Card -->
+        <mat-card class="record-data-card">
+            <mat-card-title>
+                <div class="card-content">
+                    <div class="card-left">
+                        <mat-icon>stars</mat-icon>
+                        <span>Current Level:</span>
+                    </div>
+                    <div class="card-value">{{ record?.currentLevel }}</div>
+                    <button mat-icon-button class="edit-button" (click)="toggleEdit('currentLevel')">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </div>
+                <div class="edit-content" *ngIf="editModes['currentLevel']">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Current Level</mat-label>
+                        <input matInput type="number" min="1" max="5" [(ngModel)]="tempValues['currentLevel']">
+                    </mat-form-field>
+                    <div class="edit-actions">
+                        <button mat-button color="warn" (click)="cancelEdit('currentLevel')">Cancel</button>
+                        <button mat-button color="primary" (click)="saveField('currentLevel')">Save</button>
+                    </div>
+                </div>
+            </mat-card-title>
+        </mat-card>
+
+        <!-- New Level Card (only if exists) -->
+        <mat-card class="record-data-card" *ngIf="record?.newLevel !== undefined">
+            <mat-card-title>
+                <div class="card-content">
+                    <div class="card-left">
+                        <mat-icon [ngClass]="{'level-up': isLevelUp(), 'level-down': isLevelDown()}">
+                            {{ isLevelUp() ? 'trending_up' : 'trending_down' }}
+                        </mat-icon>
+                        <span>New Level:</span>
+                    </div>
+                    <div class="card-value" [ngClass]="{'level-up': isLevelUp(), 'level-down': isLevelDown()}">
+                        {{ record?.newLevel }}
+                    </div>
+                    <button mat-icon-button class="edit-button" (click)="toggleEdit('newLevel')">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </div>
+                <div class="edit-content" *ngIf="editModes['newLevel']">
+                    <mat-form-field appearance="fill">
+                        <mat-label>New Level</mat-label>
+                        <input matInput type="number" min="1" max="5" [(ngModel)]="tempValues['newLevel']">
+                    </mat-form-field>
+                    <div class="edit-actions">
+                        <button mat-button color="warn" (click)="cancelEdit('newLevel')">Cancel</button>
+                        <button mat-button color="primary" (click)="saveField('newLevel')">Save</button>
+                    </div>
+                </div>
+            </mat-card-title>
+        </mat-card>
+
+        <div style="margin-top: 20px; display: flex; justify-content: center;">
+            <button mat-raised-button color="primary" (click)="onGoBack()">Back</button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="isLoading" style="text-align: center; margin-top: 20px;">
+    Loading...
+</div>
+
+<div *ngIf="error" style="text-align: center; margin-top: 20px; color: red;">
+    {{ error }}
+</div>

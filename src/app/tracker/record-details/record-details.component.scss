@@ -1,0 +1,262 @@
+@use "@angular/material" as mat;
+
+.page {
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.record-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+mat-expansion-panel {
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: calc(-50vw + 4px);
+    margin-right: calc(-50vw + 4px);
+    width: calc(100vw - 8px);
+    margin-bottom: 2px;
+    margin-top: 2px;
+    mat-expansion-panel-header {
+        height: 45px;
+    }
+    @include mat.expansion-overrides(
+        (
+            container-background-color: var(--background-main),
+            header-text-size: 16px
+        )
+    );
+}
+
+.record-card {
+    margin: 10px;
+    width: clamp(100px, 36vw, 600px) !important;
+    flex-grow: 1;
+    max-width: 380px;
+    mat-card-title {
+        color: var(--accent-darker);
+    }
+    mat-card-subtitle {
+        color: var(--foreground-main);
+        font-size: 12pt;
+    }
+    mat-card-content {
+        b {
+            position: relative;
+            top: 2px;
+            font-size: 16pt;
+        }
+    }
+}
+
+.form-area {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    width: clamp(300px, 30vw, 600px);
+    margin: auto;
+    margin-top: 20px;
+    mat-form-field {
+        width: 100%;
+        padding: 0px;
+        margin: 0px;
+    }
+}
+
+.detail-btn {
+    text-align: end;
+    margin-top: -16px;
+    margin-bottom: 20px;
+    button {
+        height: 30px;
+    }
+}
+
+.record-data-card {
+    margin-bottom: 12px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    
+    &:has(.edit-content) {
+        border-left: 3px solid var(--accent-darker);
+    }
+    
+    mat-card-title {
+        font-size: 16px;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.card-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+}
+
+.card-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    mat-icon {
+        color: var(--accent-darker);
+    }
+    
+    span {
+        font-size: 16px;
+        font-weight: normal;
+    }
+}
+
+.card-value {
+    font-weight: 500;
+    font-size: 18px;
+    color: var(--accent-darker);
+    margin-right: 10px;
+    margin-left: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.edit-button {
+    margin-left: auto;
+    margin-right: 4px;
+}
+
+.edit-content {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    width: 100%;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    margin-top: 5px;
+    background-color: rgba(0,0,0,0.02);
+    border-radius: 0 0 8px 8px;
+    
+    mat-form-field {
+        width: 100%;
+    }
+}
+
+.edit-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.level-up {
+    color: var(--success-darker);
+}
+
+.level-down {
+    color: var(--warn-darker);
+}
+
+.distance-card {
+    padding: 10px;
+    margin-bottom: 6px;
+    text-align: center;
+    mat-card-title {
+        b {
+            color: var(--accent-darker);
+            font-size: 18pt;
+        }
+    }
+}
+
+.record-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 16px;
+    justify-content: center;
+
+    .stat-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        
+        mat-icon {
+            color: var(--accent-darker);
+        }
+
+        .stat-value {
+            font-size: 16pt;
+            color: var(--foreground-main);
+        }
+    }
+}
+
+.cross-out {
+    position: relative;
+    display: inline-block;
+    margin-right: 6px;
+    
+    &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: -25%;
+        width: 160%;
+        height: 2px;
+        background-color: currentColor;
+        transform: rotate(-45deg);
+        transform-origin: center;
+        pointer-events: none;
+    }
+}
+
+mat-slide-toggle {
+    margin-bottom: 8px;
+}
+
+.mat-mdc-slide-toggle {
+    --mdc-switch-unselected-track-color: var(--accent-main);
+    --mdc-switch-unselected-handle-color: var(--accent-main);
+    --mdc-switch-unselected-hover-handle-color: var(--accent-main);
+    --mdc-switch-unselected-hover-track-color: var(--accent-main);
+    --mdc-switch-unselected-focus-handle-color: var(--accent-main);
+    --mdc-switch-unselected-focus-track-color: var(--accent-main);
+    --mdc-switch-unselected-pressed-handle-color: var(--accent-main);
+    --mdc-switch-unselected-pressed-track-color: var(--accent-main);
+    --mdc-switch-unselected-icon-color: var(--accent-contrast-main);
+
+    &.mat-primary {
+        --mdc-switch-selected-icon-color: var(--primary-contrast-main);
+        --mdc-switch-selected-handle-color: var(--primary-main);
+        --mdc-switch-selected-track-color: var(--primary-main);
+        --mdc-switch-selected-focus-handle-color: var(--primary-main);
+        --mdc-switch-selected-focus-track-color: var(--primary-main);
+        --mdc-switch-selected-hover-handle-color: var(--primary-main);
+        --mdc-switch-selected-hover-track-color: var(--primary-main);
+        --mdc-switch-selected-pressed-handle-color: var(--primary-main);
+        --mdc-switch-selected-pressed-track-color: var(--primary-main);
+        --mdc-switch-selected-focus-state-layer-color: var(--primary-main);
+        --mdc-switch-selected-hover-state-layer-color: var(--primary-main);
+        --mdc-switch-selected-pressed-state-layer-color: var(--primary-main);
+    }
+}
+
+@media (min-width: 1288px) {
+    mat-expansion-panel {
+        left: 0;
+        margin: 4px auto;
+        width: 100%;
+        max-width: 1280px;
+    }
+}
+
+@media (min-width: 768px) {
+    .content-width {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+}
