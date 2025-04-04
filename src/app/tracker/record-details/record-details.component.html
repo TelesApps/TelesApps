@@ -8,7 +8,7 @@
                         <mat-icon>calendar_today</mat-icon>
                         <span>Date: </span>
                     </div>
-                    <div class="card-value">{{ record?.date | date:'MMM d, y' }}</div>
+                    <div class="card-value">{{ editModes['date'] ? (tempValues['date'] | date:'MMM d, y') : (record?.date | date:'MMM d, y') }}</div>
                     <button mat-icon-button class="edit-button" (click)="toggleEdit('date')">
                         <mat-icon>edit</mat-icon>
                     </button>
@@ -36,7 +36,10 @@
                         <mat-icon matTooltip="Distance">mode_of_travel</mat-icon>
                         <span>Distance: </span>
                     </div>
-                    <div class="card-value">{{ record?.distanceMiles?.toFixed(1) || '0.0' }} mi || {{ record?.distanceKilometers?.toFixed(1) || '0.0' }} km</div>
+                    <div class="card-value">
+                        {{ editModes['distance'] ? (tempValues['distanceMiles'] | number:'1.1-1') : (record?.distanceMiles?.toFixed(1) || '0.0') }} mi || 
+                        {{ editModes['distance'] ? ((tempValues['distanceMiles'] * 1.60934) | number:'1.1-1') : (record?.distanceKilometers?.toFixed(1) || '0.0') }} km
+                    </div>
                     <button mat-icon-button class="edit-button" (click)="toggleEdit('distance')">
                         <mat-icon>edit</mat-icon>
                     </button>
@@ -62,7 +65,7 @@
                         <mat-icon matTooltip="Total Time">timer</mat-icon>
                         <span>Total Time:</span>
                     </div>
-                    <div class="card-value">{{ record?.time | fireTimeRecord }}</div>
+                    <div class="card-value">{{ editModes['time'] ? (previewSeconds('time') | fireTimeRecord) : (record?.time | fireTimeRecord) }}</div>
                     <button mat-icon-button class="edit-button" (click)="toggleEdit('time')">
                         <mat-icon>edit</mat-icon>
                     </button>
@@ -88,7 +91,7 @@
                         <mat-icon matTooltip="Pace">speed</mat-icon>
                         <span>Pace:</span>
                     </div>
-                    <div class="card-value">{{ record && record.pace !== undefined ? (Math.round(record.pace) | fireTimeRecord) : '0m00s' }}/mi</div>
+                    <div class="card-value">{{ editModes['pace'] ? (previewSeconds('pace') | fireTimeRecord) : (record && record.pace !== undefined ? (Math.round(record.pace) | fireTimeRecord) : '0m00s') }}/mi</div>
                     <button mat-icon-button class="edit-button" (click)="toggleEdit('pace')">
                         <mat-icon>edit</mat-icon>
                     </button>
@@ -114,7 +117,7 @@
                         <mat-icon>emoji_events</mat-icon>
                         <span>First Place Time:</span>
                     </div>
-                    <div class="card-value">{{ record?.firstPlaceTime | fireTimeRecord }}</div>
+                    <div class="card-value">{{ editModes['firstPlaceTime'] ? (previewSeconds('firstPlaceTime') | fireTimeRecord) : (record?.firstPlaceTime | fireTimeRecord) }}</div>
                     <button mat-icon-button class="edit-button" (click)="toggleEdit('firstPlaceTime')">
                         <mat-icon>edit</mat-icon>
                     </button>
@@ -140,7 +143,7 @@
                         <mat-icon>leaderboard</mat-icon>
                         <span>Placement:</span>
                     </div>
-                    <div class="card-value">{{ record && record.placement !== undefined ? (record.placement | ordinal) : '' }}</div>
+                    <div class="card-value">{{ editModes['placement'] ? (tempValues['placement'] | ordinal) : (record && record.placement !== undefined ? (record.placement | ordinal) : '') }}</div>
                     <button mat-icon-button class="edit-button" (click)="toggleEdit('placement')">
                         <mat-icon>edit</mat-icon>
                     </button>
@@ -166,7 +169,7 @@
                         <mat-icon>stars</mat-icon>
                         <span>Current Level:</span>
                     </div>
-                    <div class="card-value">{{ record?.currentLevel }}</div>
+                    <div class="card-value">{{ editModes['currentLevel'] ? tempValues['currentLevel'] : record?.currentLevel }}</div>
                     <button mat-icon-button class="edit-button" (click)="toggleEdit('currentLevel')">
                         <mat-icon>edit</mat-icon>
                     </button>
@@ -189,13 +192,13 @@
             <mat-card-title>
                 <div class="card-content">
                     <div class="card-left">
-                        <mat-icon [ngClass]="{'level-up': isLevelUp(), 'level-down': isLevelDown()}">
-                            {{ isLevelUp() ? 'trending_up' : 'trending_down' }}
+                        <mat-icon [ngClass]="{'level-up': isLevelUpPreview(), 'level-down': isLevelDownPreview()}">
+                            {{ isLevelUpPreview() ? 'trending_up' : 'trending_down' }}
                         </mat-icon>
                         <span>New Level:</span>
                     </div>
-                    <div class="card-value" [ngClass]="{'level-up': isLevelUp(), 'level-down': isLevelDown()}">
-                        {{ record?.newLevel }}
+                    <div class="card-value" [ngClass]="{'level-up': isLevelUpPreview(), 'level-down': isLevelDownPreview()}">
+                        {{ editModes['newLevel'] ? tempValues['newLevel'] : record?.newLevel }}
                     </div>
                     <button mat-icon-button class="edit-button" (click)="toggleEdit('newLevel')">
                         <mat-icon>edit</mat-icon>

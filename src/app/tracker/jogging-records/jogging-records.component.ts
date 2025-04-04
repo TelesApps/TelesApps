@@ -162,8 +162,14 @@ export class JoggingRecordsComponent implements OnInit, OnDestroy {
     return this.isCurrentYear(year) && month === this.currentMonth;
   }
 
-  // Comparator function for sorting years (newest first)
-  newestFirst = (a: any, b: any) => {
+  // Comparator function for sorting years and months (newest first)
+  newestFirst = (a: any, b: any): number => {
+    // If we're sorting months
+    if (this.monthNames.includes(a.key) && this.monthNames.includes(b.key)) {
+      // Return reverse chronological order (newest month first)
+      return this.monthNames.indexOf(b.key) - this.monthNames.indexOf(a.key);
+    }
+    // Otherwise use default sort for years (already reverse chronological)
     return b.key.localeCompare(a.key);
   }
 
@@ -180,6 +186,14 @@ export class JoggingRecordsComponent implements OnInit, OnDestroy {
   // Event handler for month panel opened
   onMonthPanelOpened(year: string, month: string) {
     console.log(`Month panel opened: ${year} - ${month}`);
+  }
+
+  onViewDetails(recordId: string) {
+    this.router.navigate(['/tracker/record', recordId], {
+      queryParams: {
+        sourceTab: 1 // This is the index of the jogging records tab
+      }
+    });
   }
 
 }

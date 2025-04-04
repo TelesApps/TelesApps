@@ -248,14 +248,17 @@ export class AuthService {
 
   // Update run-records in Firestore
   async updateRunRecord(userId: string, runRecord: JoggingTracker): Promise<void> {
-    // Assign an ID to the run record based on the user's email (not hashed) and the current timestamp
-    const email = this.auth.currentUser?.email || 'unknown';
-    const timestamp = new Date().toISOString();
-    const runRecordId = `${email}_${timestamp}`;
-    runRecord.id = runRecordId;
     try {
       console.log('Updating run record:', runRecord);
-      const runRecordRef = doc(this.firestore, 'run-records', runRecordId);
+      
+      // If the record doesn't have an ID (new record), create one
+      if (!runRecord.id) {
+        const email = this.auth.currentUser?.email || 'unknown';
+        const timestamp = new Date().toISOString();
+        runRecord.id = `${email}_${timestamp}`;
+      }
+      
+      const runRecordRef = doc(this.firestore, 'run-records', runRecord.id);
       await setDoc(runRecordRef, runRecord, { merge: true });
       console.log('Run record updated successfully');
     } catch (error) {

@@ -1,8 +1,12 @@
 @use "@angular/material" as mat;
 
 .page {
-    margin-top: 6px;
-    margin-bottom: 6px;
+    padding: 16px;
+    
+    .content-width {
+        max-width: 600px;
+        margin: 0 auto;
+    }
 }
 
 .record-list {
@@ -76,80 +80,71 @@ mat-expansion-panel {
 }
 
 .record-data-card {
-    margin-bottom: 12px;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    
-    &:has(.edit-content) {
-        border-left: 3px solid var(--accent-darker);
-    }
+    margin-bottom: 16px;
     
     mat-card-title {
-        font-size: 16px;
-        margin: 0;
-        padding: 0;
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        
+        .card-content {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            gap: 8px;
+            
+            .card-left {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                flex: 0 0 auto;
+                
+                mat-icon {
+                    color: var(--accent-darker);
+                }
+                
+                span {
+                    white-space: nowrap;
+                }
+            }
+            
+            .card-value {
+                flex: 1;
+                margin: 0 8px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                font-weight: 500;
+                color: var(--accent-darker);
+            }
+            
+            .edit-button {
+                flex: 0 0 auto;
+            }
+        }
+        
+        .edit-content {
+            padding: 16px;
+            background-color: rgba(0, 0, 0, 0.02);
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            
+            mat-form-field {
+                display: block;
+                width: 100%;
+                
+                ::ng-deep .mat-mdc-form-field-infix {
+                    width: 100%;
+                }
+            }
+            
+            .edit-actions {
+                display: flex;
+                justify-content: flex-end;
+                gap: 8px;
+                margin-top: 8px;
+            }
+        }
     }
-}
-
-.card-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding: 10px;
-}
-
-.card-left {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
-    mat-icon {
-        color: var(--accent-darker);
-    }
-    
-    span {
-        font-size: 16px;
-        font-weight: normal;
-    }
-}
-
-.card-value {
-    font-weight: 500;
-    font-size: 18px;
-    color: var(--accent-darker);
-    margin-right: 10px;
-    margin-left: 16px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.edit-button {
-    margin-left: auto;
-    margin-right: 4px;
-}
-
-.edit-content {
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    width: 100%;
-    border-top: 1px solid rgba(0,0,0,0.1);
-    margin-top: 5px;
-    background-color: rgba(0,0,0,0.02);
-    border-radius: 0 0 8px 8px;
-    
-    mat-form-field {
-        width: 100%;
-    }
-}
-
-.edit-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 8px;
-    margin-top: 8px;
 }
 
 .level-up {
@@ -158,41 +153,6 @@ mat-expansion-panel {
 
 .level-down {
     color: var(--warn-darker);
-}
-
-.distance-card {
-    padding: 10px;
-    margin-bottom: 6px;
-    text-align: center;
-    mat-card-title {
-        b {
-            color: var(--accent-darker);
-            font-size: 18pt;
-        }
-    }
-}
-
-.record-stats {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    padding: 16px;
-    justify-content: center;
-
-    .stat-item {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        
-        mat-icon {
-            color: var(--accent-darker);
-        }
-
-        .stat-value {
-            font-size: 16pt;
-            color: var(--foreground-main);
-        }
-    }
 }
 
 .cross-out {
@@ -258,5 +218,27 @@ mat-slide-toggle {
     .content-width {
         max-width: 600px;
         margin: 0 auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .page {
+        padding: 8px;
+    }
+    
+    .record-data-card {
+        mat-card-title {
+            .card-content {
+                padding: 12px;
+                
+                .card-left {
+                    min-width: 110px;
+                }
+            }
+            
+            .edit-content {
+                padding: 12px;
+            }
+        }
     }
 }

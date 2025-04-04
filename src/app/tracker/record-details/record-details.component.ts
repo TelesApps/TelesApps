@@ -64,6 +64,7 @@ export class RecordDetailsComponent implements OnInit, OnDestroy {
   record: JoggingTracker | null = null;
   isLoading = true;
   error: string | null = null;
+  sourceTabIndex: number = 1; // Default to jogging records tab
 
   // Edit mode tracking
   editModes: { [key: string]: boolean } = {
@@ -96,10 +97,18 @@ export class RecordDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    const recordId = this.route.snapshot.paramMap.get('id');
-    if (recordId) {
-      this.loadRecord(recordId);
-    }
+    // Get the record ID from the route parameters
+    this.route.params.pipe(take(1)).subscribe(params => {
+      const recordId = params['id'];
+      if (recordId) {
+        this.loadRecord(recordId);
+      }
+    });
+
+    // Get the source tab index from query params
+    this.route.queryParams.pipe(take(1)).subscribe(params => {
+      this.sourceTabIndex = parseInt(params['sourceTab'] || '1', 10);
+    });
   }
 
   private loadRecord(recordId: string) {
@@ -316,12 +325,36 @@ export class RecordDetailsComponent implements OnInit, OnDestroy {
   }
 
   onGoBack() {
-    this.router.navigate(['/tracker']);
+    this.router.navigate(['/tracker'], { 
+      queryParams: { 
+        selectedTab: this.sourceTabIndex 
+      }
+    });
   }
 
   ngOnDestroy(): void {
     if (this.userSubscription) {
       this.userSubscription.unsubscribe();
     }
+  }
+
+  // Helper methods for real-time previews
+  previewSeconds(field: string): number {
+    if (!this.timeInputs[field]) return 0;
+    return this.parseTimeInput(this.timeInputs[field]);
+  }
+
+  isLevelUpPreview(): boolean {
+    if (!this.record || !this.editModes['newLevel'] || this.tempValues['newLevel'] === undefined) {
+      return this.isLevelUp();
+    }
+    return this.tempValues['newLevel'] > this.record.currentLevel;
+  }
+
+  isLevelDownPreview(): boolean {
+    if (!this.record || !this.editModes['newLevel'] || this.tempValues['newLevel'] === undefined) {
+      return this.isLevelDown();
+    }
+    return this.tempValues['newLevel'] < this.record.currentLevel;
   }
 }

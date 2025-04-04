@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
 import { JoggingTrackerComponent } from './jogging-tracker/jogging-tracker.component';
 import { StorageService } from '../services/storage.service';
 import { MatIconModule } from '@angular/material/icon';
 import { JoggingRecordsComponent } from './jogging-records/jogging-records.component';
-import { RouterModule, Router, NavigationEnd } from '@angular/router';
+import { RouterModule, Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
 @Component({
@@ -22,7 +22,9 @@ import { filter } from 'rxjs/operators';
   templateUrl: './tracker.component.html',
   styleUrls: ['./tracker.component.scss']
 })
-export class TrackerComponent {
+export class TrackerComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+  selectedTabIndex = 0;
   isShowingDetails = false;
 
   constructor(
@@ -38,5 +40,15 @@ export class TrackerComponent {
       this.isShowingDetails = event.url.includes('/record/');
     });
   }
+
+  ngOnInit() {
+    // Get selected tab from query params
+    this.route.queryParams.subscribe(params => {
+      if (params['selectedTab']) {
+        this.selectedTabIndex = parseInt(params['selectedTab'], 10);
+      }
+    });
+  }
+
   // Swimming tracker logic will be added here
 }
