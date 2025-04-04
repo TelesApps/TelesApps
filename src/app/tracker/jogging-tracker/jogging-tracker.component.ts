@@ -18,6 +18,7 @@ import { AuthService } from '../../services/auth.service';
 import { RaceType, UserData } from '../../interfaces/user-data.interface';
 import { Course, JoggingTracker, Route } from '../../interfaces/tracker.interface';
 import { RoutesDialogComponent } from '../../shared/dialogs/routes-dialog/routes-dialog.component';
+import { RaceTypeEditDialogComponent } from '../../shared/dialogs/race-type-edit-dialog/race-type-edit-dialog.component';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { routes, createCourses } from '../../../assets/data/running-routes';
@@ -357,6 +358,38 @@ export class JoggingTrackerComponent implements OnInit, OnDestroy {
     this.toUpdateRaceType = { slug: '', name: '', time: 0, level: 0 };
     this.isRankingUp = false;
     this.isRankingDown = false;
+  }
+
+  onEditRaceType(raceType: RaceType): void {
+    const dialogRef = this.dialog.open(RaceTypeEditDialogComponent, {
+      data: { raceType: { ...raceType } },
+      width: '350px'
+    });
+
+    dialogRef.afterClosed().pipe(take(1)).subscribe(result => {
+      if (result) {
+        const user = this.user();
+        if (user && user.trackerStats) {
+          // Update the race type in the user's stats
+          const index = user.trackerStats.raceTypes.findIndex(rt => rt.slug === result.slug);
+          if (index !== -1) {
+            user.trackerStats.raceTypes[index] = result;
+            
+            // Save the updated user data
+            this.auth.updateUserData(user).then(() => {
+              console.log('Race type updated successfully');
+              // If the edited race type is the currently selected one, update the relevantRecord
+              if (this.raceType === result.slug) {
+                this.relevantRecord = result;
+                this.onTimeChange();
+              }
+            }).catch(error => {
+              console.error('Error updating race type:', error);
+            });
+          }
+        }
+      }
+    });
   }
 
   ngOnDestroy(): void {

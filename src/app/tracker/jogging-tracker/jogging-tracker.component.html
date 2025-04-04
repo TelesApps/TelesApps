@@ -9,6 +9,9 @@
         <div *ngIf="user() && user()?.trackerStats as stats; else noStats" class="record-list">
           @for (raceType of stats.raceTypes; track raceType.slug) {
           <mat-card class="record-card" appearance="outlined">
+            <div class="edit-btn">
+              <mat-icon color="accent" (click)="onEditRaceType(raceType)">edit</mat-icon>
+            </div>
             <mat-card-header>
               <mat-card-title>{{ raceType.name }}</mat-card-title>
               <mat-card-subtitle>First Place: <b>{{ raceType.time| fireTimeRecord }}</b></mat-card-subtitle>

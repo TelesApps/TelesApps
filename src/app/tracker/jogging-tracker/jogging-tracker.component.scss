@@ -30,6 +30,15 @@ mat-expansion-panel {
     );
 }
 
+.edit-btn {
+    position: absolute;
+    right: 0;
+    mat-icon {
+        padding: 6px;
+        cursor: pointer;
+    }
+}
+
 .record-card {
     margin: 10px;
     width: clamp(100px, 36vw, 600px) !important;
@@ -91,7 +100,7 @@ mat-expansion-panel {
     position: relative;
     display: inline-block;
     margin-right: 6px;
-    
+
     &::after {
         content: "";
         position: absolute;
