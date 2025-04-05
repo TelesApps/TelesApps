@@ -28,8 +28,8 @@
             </mat-card-title>
         </mat-card>
 
-        <!-- Distance Card -->
-        <mat-card class="record-data-card">
+        <!-- JOGGING: Distance Card -->
+        <mat-card class="record-data-card" *ngIf="recordType === 'jogging'">
             <mat-card-title>
                 <div class="card-content">
                     <div class="card-left">
@@ -37,8 +37,8 @@
                         <span>Distance: </span>
                     </div>
                     <div class="card-value">
-                        {{ editModes['distance'] ? (tempValues['distanceMiles'] | number:'1.1-1') : (record?.distanceMiles?.toFixed(1) || '0.0') }} mi || 
-                        {{ editModes['distance'] ? ((tempValues['distanceMiles'] * 1.60934) | number:'1.1-1') : (record?.distanceKilometers?.toFixed(1) || '0.0') }} km
+                        {{ editModes['distance'] ? (tempValues['distanceMiles'] | number:'1.1-1') : (joggingRecord?.distanceMiles?.toFixed(1) || '0.0') }} mi || 
+                        {{ editModes['distance'] ? ((tempValues['distanceMiles'] * 1.60934) | number:'1.1-1') : (joggingRecord?.distanceKilometers?.toFixed(1) || '0.0') }} km
                     </div>
                     <button mat-icon-button class="edit-button" (click)="toggleEdit('distance')">
                         <mat-icon>edit</mat-icon>
@@ -52,6 +52,49 @@
                     <div class="edit-actions">
                         <button mat-button color="warn" (click)="cancelEdit('distance')">Cancel</button>
                         <button mat-button color="primary" (click)="saveField('distance')">Save</button>
+                    </div>
+                </div>
+            </mat-card-title>
+        </mat-card>
+
+        <!-- SWIM: Laps Card -->
+        <mat-card class="record-data-card" *ngIf="recordType === 'swim'">
+            <mat-card-title>
+                <div class="card-content">
+                    <div class="card-left">
+                        <mat-icon matTooltip="Laps">switch_access_shortcut</mat-icon>
+                        <span>Laps: </span>
+                    </div>
+                    <div class="card-value">
+                        {{ editModes['laps'] ? tempValues['laps'] : swimRecord?.laps }} laps
+                    </div>
+                    <button mat-icon-button class="edit-button" (click)="toggleEdit('laps')">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </div>
+                <div class="edit-content" *ngIf="editModes['laps']">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Number of Laps</mat-label>
+                        <input matInput type="number" [(ngModel)]="tempValues['laps']">
+                    </mat-form-field>
+                    <div class="edit-actions">
+                        <button mat-button color="warn" (click)="cancelEdit('laps')">Cancel</button>
+                        <button mat-button color="primary" (click)="saveField('laps')">Save</button>
+                    </div>
+                </div>
+            </mat-card-title>
+        </mat-card>
+
+        <!-- SWIM: Location Card -->
+        <mat-card class="record-data-card" *ngIf="recordType === 'swim'">
+            <mat-card-title>
+                <div class="card-content">
+                    <div class="card-left">
+                        <mat-icon matTooltip="Location">pool</mat-icon>
+                        <span>Location: </span>
+                    </div>
+                    <div class="card-value">
+                        {{ swimRecord?.swimLocation }}
                     </div>
                 </div>
             </mat-card-title>
@@ -83,15 +126,18 @@
             </mat-card-title>
         </mat-card>
 
-        <!-- Pace Card -->
-        <mat-card class="record-data-card">
+        <!-- JOGGING: Pace Card -->
+        <mat-card class="record-data-card" *ngIf="recordType === 'jogging'">
             <mat-card-title>
                 <div class="card-content">
                     <div class="card-left">
                         <mat-icon matTooltip="Pace">speed</mat-icon>
                         <span>Pace:</span>
                     </div>
-                    <div class="card-value">{{ editModes['pace'] ? (previewSeconds('pace') | fireTimeRecord) : (record && record.pace !== undefined ? (Math.round(record.pace) | fireTimeRecord) : '0m00s') }}/mi</div>
+                    <div class="card-value">
+                        {{ editModes['pace'] ? (previewSeconds('pace') | fireTimeRecord) : 
+                          (joggingRecord && joggingRecord.pace ? (Math.round(joggingRecord.pace) | fireTimeRecord) : '0m00s') }}/mi
+                    </div>
                     <button mat-icon-button class="edit-button" (click)="toggleEdit('pace')">
                         <mat-icon>edit</mat-icon>
                     </button>
@@ -109,15 +155,44 @@
             </mat-card-title>
         </mat-card>
 
-        <!-- First Place Time Card -->
-        <mat-card class="record-data-card">
+        <!-- SWIM: Time Per Lap Card -->
+        <mat-card class="record-data-card" *ngIf="recordType === 'swim'">
+            <mat-card-title>
+                <div class="card-content">
+                    <div class="card-left">
+                        <mat-icon matTooltip="Time Per Lap">timelapse</mat-icon>
+                        <span>Time Per Lap:</span>
+                    </div>
+                    <div class="card-value">
+                        {{ editModes['timePerLap'] ? (previewSeconds('timePerLap') | fireTimeRecord) : 
+                          (swimRecord && swimRecord.timePerLap ? (Math.round(swimRecord.timePerLap) | fireTimeRecord) : '0m00s') }}
+                    </div>
+                    <button mat-icon-button class="edit-button" (click)="toggleEdit('timePerLap')">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </div>
+                <div class="edit-content" *ngIf="editModes['timePerLap']">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Time Per Lap (MM.SS)</mat-label>
+                        <input matInput [(ngModel)]="timeInputs['timePerLap']" placeholder="00.00">
+                    </mat-form-field>
+                    <div class="edit-actions">
+                        <button mat-button color="warn" (click)="cancelEdit('timePerLap')">Cancel</button>
+                        <button mat-button color="primary" (click)="saveField('timePerLap')">Save</button>
+                    </div>
+                </div>
+            </mat-card-title>
+        </mat-card>
+
+        <!-- JOGGING: First Place Time Card -->
+        <mat-card class="record-data-card" *ngIf="recordType === 'jogging'">
             <mat-card-title>
                 <div class="card-content">
                     <div class="card-left">
                         <mat-icon>emoji_events</mat-icon>
                         <span>First Place Time:</span>
                     </div>
-                    <div class="card-value">{{ editModes['firstPlaceTime'] ? (previewSeconds('firstPlaceTime') | fireTimeRecord) : (record?.firstPlaceTime | fireTimeRecord) }}</div>
+                    <div class="card-value">{{ editModes['firstPlaceTime'] ? (previewSeconds('firstPlaceTime') | fireTimeRecord) : (joggingRecord?.firstPlaceTime | fireTimeRecord) }}</div>
                     <button mat-icon-button class="edit-button" (click)="toggleEdit('firstPlaceTime')">
                         <mat-icon>edit</mat-icon>
                     </button>
@@ -135,15 +210,28 @@
             </mat-card-title>
         </mat-card>
 
-        <!-- Placement Card -->
-        <mat-card class="record-data-card">
+        <!-- SWIM: Swim Type First Place Time Card -->
+        <mat-card class="record-data-card" *ngIf="recordType === 'swim'">
+            <mat-card-title>
+                <div class="card-content">
+                    <div class="card-left">
+                        <mat-icon>emoji_events</mat-icon>
+                        <span>First Place Time:</span>
+                    </div>
+                    <div class="card-value">{{ swimRecord?.swimType?.firstPlaceTime | fireTimeRecord }}</div>
+                </div>
+            </mat-card-title>
+        </mat-card>
+
+        <!-- JOGGING: Placement Card -->
+        <mat-card class="record-data-card" *ngIf="recordType === 'jogging'">
             <mat-card-title>
                 <div class="card-content">
                     <div class="card-left">
                         <mat-icon>leaderboard</mat-icon>
                         <span>Placement:</span>
                     </div>
-                    <div class="card-value">{{ editModes['placement'] ? (tempValues['placement'] | ordinal) : (record && record.placement !== undefined ? (record.placement | ordinal) : '') }}</div>
+                    <div class="card-value">{{ editModes['placement'] ? (tempValues['placement'] | ordinal) : (joggingRecord && joggingRecord.placement ? (joggingRecord.placement | ordinal) : '') }}</div>
                     <button mat-icon-button class="edit-button" (click)="toggleEdit('placement')">
                         <mat-icon>edit</mat-icon>
                     </button>

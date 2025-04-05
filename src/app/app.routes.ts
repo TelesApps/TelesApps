@@ -57,6 +57,10 @@ export const routes: Routes = [
             {
                 path: 'record/:id',
                 loadComponent: () => import('./tracker/record-details/record-details.component').then(m => m.RecordDetailsComponent)
+            },
+            {
+                path: 'swim-record/:id',
+                loadComponent: () => import('./tracker/record-details/record-details.component').then(m => m.RecordDetailsComponent)
             }
         ]
     },

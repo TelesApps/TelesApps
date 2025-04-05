@@ -8,6 +8,7 @@ import { JoggingRecordsComponent } from './jogging-records/jogging-records.compo
 import { RouterModule, Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { SwimTrackerComponent } from './swim-tracker/swim-tracker.component';
+import { SwimRecordsComponent } from './swim-records/swim-records.component';
 
 @Component({
   selector: 'app-tracker',
@@ -19,14 +20,15 @@ import { SwimTrackerComponent } from './swim-tracker/swim-tracker.component';
     MatIconModule,
     JoggingRecordsComponent,
     RouterModule,
-    SwimTrackerComponent
+    SwimTrackerComponent,
+    SwimRecordsComponent
   ],
   templateUrl: './tracker.component.html',
   styleUrls: ['./tracker.component.scss']
 })
 export class TrackerComponent implements OnInit {
   private route = inject(ActivatedRoute);
-  selectedTabIndex = 2;
+  selectedTabIndex = 3;
   isShowingDetails = false;
 
   constructor(
@@ -39,7 +41,7 @@ export class TrackerComponent implements OnInit {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
-      this.isShowingDetails = event.url.includes('/record/');
+      this.isShowingDetails = event.url.includes('/record/') || event.url.includes('/swim-record/');
     });
   }
 

@@ -338,7 +338,7 @@ export class AuthService {
         
         // Set up a real-time listener
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
-          // Map the documents to SwimTracker objects
+          // Map the documents to SwimRecord objects
           const swimRecords: SwimRecord[] = [];
           querySnapshot.forEach((doc) => {
             const data = doc.data() as SwimRecord;
