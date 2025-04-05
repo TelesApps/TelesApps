@@ -9,7 +9,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FireTimeRecordPipe } from '../../shared/pipes/fire-time-record.pipe';
 import { TimeRecordPipe } from '../../shared/pipes/time-record.pipe';
 import { OrdinalPipe } from '../../shared/pipes/ordinal.pipe';
@@ -35,7 +34,6 @@ import { take } from 'rxjs/operators';
     MatSelectModule,
     MatButtonModule,
     MatDialogModule,
-    MatSlideToggleModule,
     FireTimeRecordPipe,
     TimeRecordPipe,
     OrdinalPipe
@@ -49,16 +47,21 @@ export class SwimTrackerComponent implements OnInit, OnDestroy {
 
   Math = Math;
 
-  swimType: string = 'largo_pool';
+  swimType: string = 'largo_pool_40_laps';
   laps: number = 0;
   time: any = '';
   totalSeconds: number = 0;
-  isTotalTime: boolean = true;
   totalDistance: number = 0; // in meters
   secondsPerLap: number = 0;
 
   relevantRecord: SwimType = { location: '', slug: '', lapLength: 0, requiredLaps: 0, firstPlaceTime: 0, currentLevel: 0 };
   currentPosition: number = 1;
+
+  // Add positioning timer
+  positioningTimer: number = 60;
+  isRankingUp: boolean = false;
+  isRankingDown: boolean = false;
+  toUpdateSwimType: SwimType = { location: '', slug: '', lapLength: 0, requiredLaps: 0, firstPlaceTime: 0, currentLevel: 0 };
 
   constructor(
     public storage: StorageService,
@@ -78,43 +81,15 @@ export class SwimTrackerComponent implements OnInit, OnDestroy {
     });
   }
 
-  testSaveRecord() {
-    const userData = this.user();
-    if (userData) {
-      if (userData.trackerStats && userData.trackerStats.swimTypes && userData.trackerStats.swimTypes.length > 0) {
-        console.log(userData.trackerStats.swimTypes);
-      } else {
-        console.log('No swim types found in user data.');
-        const swimTypes: SwimType[] = [
-          { location: 'Largo Community Pool', slug: 'largo_pool_20_laps', lapLength: 25, requiredLaps: 20, firstPlaceTime: 0, currentLevel: 0 },
-          { location: 'Largo Community Pool', slug: 'largo_pool_30_laps', lapLength: 25, requiredLaps: 30, firstPlaceTime: 0, currentLevel: 0 },
-          { location: 'Largo Community Pool', slug: 'largo_pool_40_laps', lapLength: 25, requiredLaps: 40, firstPlaceTime: 0, currentLevel: 0 },
-          { location: 'Largo Community Pool', slug: 'largo_pool_50_laps', lapLength: 25, requiredLaps: 50, firstPlaceTime: 0, currentLevel: 0 },
-          { location: 'Largo Community Pool', slug: 'largo_pool_60_laps', lapLength: 25, requiredLaps: 60, firstPlaceTime: 0, currentLevel: 0 },
-          { location: 'Largo Community Pool', slug: 'largo_pool_70_laps', lapLength: 25, requiredLaps: 70, firstPlaceTime: 0, currentLevel: 0 },
-          { location: 'Largo Community Pool', slug: 'largo_pool_80_laps', lapLength: 25, requiredLaps: 80, firstPlaceTime: 0, currentLevel: 0 },
-          { location: 'Largo Community Pool', slug: 'largo_pool_90_laps', lapLength: 25, requiredLaps: 90, firstPlaceTime: 0, currentLevel: 0 },
-          { location: 'Largo Community Pool', slug: 'largo_pool_100_laps', lapLength: 25, requiredLaps: 100, firstPlaceTime: 0, currentLevel: 0 }
-
-      
-        ];
-        userData.trackerStats?.swimTypes.push(...swimTypes);
-        this.auth.updateUserData(userData).then(() => {
-          console.log('User data updated successfully.');
-        }).catch((error) => {
-          console.error('Error updating user data:', error);
-        });
-
-      }
-    }
-
-  }
-
   onSwimTypeChange() {
     const userData = this.user();
     if (userData && userData.trackerStats && userData.trackerStats.swimTypes) {
       const swimType = userData.trackerStats.swimTypes.find((type: SwimType) => type.slug === this.swimType);
       this.relevantRecord = swimType || { location: '', slug: '', lapLength: 0, requiredLaps: 0, firstPlaceTime: 0, currentLevel: 0 };
+      
+      // Automatically set the number of laps to the required laps of the selected swim type
+      this.laps = this.relevantRecord.requiredLaps;
+      
       this.calculateDistance();
     }
     this.onTimeChange();
@@ -162,11 +137,7 @@ export class SwimTrackerComponent implements OnInit, OnDestroy {
 
   calculateTimePerLap() {
     if (this.totalSeconds > 0 && this.laps > 0) {
-      if (this.isTotalTime) {
-        this.secondsPerLap = this.totalSeconds / this.laps;
-      } else {
-        this.secondsPerLap = this.totalSeconds;
-      }
+      this.secondsPerLap = this.totalSeconds / this.laps;
     } else {
       this.secondsPerLap = 0;
     }
@@ -176,35 +147,69 @@ export class SwimTrackerComponent implements OnInit, OnDestroy {
     const userData = this.user();
     if (!userData || !userData.trackerStats || !this.relevantRecord || this.totalSeconds <= 0) {
       this.currentPosition = 1;
+      this.isRankingUp = false;
+      this.isRankingDown = false;
       return;
     }
 
-    // Calculate position based on how close to first place time
+    // Reset ranking flags
+    this.isRankingUp = false;
+    this.isRankingDown = false;
+
+    // Initialize toUpdateSwimType
+    this.toUpdateSwimType = { ...this.relevantRecord };
+
     if (this.relevantRecord.firstPlaceTime > 0) {
-      // Every 10 seconds difference is a placement point
+      // Calculate position based on positioning timer (every 10 seconds difference)
       const timeDifference = this.totalSeconds - this.relevantRecord.firstPlaceTime;
-      this.currentPosition = Math.max(1, Math.ceil(timeDifference / 10) + 1);
+      this.currentPosition = Math.max(1, Math.ceil(timeDifference / this.positioningTimer) + 1);
+
+      // Determine if user is ranking up or down
+      if (this.currentPosition === 1) {
+        if (this.totalSeconds < this.relevantRecord.firstPlaceTime) {
+          // User beat the first place time
+          this.isRankingUp = true;
+          this.toUpdateSwimType.firstPlaceTime = this.totalSeconds;
+          this.toUpdateSwimType.currentLevel = 2; // Reset to level 2 when ranking up
+        } else if (this.relevantRecord.currentLevel < 5) {
+          // First place but didn't beat the time - level up normally
+          this.toUpdateSwimType.currentLevel = Math.min(5, this.relevantRecord.currentLevel + 1);
+        }
+      } else if (this.currentPosition > 1) {
+        if (timeDifference > this.positioningTimer * 5) {
+          // Significantly slower time - ranking down
+          this.isRankingDown = true;
+          this.toUpdateSwimType.firstPlaceTime = this.totalSeconds;
+          this.toUpdateSwimType.currentLevel = 5; // Reset to level 5 when ranking down
+        } else {
+          // Normal level down
+          this.toUpdateSwimType.currentLevel = Math.max(1, this.relevantRecord.currentLevel - 1);
+        }
+      }
     } else {
-      // If no first place time set, this is first place
+      // If no first place time exists, this becomes the first place time
       this.currentPosition = 1;
+      this.toUpdateSwimType.firstPlaceTime = this.totalSeconds;
+      this.toUpdateSwimType.currentLevel = Math.min(5, this.relevantRecord.currentLevel + 1);
     }
   }
 
   createNewSwimRecord(user: UserData): SwimRecord {
-    const swimType = user.trackerStats?.swimTypes.find(type => type.slug === this.swimType);
-
     const record: SwimRecord = {
       id: '',
       userId: user.userId,
       date: new Date().toISOString(),
-      swimLocation: swimType?.location || '',
-      swimType: swimType || this.relevantRecord,
+      swimLocation: this.relevantRecord.location,
+      swimType: this.relevantRecord,
       laps: this.laps,
       time: this.totalSeconds,
       timePerLap: this.secondsPerLap,
-      currentLevel: swimType?.currentLevel || 0
+      currentLevel: this.relevantRecord.currentLevel,
+      // Add new fields for tracking level and time changes
+      newLevel: this.toUpdateSwimType.currentLevel,
+      newFirstPlaceTime: this.toUpdateSwimType.firstPlaceTime
     };
-
+    
     return record;
   }
 
@@ -224,28 +229,26 @@ export class SwimTrackerComponent implements OnInit, OnDestroy {
     // Save to database
     this.auth.updateSwimRecord(record).then(() => {
       console.log('Swim record saved successfully');
-
-      // Update user stats if this is a better time
-      if (this.currentPosition === 1 && this.relevantRecord.slug) {
-        const swimTypeIndex = userData.trackerStats?.swimTypes.findIndex(
-          type => type.slug === this.relevantRecord.slug
-        );
-
-        if (swimTypeIndex !== undefined && swimTypeIndex >= 0) {
-          const user = { ...userData };
-          if (user.trackerStats && user.trackerStats.swimTypes) {
-            user.trackerStats.swimTypes[swimTypeIndex].firstPlaceTime = this.totalSeconds;
-
-            // Update level based on performance
-            const previousLevel = user.trackerStats.swimTypes[swimTypeIndex].currentLevel;
-            user.trackerStats.swimTypes[swimTypeIndex].currentLevel = Math.min(5, previousLevel + 1);
-
-            // Update user data
-            this.auth.updateUserData(user);
-          }
+      
+      // Update user stats if there are changes
+      const swimTypeIndex = userData.trackerStats?.swimTypes.findIndex(
+        type => type.slug === this.relevantRecord.slug
+      );
+      
+      if (swimTypeIndex !== undefined && swimTypeIndex >= 0 && userData.trackerStats) {
+        const user = { ...userData };
+        if (user.trackerStats) {
+          user.trackerStats.swimTypes[swimTypeIndex] = {
+            ...user.trackerStats.swimTypes[swimTypeIndex],
+            firstPlaceTime: this.toUpdateSwimType.firstPlaceTime,
+            currentLevel: this.toUpdateSwimType.currentLevel
+          };
+          
+          // Update user data
+          this.auth.updateUserData(user);
         }
       }
-
+      
       // Reset form
       this.resetForm();
     });
@@ -255,7 +258,6 @@ export class SwimTrackerComponent implements OnInit, OnDestroy {
     this.time = '';
     this.totalSeconds = 0;
     this.laps = 0;
-    this.isTotalTime = true;
     this.totalDistance = 0;
     this.secondsPerLap = 0;
     this.relevantRecord = { location: '', slug: '', lapLength: 0, requiredLaps: 0, firstPlaceTime: 0, currentLevel: 0 };

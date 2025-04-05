@@ -83,8 +83,21 @@ mat-expansion-panel {
         b {
             color: var(--accent-darker);
             font-size: 18pt;
+            display: block;
+            line-height: 1.2;
+            margin-bottom: 0;
+        }
+        .meters-info {
+            color: var(--foreground-main);
+            font-size: 10pt;
+            opacity: 0.7;
+            line-height: 1;
+            margin-top: -2px;
+            transform: scale(0.9);
+            display: block;
         }
     }
+    padding-bottom: 8px;
 }
 
 .cross-out {

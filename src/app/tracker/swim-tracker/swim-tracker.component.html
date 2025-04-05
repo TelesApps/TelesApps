@@ -14,7 +14,7 @@
             </div>
             <mat-card-header>
               <mat-card-title>{{ swimType.location }}</mat-card-title>
-              <mat-card-subtitle>Distance: <b>{{ swimType.requiredLaps * swimType.lapLength }} meters</b></mat-card-subtitle>
+              <mat-card-subtitle>Distance: <b>{{ swimType.requiredLaps }} laps</b></mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
               <p>First Place: <b>{{ swimType.firstPlaceTime | fireTimeRecord }}</b></p>
@@ -34,7 +34,7 @@
           <mat-card class="record-card" appearance="outlined">
             <mat-card-header>
               <mat-card-title>{{ relevantRecord.location }}</mat-card-title>
-              <mat-card-subtitle>Distance: <b>{{ relevantRecord.requiredLaps * relevantRecord.lapLength }} meters</b></mat-card-subtitle>
+              <mat-card-subtitle>Distance: <b>{{ relevantRecord.requiredLaps }} laps</b></mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
               <p>First Place: <b>{{ relevantRecord.firstPlaceTime | fireTimeRecord }}</b></p>
@@ -48,19 +48,38 @@
               <mat-card-title>{{ currentPosition | ordinal }} Place</mat-card-title>
               <mat-card-subtitle>
                 @if(currentPosition === 1) {
-                <span class="level-up">New First Place!</span>
+                  @if(isRankingUp) {
+                  <span class="level-up">Ranking up: <b>{{ toUpdateSwimType.firstPlaceTime | fireTimeRecord }}</b></span>
+                  } @else {
+                  <span *ngIf="toUpdateSwimType.currentLevel +1 > 5">Level Remains</span>
+                  <span class="level-up" *ngIf="toUpdateSwimType.currentLevel +1 < 6">Leveling up</span>
+                  }
+                } @else {
+                  @if(isRankingDown) {
+                  <span class="level-down">Ranking down: <b>{{ toUpdateSwimType.firstPlaceTime | fireTimeRecord }}</b></span>
+                  } @else {
+                  <span class="level-down">Leveling down</span>
+                  }
                 }
               </mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
-              @if (currentPosition === 1) {
-              <div class="level-up">
+              @if (currentPosition > 1) {
+              <div class="level-down">
                 <p>Level: <b class="cross-out">{{ relevantRecord.currentLevel }}</b>
-                  <b>{{ Math.min(5, relevantRecord.currentLevel + 1) }}</b>
+                  <b>{{ toUpdateSwimType.currentLevel }} </b>
                 </p>
               </div>
               } @else {
-              <p>Level: <b>{{ relevantRecord.currentLevel }}</b></p>
+              <div class="level-up">
+                @if(isRankingUp) {
+                <p>Level: <b class="cross-out">{{ relevantRecord.currentLevel }}</b><b> 2 </b></p>
+                } @else {
+                <p>Level: <b class="cross-out">{{ relevantRecord.currentLevel }}</b>
+                  <b>{{ toUpdateSwimType.currentLevel }}</b>
+                </p>
+                }
+              </div>
               }
             </mat-card-content>
           </mat-card>
@@ -81,7 +100,7 @@
         <mat-label>Swim Type</mat-label>
         <mat-select [(value)]="swimType" (selectionChange)="onSwimTypeChange()">
           @for (swimType of user()?.trackerStats?.swimTypes || []; track swimType.slug) {
-          <mat-option [value]="swimType.slug">{{ swimType.location }} ({{ swimType.requiredLaps * swimType.lapLength }}m)</mat-option>
+          <mat-option [value]="swimType.slug">{{ swimType.location }} ({{ swimType.requiredLaps }} laps)</mat-option>
           }
         </mat-select>
       </mat-form-field>
@@ -90,41 +109,41 @@
       <mat-form-field appearance="fill" color="accent">
         <mat-label>Number of Laps</mat-label>
         <input matInput type="number" [(ngModel)]="laps" placeholder="Enter number of laps"
-          (input)="onLapsChange()" min="1">
+          (input)="onLapsChange()" min="1" [max]="relevantRecord.requiredLaps * 2">
+        <mat-hint>Required: {{ relevantRecord.requiredLaps }} laps</mat-hint>
       </mat-form-field>
       
       <div class="distance">
         <mat-card class="distance-card">
           <mat-card-subtitle>Total Distance</mat-card-subtitle>
           <mat-card-title>
-            <b>{{ totalDistance }} meters</b>
+            <b>{{ laps }} laps</b>
+            <span class="meters-info">{{ totalDistance }} meters</span>
           </mat-card-title>
         </mat-card>
       </div>
       
       <div class="averages">
         <mat-card class="distance-card">
-          <mat-card-subtitle>Time per lap</mat-card-subtitle>
+          <mat-card-subtitle>Total Time</mat-card-subtitle>
           <mat-card-title>
-            <b>{{ secondsPerLap | timeRecord: 'seconds' }}</b>
+            <b>{{ time | timeRecord }}</b>
+            @if(secondsPerLap > 0) {
+            <span class="meters-info">{{ secondsPerLap | timeRecord: 'seconds' }} per lap</span>
+            }
           </mat-card-title>
         </mat-card>
       </div>
       
       <!-- time input -->
-      <span>{{ time | timeRecord }}</span>
       <mat-form-field appearance="fill" color="accent">
-        <mat-label>Time</mat-label>
+        <mat-label>Total Time</mat-label>
         <input matInput type="number" [(ngModel)]="time" placeholder="Enter time in minutes"
           onfocus="this.select()" (input)="onTimeChange()" #timeInput (keyup.enter)="timeInput.blur()">
       </mat-form-field>
-      <mat-slide-toggle color="primary" [(ngModel)]="isTotalTime" (ngModelChange)="onTimeChange()">
-        {{ isTotalTime? 'Total Time':'Time Per Lap' }}
-      </mat-slide-toggle>
+
       <div style="text-align: end;">
         <button mat-raised-button color="primary" [disabled]="!swimType || !time || laps <= 0" (click)="onSaveRecord()">Add Record</button>
-        <!-- 'mat-button','mat-raised-button', 'mat-flat-button','mat-stroked-button','mat-icon-button','mat-fab','mat-mini-fab' -->
-        <button mat-raised-button color="primary" (click)="testSaveRecord()">create data</button>
       </div>
     </div>
   </div>

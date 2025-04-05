@@ -28,6 +28,8 @@ export interface SwimRecord {
     time: number;
     timePerLap: number;
     currentLevel: number;
+    newLevel?: number; // The new level is the result of this specific swim record
+    newFirstPlaceTime?: number; // The new first place time is the result of this specific swim record
 }
 
 export interface Route {
