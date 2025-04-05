@@ -12,7 +12,23 @@ service cloud.firestore {
     // Rules for /run-records collection
     match /run-records/{docId} {
       // 1) Only authenticated users
-      // 2) The doc’s userId field must match the request.auth.uid
+      // 2) The doc's userId field must match the request.auth.uid
+      //    (i.e., the same person who is logged in)
+      allow read: if request.auth != null 
+                  && resource.data.userId == request.auth.uid;
+
+      allow create: if request.auth != null
+                    && request.resource.data.userId == request.auth.uid;
+
+      allow update, delete: if request.auth != null
+                            && resource.data.userId == request.auth.uid
+                            && request.resource.data.userId == request.auth.uid;
+    }
+
+    // Rules for /swim-records collection
+    match /swim-records/{docId} {
+      // 1) Only authenticated users
+      // 2) The doc's userId field must match the request.auth.uid
       //    (i.e., the same person who is logged in)
       allow read: if request.auth != null 
                   && resource.data.userId == request.auth.uid;
