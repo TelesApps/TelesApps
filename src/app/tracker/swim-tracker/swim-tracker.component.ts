@@ -58,7 +58,7 @@ export class SwimTrackerComponent implements OnInit, OnDestroy {
   currentPosition: number = 1;
 
   // Add positioning timer
-  positioningTimer: number = 60;
+  positioningTimer: number = 60; // 60 seconds for swim records
   isRankingUp: boolean = false;
   isRankingDown: boolean = false;
   toUpdateSwimType: SwimType = { location: '', slug: '', lapLength: 0, requiredLaps: 0, firstPlaceTime: 0, currentLevel: 0 };
@@ -160,37 +160,49 @@ export class SwimTrackerComponent implements OnInit, OnDestroy {
     this.toUpdateSwimType = { ...this.relevantRecord };
 
     if (this.relevantRecord.firstPlaceTime > 0) {
-      // Calculate position based on positioning timer (every 10 seconds difference)
+      // Calculate position based on positioning timer (every 60 seconds difference)
       const timeDifference = this.totalSeconds - this.relevantRecord.firstPlaceTime;
       this.currentPosition = Math.max(1, Math.ceil(timeDifference / this.positioningTimer) + 1);
 
-      // Determine if user is ranking up or down
-      if (this.currentPosition === 1) {
-        if (this.totalSeconds < this.relevantRecord.firstPlaceTime) {
-          // User beat the first place time
+      // Special case for level 5 - needs to beat first place time by 2 positioning timers
+      if (this.relevantRecord.currentLevel === 5) {
+        if (timeDifference < -2 * this.positioningTimer) {
+          // Beat first place time by more than 2 positioning timers
           this.isRankingUp = true;
-          this.toUpdateSwimType.firstPlaceTime = this.totalSeconds;
+          this.toUpdateSwimType.firstPlaceTime = this.relevantRecord.firstPlaceTime - this.positioningTimer;
           this.toUpdateSwimType.currentLevel = 2; // Reset to level 2 when ranking up
-        } else if (this.relevantRecord.currentLevel < 5) {
-          // First place but didn't beat the time - level up normally
-          this.toUpdateSwimType.currentLevel = Math.min(5, this.relevantRecord.currentLevel + 1);
-        }
-      } else if (this.currentPosition > 1) {
-        if (timeDifference > this.positioningTimer * 5) {
-          // Significantly slower time - ranking down
-          this.isRankingDown = true;
-          this.toUpdateSwimType.firstPlaceTime = this.totalSeconds;
-          this.toUpdateSwimType.currentLevel = 5; // Reset to level 5 when ranking down
+        } else if (this.currentPosition > 1) {
+          // At level 5 and didn't get first place - level down to 4
+          this.toUpdateSwimType.currentLevel = 4;
         } else {
-          // Normal level down
-          this.toUpdateSwimType.currentLevel = Math.max(1, this.relevantRecord.currentLevel - 1);
+          // Got first place but didn't beat by enough, level remains at 5
+          this.toUpdateSwimType.currentLevel = 5;
+        }
+      } else {
+        // For levels 1-4
+        if (this.totalSeconds < this.relevantRecord.firstPlaceTime) {
+          // Beat the first place time
+          this.isRankingUp = true;
+          this.toUpdateSwimType.firstPlaceTime = this.relevantRecord.firstPlaceTime - this.positioningTimer;
+          this.toUpdateSwimType.currentLevel = 2; // Reset to level 2 when ranking up
+        } else if (this.currentPosition > 1) {
+          // Didn't get first place
+          if (this.relevantRecord.currentLevel === 1) {
+            // At level 1 and missed first place - rank down
+            this.isRankingDown = true;
+            this.toUpdateSwimType.firstPlaceTime = this.relevantRecord.firstPlaceTime + this.positioningTimer;
+            this.toUpdateSwimType.currentLevel = 5; // Reset to level 5 when ranking down
+          } else {
+            // Normal level down for levels 2-4
+            this.toUpdateSwimType.currentLevel = Math.max(1, this.relevantRecord.currentLevel - 1);
+          }
         }
       }
     } else {
       // If no first place time exists, this becomes the first place time
       this.currentPosition = 1;
       this.toUpdateSwimType.firstPlaceTime = this.totalSeconds;
-      this.toUpdateSwimType.currentLevel = Math.min(5, this.relevantRecord.currentLevel + 1);
+      this.toUpdateSwimType.currentLevel = 2; // Start at level 2 for new records
     }
   }
 
