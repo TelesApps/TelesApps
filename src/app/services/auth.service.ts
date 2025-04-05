@@ -22,7 +22,7 @@ import { map, switchMap, catchError, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { CreateUser, UserData } from '../interfaces/user-data.interface';
 import { environment } from '../../environments/environment';
-import { JoggingTracker } from '../interfaces/tracker.interface';
+import { JoggingTracker, SwimTracker } from '../interfaces/tracker.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -247,7 +247,7 @@ export class AuthService {
   }
 
   // Update run-records in Firestore
-  async updateRunRecord(userId: string, runRecord: JoggingTracker): Promise<void> {
+  async updateRunRecord(runRecord: JoggingTracker): Promise<void> {
     try {
       console.log('Updating run record:', runRecord);
       
@@ -263,6 +263,26 @@ export class AuthService {
       console.log('Run record updated successfully');
     } catch (error) {
       console.error('Error updating run record:', error);
+      throw error;
+    }
+  }
+
+  async updateSwimRecord(swimRecord: SwimTracker): Promise<void> {
+    try {
+      console.log('Updating swim record:', swimRecord);
+      
+      // If the record doesn't have an ID (new record), create one
+      if (!swimRecord.id) {
+        const email = this.auth.currentUser?.email || 'unknown';
+        const timestamp = new Date().toISOString();
+        swimRecord.id = `${email}_${timestamp}`;
+      }
+      
+      const swimRecordRef = doc(this.firestore, 'swim-records', swimRecord.id);
+      await setDoc(swimRecordRef, swimRecord, { merge: true });
+      console.log('Swim record updated successfully');
+    } catch (error) {
+      console.error('Error updating swim record:', error);
       throw error;
     }
   }
@@ -299,6 +319,45 @@ export class AuthService {
         return unsubscribe;
       } catch (error) {
         console.error('Error setting up run records listener:', error);
+        observer.error(error);
+        // Return a no-op function for the unsubscribe
+        return () => {};
+      }
+    });
+  }
+
+  // Get all swim-records for a specific user
+  getUserSwimRecords(userId: string): Observable<SwimTracker[]> {
+    return new Observable<SwimTracker[]>(observer => {
+      try {
+        // Create a reference to the swim-records collection
+        const swimRecordsRef = collection(this.firestore, 'swim-records');
+        
+        // Create a query against the collection to filter by userId
+        const q = query(swimRecordsRef, where('userId', '==', userId));
+        
+        // Set up a real-time listener
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+          // Map the documents to SwimTracker objects
+          const swimRecords: SwimTracker[] = [];
+          querySnapshot.forEach((doc) => {
+            const data = doc.data() as SwimTracker;
+            // Ensure the id is set from the document id
+            data.id = doc.id;
+            swimRecords.push(data);
+          });
+          
+          console.log(`Retrieved ${swimRecords.length} swim records for user ${userId}`);
+          observer.next(swimRecords);
+        }, error => {
+          console.error('Error getting user swim records:', error);
+          observer.error(error);
+        });
+        
+        // Return the unsubscribe function to clean up when the observable is unsubscribed
+        return unsubscribe;
+      } catch (error) {
+        console.error('Error setting up swim records listener:', error);
         observer.error(error);
         // Return a no-op function for the unsubscribe
         return () => {};

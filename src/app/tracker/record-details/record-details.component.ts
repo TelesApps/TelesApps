@@ -316,7 +316,7 @@ export class RecordDetailsComponent implements OnInit, OnDestroy {
   saveRecord() {
     if (!this.record) return;
     
-    this.authService.updateRunRecord(this.record.userId, this.record).then(() => {
+    this.authService.updateRunRecord(this.record).then(() => {
       // Success notification could go here
     }).catch(error => {
       console.error('Error updating run record:', error);

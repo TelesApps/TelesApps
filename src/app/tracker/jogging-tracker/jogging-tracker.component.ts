@@ -309,7 +309,7 @@ export class JoggingTrackerComponent implements OnInit, OnDestroy {
     if (user && user.trackerStats) {
       const userStats = user.trackerStats;
       const joggingRecord = this.createNewJoggingRecord(user);
-      this.auth.updateRunRecord(user.userId, joggingRecord).then(() => {
+      this.auth.updateRunRecord(joggingRecord).then(() => {
       }).catch(error => {
         console.error('Error updating run record:', error);
       });
@@ -336,7 +336,7 @@ export class JoggingTrackerComponent implements OnInit, OnDestroy {
             { slug: 'swim_prerun', name: 'Swim PreRun', time: 0, level: 2 },
             { slug: 'gym_prerun', name: 'Gym PreRun', time: 0, level: 2 }
           ],
-          swimRecords: []
+          swimTypes: []
         }
         this.auth.updateUserData(user).then(() => {
           this.onCourseChange();
