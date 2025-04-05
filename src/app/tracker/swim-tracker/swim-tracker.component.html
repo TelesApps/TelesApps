@@ -1,1 +1,131 @@
-<p>swim-tracker works!</p>
+<div class="page">
+  <div class="content-width">
+    <mat-accordion>
+      <!-- LIST OF ALL SWIM TYPES HERE -->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>All Swim Types</mat-panel-title>
+        </mat-expansion-panel-header>
+        <div *ngIf="user() && user()?.trackerStats as stats; else noStats" class="record-list">
+          @for (swimType of stats.swimTypes; track swimType.slug) {
+          <mat-card class="record-card" appearance="outlined">
+            <div class="edit-btn">
+              <mat-icon color="accent" (click)="onEditSwimType(swimType)">edit</mat-icon>
+            </div>
+            <mat-card-header>
+              <mat-card-title>{{ swimType.location }}</mat-card-title>
+              <mat-card-subtitle>Distance: <b>{{ swimType.requiredLaps * swimType.lapLength }} meters</b></mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <p>First Place: <b>{{ swimType.firstPlaceTime | fireTimeRecord }}</b></p>
+              <p>Level: <b>{{ swimType.currentLevel }}</b></p>
+            </mat-card-content>
+          </mat-card>
+          }
+        </div>
+      </mat-expansion-panel>
+      <!-- ONLY RECORDS RELEVANT TO CURRENT SELECTIONS -->
+      <mat-expansion-panel expanded="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>Current Record</mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="record-list">
+          <!-- Card Relevant to user's Selection -->
+          <mat-card class="record-card" appearance="outlined">
+            <mat-card-header>
+              <mat-card-title>{{ relevantRecord.location }}</mat-card-title>
+              <mat-card-subtitle>Distance: <b>{{ relevantRecord.requiredLaps * relevantRecord.lapLength }} meters</b></mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <p>First Place: <b>{{ relevantRecord.firstPlaceTime | fireTimeRecord }}</b></p>
+              <p>Level: <b>{{ relevantRecord.currentLevel }}</b></p>
+            </mat-card-content>
+          </mat-card>
+          @if (totalSeconds > 0) {
+          <!-- Placement Card -->
+          <mat-card class="record-card" appearance="outlined">
+            <mat-card-header>
+              <mat-card-title>{{ currentPosition | ordinal }} Place</mat-card-title>
+              <mat-card-subtitle>
+                @if(currentPosition === 1) {
+                <span class="level-up">New First Place!</span>
+                }
+              </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              @if (currentPosition === 1) {
+              <div class="level-up">
+                <p>Level: <b class="cross-out">{{ relevantRecord.currentLevel }}</b>
+                  <b>{{ Math.min(5, relevantRecord.currentLevel + 1) }}</b>
+                </p>
+              </div>
+              } @else {
+              <p>Level: <b>{{ relevantRecord.currentLevel }}</b></p>
+              }
+            </mat-card-content>
+          </mat-card>
+          }
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <ng-template #noStats>
+      <div style="display: flex;">
+        <mat-icon>error</mat-icon>
+        <div>No stats available. Please start tracking your swims!</div>
+      </div>
+    </ng-template>
+    <!-- ADD NEW RECORDS -->
+    <div class="form-area">
+      <!-- swim type selection -->
+      <mat-form-field appearance="fill" color="accent">
+        <mat-label>Swim Type</mat-label>
+        <mat-select [(value)]="swimType" (selectionChange)="onSwimTypeChange()">
+          @for (swimType of user()?.trackerStats?.swimTypes || []; track swimType.slug) {
+          <mat-option [value]="swimType.slug">{{ swimType.location }} ({{ swimType.requiredLaps * swimType.lapLength }}m)</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      
+      <!-- laps input -->
+      <mat-form-field appearance="fill" color="accent">
+        <mat-label>Number of Laps</mat-label>
+        <input matInput type="number" [(ngModel)]="laps" placeholder="Enter number of laps"
+          (input)="onLapsChange()" min="1">
+      </mat-form-field>
+      
+      <div class="distance">
+        <mat-card class="distance-card">
+          <mat-card-subtitle>Total Distance</mat-card-subtitle>
+          <mat-card-title>
+            <b>{{ totalDistance }} meters</b>
+          </mat-card-title>
+        </mat-card>
+      </div>
+      
+      <div class="averages">
+        <mat-card class="distance-card">
+          <mat-card-subtitle>Time per lap</mat-card-subtitle>
+          <mat-card-title>
+            <b>{{ secondsPerLap | timeRecord: 'seconds' }}</b>
+          </mat-card-title>
+        </mat-card>
+      </div>
+      
+      <!-- time input -->
+      <span>{{ time | timeRecord }}</span>
+      <mat-form-field appearance="fill" color="accent">
+        <mat-label>Time</mat-label>
+        <input matInput type="number" [(ngModel)]="time" placeholder="Enter time in minutes"
+          onfocus="this.select()" (input)="onTimeChange()" #timeInput (keyup.enter)="timeInput.blur()">
+      </mat-form-field>
+      <mat-slide-toggle color="primary" [(ngModel)]="isTotalTime" (ngModelChange)="onTimeChange()">
+        {{ isTotalTime? 'Total Time':'Time Per Lap' }}
+      </mat-slide-toggle>
+      <div style="text-align: end;">
+        <button mat-raised-button color="primary" [disabled]="!swimType || !time || laps <= 0" (click)="onSaveRecord()">Add Record</button>
+        <!-- 'mat-button','mat-raised-button', 'mat-flat-button','mat-stroked-button','mat-icon-button','mat-fab','mat-mini-fab' -->
+        <button mat-raised-button color="primary" (click)="testSaveRecord()">create data</button>
+      </div>
+    </div>
+  </div>
+</div>

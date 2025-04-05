@@ -1,0 +1,155 @@
+@use "@angular/material" as mat;
+
+.page {
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.record-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+mat-expansion-panel {
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: calc(-50vw + 4px);
+    margin-right: calc(-50vw + 4px);
+    width: calc(100vw - 8px);
+    margin-bottom: 2px;
+    margin-top: 2px;
+    mat-expansion-panel-header {
+        height: 45px;
+    }
+    @include mat.expansion-overrides(
+        (
+            container-background-color: var(--background-main),
+            header-text-size: 16px
+        )
+    );
+}
+
+.edit-btn {
+    position: absolute;
+    right: 0;
+    mat-icon {
+        padding: 6px;
+        cursor: pointer;
+    }
+}
+
+.record-card {
+    margin: 10px;
+    width: clamp(100px, 36vw, 600px) !important;
+    flex-grow: 1;
+    max-width: 380px;
+    mat-card-title {
+        color: var(--accent-darker);
+    }
+    mat-card-subtitle {
+        color: var(--foreground-main);
+        font-size: 12pt;
+    }
+    mat-card-content {
+        b {
+            position: relative;
+            top: 2px;
+            font-size: 16pt;
+        }
+    }
+}
+
+.form-area {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    width: clamp(300px, 30vw, 600px);
+    margin: auto;
+    margin-top: 20px;
+    mat-form-field {
+        width: 100%;
+        padding: 0px;
+        margin: 0px;
+    }
+}
+
+.distance-card {
+    padding: 10px;
+    margin-bottom: 6px;
+    text-align: center;
+    mat-card-title {
+        b {
+            color: var(--accent-darker);
+            font-size: 18pt;
+        }
+    }
+}
+
+.cross-out {
+    position: relative;
+    display: inline-block;
+    margin-right: 6px;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: -25%;
+        width: 160%;
+        height: 2px;
+        background-color: currentColor;
+        transform: rotate(-45deg);
+        transform-origin: center;
+        pointer-events: none;
+    }
+}
+
+.level-down {
+    color: var(--warn-darker);
+}
+
+.level-up {
+    color: var(--success-darker);
+}
+
+mat-slide-toggle {
+    margin-bottom: 8px;
+}
+
+.mat-mdc-slide-toggle {
+    --mdc-switch-unselected-track-color: var(--accent-main);
+    --mdc-switch-unselected-handle-color: var(--accent-main);
+    --mdc-switch-unselected-hover-handle-color: var(--accent-main);
+    --mdc-switch-unselected-hover-track-color: var(--accent-main);
+    --mdc-switch-unselected-focus-handle-color: var(--accent-main);
+    --mdc-switch-unselected-focus-track-color: var(--accent-main);
+    --mdc-switch-unselected-pressed-handle-color: var(--accent-main);
+    --mdc-switch-unselected-pressed-track-color: var(--accent-main);
+    --mdc-switch-unselected-icon-color: var(--accent-contrast-main);
+
+    &.mat-primary {
+        --mdc-switch-selected-icon-color: var(--primary-contrast-main);
+        --mdc-switch-selected-handle-color: var(--primary-main);
+        --mdc-switch-selected-track-color: var(--primary-main);
+        --mdc-switch-selected-focus-handle-color: var(--primary-main);
+        --mdc-switch-selected-focus-track-color: var(--primary-main);
+        --mdc-switch-selected-hover-handle-color: var(--primary-main);
+        --mdc-switch-selected-hover-track-color: var(--primary-main);
+        --mdc-switch-selected-pressed-handle-color: var(--primary-main);
+        --mdc-switch-selected-pressed-track-color: var(--primary-main);
+        --mdc-switch-selected-focus-state-layer-color: var(--primary-main);
+        --mdc-switch-selected-hover-state-layer-color: var(--primary-main);
+        --mdc-switch-selected-pressed-state-layer-color: var(--primary-main);
+    }
+}
+
+@media (min-width: 1288px) {
+    mat-expansion-panel {
+        left: 0;
+        margin: 4px auto;
+        width: 100%;
+        max-width: 1280px;
+    }
+}
