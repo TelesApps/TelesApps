@@ -1,4 +1,6 @@
-export interface JoggingTracker {
+import { SwimType } from "./user-data.interface";
+
+export interface JoggingRecord {
     id: string;
     userId: string;
     date: string;
@@ -16,18 +18,12 @@ export interface JoggingTracker {
     newFirstPlaceTime?: number; // The new first place time is the result of this specific jogging record
 }
 
-export interface SwimTracker {
+export interface SwimRecord {
     id: string;
     userId: string;
     date: string;
     swimLocation: string;
-    firstPlace20LapTime: number;
-    firstPlace30LapTime: number;
-    firstPlace40LapTime: number;
-    firstPlace50LapTime?: number;
-    firstPlace60LapTime?: number;
-    firstPlace70LapTime?: number;
-    firstPlace80LapTime?: number;
+    swimType: SwimType;
     laps: number;
     time: number;
     timePerLap: number;

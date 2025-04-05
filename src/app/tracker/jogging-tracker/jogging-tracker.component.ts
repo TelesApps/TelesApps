@@ -16,7 +16,7 @@ import { OrdinalPipe } from '../../shared/pipes/ordinal.pipe';
 import { StorageService } from '../../services/storage.service';
 import { AuthService } from '../../services/auth.service';
 import { RaceType, UserData } from '../../interfaces/user-data.interface';
-import { Course, JoggingTracker, Route } from '../../interfaces/tracker.interface';
+import { Course, JoggingRecord, Route } from '../../interfaces/tracker.interface';
 import { RoutesDialogComponent } from '../../shared/dialogs/routes-dialog/routes-dialog.component';
 import { RaceTypeEditDialogComponent } from '../../shared/dialogs/race-type-edit-dialog/race-type-edit-dialog.component';
 import { Subscription } from 'rxjs';
@@ -242,7 +242,7 @@ export class JoggingTrackerComponent implements OnInit, OnDestroy {
     this.currentPosition = placement;
   }
 
-  createNewJoggingRecord(user: UserData): JoggingTracker {
+  createNewJoggingRecord(user: UserData): JoggingRecord {
     // Calculate newLevel based on ranking logic
     let newLevel: number | undefined = undefined;
     let newFirstPlaceTime: number | undefined = undefined;
@@ -276,7 +276,7 @@ export class JoggingTrackerComponent implements OnInit, OnDestroy {
       newFirstPlaceTime = this.relevantRecord.time;
     }
 
-    const record: JoggingTracker = {
+    const record: JoggingRecord = {
       id: '',
       userId: user.userId,
       date: new Date().toISOString(),

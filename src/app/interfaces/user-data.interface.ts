@@ -26,9 +26,9 @@ export interface SwimType {
     location: string;
     slug: string;
     lapLength: number; // in meters
-    laps: number;
-    time: number;
-    level: number;
+    requiredLaps: number;
+    firstPlaceTime: number;
+    currentLevel: number;
 }
 
 export function CreateUser(
@@ -57,13 +57,34 @@ export function CreateUser(
                 { slug: 'gym_prerun', name: 'Gym Pre-Run', time: 0, level: 0 }
             ],
             swimTypes: [
-                { location: 'Largo Community Pool', slug: 'largo_pool', lapLength: 25, laps: 20, time: 0, level: 0 },
-                { location: 'Largo Community Pool', slug: 'largo_pool_50m', lapLength: 25, laps: 30, time: 0, level: 0 },
-                { location: 'Largo Community Pool', slug: 'largo_pool_100m', lapLength: 25, laps: 40, time: 0, level: 0 },
-                { location: 'Largo Community Pool', slug: 'largo_pool_150m', lapLength: 25, laps: 50, time: 0, level: 0 },
-                { location: 'Largo Community Pool', slug: 'largo_pool_200m', lapLength: 25, laps: 60, time: 0, level: 0 },
-                { location: 'Largo Community Pool', slug: 'largo_pool_250m', lapLength: 25, laps: 70, time: 0, level: 0 },
-                { location: 'Largo Community Pool', slug: 'largo_pool_300m', lapLength: 25, laps: 80, time: 0, level: 0 }
+                {
+                    location: 'Largo Community Pool', slug: 'largo_pool', lapLength: 25,
+                    requiredLaps: 20, firstPlaceTime: 0, currentLevel: 0
+                },
+                {
+                    location: 'Largo Community Pool', slug: 'largo_pool_50m', lapLength: 25,
+                    requiredLaps: 30, firstPlaceTime: 0, currentLevel: 0
+                },
+                {
+                    location: 'Largo Community Pool', slug: 'largo_pool_100m', lapLength: 25,
+                    requiredLaps: 40, firstPlaceTime: 0, currentLevel: 0
+                },
+                {
+                    location: 'Largo Community Pool', slug: 'largo_pool_150m', lapLength: 25,
+                    requiredLaps: 50, firstPlaceTime: 0, currentLevel: 0
+                },
+                {
+                    location: 'Largo Community Pool', slug: 'largo_pool_200m', lapLength: 25,
+                    requiredLaps: 60, firstPlaceTime: 0, currentLevel: 0
+                },
+                {
+                    location: 'Largo Community Pool', slug: 'largo_pool_250m', lapLength: 25,
+                    requiredLaps: 70, firstPlaceTime: 0, currentLevel: 0
+                },
+                {
+                    location: 'Largo Community Pool', slug: 'largo_pool_300m', lapLength: 25,
+                    requiredLaps: 80, firstPlaceTime: 0, currentLevel: 0
+                }
 
             ]
         }

@@ -19,7 +19,7 @@ import { OrdinalPipe } from '../../shared/pipes/ordinal.pipe';
 import { StorageService } from '../../services/storage.service';
 import { AuthService } from '../../services/auth.service';
 import { UserData } from '../../interfaces/user-data.interface';
-import { JoggingTracker } from '../../interfaces/tracker.interface';
+import { JoggingRecord } from '../../interfaces/tracker.interface';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -43,7 +43,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatNativeDateModule,
     MatTooltipModule,
     FireTimeRecordPipe,
-    TimeRecordPipe,
     OrdinalPipe
   ],
   templateUrl: './record-details.component.html',
@@ -61,7 +60,7 @@ export class RecordDetailsComponent implements OnInit, OnDestroy {
   user: WritableSignal<UserData> = signal({} as UserData);
   userSubscription: Subscription;
   
-  record: JoggingTracker | null = null;
+  record: JoggingRecord | null = null;
   isLoading = true;
   error: string | null = null;
   sourceTabIndex: number = 1; // Default to jogging records tab

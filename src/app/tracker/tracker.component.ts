@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { JoggingRecordsComponent } from './jogging-records/jogging-records.component';
 import { RouterModule, Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { SwimTrackerComponent } from './swim-tracker/swim-tracker.component';
 
 @Component({
   selector: 'app-tracker',
@@ -17,14 +18,15 @@ import { filter } from 'rxjs/operators';
     JoggingTrackerComponent,
     MatIconModule,
     JoggingRecordsComponent,
-    RouterModule
+    RouterModule,
+    SwimTrackerComponent
   ],
   templateUrl: './tracker.component.html',
   styleUrls: ['./tracker.component.scss']
 })
 export class TrackerComponent implements OnInit {
   private route = inject(ActivatedRoute);
-  selectedTabIndex = 0;
+  selectedTabIndex = 2;
   isShowingDetails = false;
 
   constructor(

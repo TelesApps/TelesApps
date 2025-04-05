@@ -22,7 +22,7 @@ import { map, switchMap, catchError, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { CreateUser, UserData } from '../interfaces/user-data.interface';
 import { environment } from '../../environments/environment';
-import { JoggingTracker, SwimTracker } from '../interfaces/tracker.interface';
+import { JoggingRecord, SwimRecord } from '../interfaces/tracker.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -247,7 +247,7 @@ export class AuthService {
   }
 
   // Update run-records in Firestore
-  async updateRunRecord(runRecord: JoggingTracker): Promise<void> {
+  async updateRunRecord(runRecord: JoggingRecord): Promise<void> {
     try {
       console.log('Updating run record:', runRecord);
       
@@ -267,7 +267,7 @@ export class AuthService {
     }
   }
 
-  async updateSwimRecord(swimRecord: SwimTracker): Promise<void> {
+  async updateSwimRecord(swimRecord: SwimRecord): Promise<void> {
     try {
       console.log('Updating swim record:', swimRecord);
       
@@ -288,8 +288,8 @@ export class AuthService {
   }
 
   // Get all run-records for a specific user
-  getUserRunRecords(userId: string): Observable<JoggingTracker[]> {
-    return new Observable<JoggingTracker[]>(observer => {
+  getUserRunRecords(userId: string): Observable<JoggingRecord[]> {
+    return new Observable<JoggingRecord[]>(observer => {
       try {
         // Create a reference to the run-records collection
         const runRecordsRef = collection(this.firestore, 'run-records');
@@ -300,9 +300,9 @@ export class AuthService {
         // Set up a real-time listener
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
           // Map the documents to JoggingTracker objects
-          const runRecords: JoggingTracker[] = [];
+          const runRecords: JoggingRecord[] = [];
           querySnapshot.forEach((doc) => {
-            const data = doc.data() as JoggingTracker;
+            const data = doc.data() as JoggingRecord;
             // Ensure the id is set from the document id
             data.id = doc.id;
             runRecords.push(data);
@@ -327,8 +327,8 @@ export class AuthService {
   }
 
   // Get all swim-records for a specific user
-  getUserSwimRecords(userId: string): Observable<SwimTracker[]> {
-    return new Observable<SwimTracker[]>(observer => {
+  getUserSwimRecords(userId: string): Observable<SwimRecord[]> {
+    return new Observable<SwimRecord[]>(observer => {
       try {
         // Create a reference to the swim-records collection
         const swimRecordsRef = collection(this.firestore, 'swim-records');
@@ -339,9 +339,9 @@ export class AuthService {
         // Set up a real-time listener
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
           // Map the documents to SwimTracker objects
-          const swimRecords: SwimTracker[] = [];
+          const swimRecords: SwimRecord[] = [];
           querySnapshot.forEach((doc) => {
-            const data = doc.data() as SwimTracker;
+            const data = doc.data() as SwimRecord;
             // Ensure the id is set from the document id
             data.id = doc.id;
             swimRecords.push(data);

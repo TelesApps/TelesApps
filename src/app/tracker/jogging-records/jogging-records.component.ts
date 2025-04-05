@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { JoggingTracker } from '../../interfaces/tracker.interface';
+import { JoggingRecord } from '../../interfaces/tracker.interface';
 import { FireTimeRecordPipe } from '../../shared/pipes/fire-time-record.pipe';
 import { AuthService } from '../../services/auth.service';
 import { take, takeUntil } from 'rxjs/operators';
@@ -18,11 +18,11 @@ import { Router, RouterModule } from '@angular/router';
   styleUrls: ['./jogging-records.component.scss']
 })
 export class JoggingRecordsComponent implements OnInit, OnDestroy {
-  joggingRecords: JoggingTracker[] = [];
+  joggingRecords: JoggingRecord[] = [];
   isLoading = true;
 
   // Store the pre-computed records by year and month
-  recordsByYearAndMonth: { [year: string]: { [month: string]: JoggingTracker[] } } = {};
+  recordsByYearAndMonth: { [year: string]: { [month: string]: JoggingRecord[] } } = {};
 
   // Current year and month for auto-expansion
   currentYear: string;
@@ -144,7 +144,7 @@ export class JoggingRecordsComponent implements OnInit, OnDestroy {
   }
 
   // Get total records for a year
-  getTotalRecordsForYear(yearData: { [month: string]: JoggingTracker[] }): number {
+  getTotalRecordsForYear(yearData: { [month: string]: JoggingRecord[] }): number {
     let total = 0;
     for (const month in yearData) {
       total += yearData[month].length;
