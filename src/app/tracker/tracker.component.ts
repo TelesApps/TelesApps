@@ -28,7 +28,7 @@ import { SwimRecordsComponent } from './swim-records/swim-records.component';
 })
 export class TrackerComponent implements OnInit {
   private route = inject(ActivatedRoute);
-  selectedTabIndex = 3;
+  selectedTabIndex = 0;
   isShowingDetails = false;
 
   constructor(

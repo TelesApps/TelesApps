@@ -8,6 +8,7 @@ import { ContactPageComponent } from './contact-page/contact-page.component';
 import { BaFormatterComponent } from './ba-formatter/ba-formatter.component';
 import { TrackerComponent } from './tracker/tracker.component';
 import { authGuard } from './guards/auth.guard';
+import { RecordDetailsComponent } from './tracker/record-details/record-details.component';
 
 export const routes: Routes = [
     {
@@ -56,11 +57,13 @@ export const routes: Routes = [
         children: [
             {
                 path: 'record/:id',
-                loadComponent: () => import('./tracker/record-details/record-details.component').then(m => m.RecordDetailsComponent)
+                component: RecordDetailsComponent,
+                data: { skipPrerendering: true }
             },
             {
                 path: 'swim-record/:id',
-                loadComponent: () => import('./tracker/record-details/record-details.component').then(m => m.RecordDetailsComponent)
+                component: RecordDetailsComponent,
+                data: { skipPrerendering: true }
             }
         ]
     },
