@@ -189,8 +189,9 @@ export class JoggingRecordsComponent implements OnInit, OnDestroy {
   }
 
   onViewDetails(recordId: string) {
-    this.router.navigate(['/tracker/record', recordId], {
+    this.router.navigate(['/tracker/record'], {
       queryParams: {
+        id: recordId,
         sourceTab: 1 // This is the index of the jogging records tab
       }
     });

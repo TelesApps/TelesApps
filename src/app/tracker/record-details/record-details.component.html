@@ -1,3 +1,12 @@
+<div class="page-header" *ngIf="!isLoading && !error">
+  <button mat-icon-button class="back-button" (click)="onGoBack()" matTooltip="Go Back">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <button mat-raised-button color="warn" class="delete-button" (click)="onDeleteRecord()" matTooltip="Delete Record">
+    Delete
+  </button>
+</div>
+
 <div class="page" *ngIf="!isLoading && !error">
     <div class="content-width">
         <!-- Date Card -->

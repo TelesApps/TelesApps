@@ -41,7 +41,7 @@ export class TrackerComponent implements OnInit {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
-      this.isShowingDetails = event.url.includes('/record/') || event.url.includes('/swim-record/');
+      this.isShowingDetails = event.url.includes('/record') || event.url.includes('/swim-record');
     });
   }
 
@@ -50,6 +50,11 @@ export class TrackerComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       if (params['selectedTab']) {
         this.selectedTabIndex = parseInt(params['selectedTab'], 10);
+      }
+      
+      // Also check if we should be showing record details
+      if (params['id']) {
+        this.isShowingDetails = true;
       }
     });
   }

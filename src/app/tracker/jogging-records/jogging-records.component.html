@@ -63,7 +63,7 @@
 
                       <!-- Details button changed to visibility icon -->
                       <div class="edit-btn">
-                        <a [routerLink]="['/tracker/record', record.id]">
+                        <a [routerLink]="['/tracker/record']" [queryParams]="{id: record.id, sourceTab: 1}">
                           <mat-icon matTooltip="Details" class="details-icon">visibility</mat-icon>
                         </a>
                       </div>

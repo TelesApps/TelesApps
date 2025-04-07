@@ -189,8 +189,9 @@ export class SwimRecordsComponent implements OnInit, OnDestroy {
   }
 
   onViewDetails(recordId: string) {
-    this.router.navigate(['/tracker/swim-record', recordId], {
+    this.router.navigate(['/tracker/swim-record'], {
       queryParams: {
+        id: recordId,
         sourceTab: 3 // This is the index of the swim records tab
       }
     });

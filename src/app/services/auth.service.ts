@@ -291,36 +291,44 @@ export class AuthService {
   getUserRunRecords(userId: string): Observable<JoggingRecord[]> {
     return new Observable<JoggingRecord[]>(observer => {
       try {
-        // Create a reference to the run-records collection
-        const runRecordsRef = collection(this.firestore, 'run-records');
+        // Reference to the run-records collection
+        const recordsCollection = collection(this.firestore, 'run-records');
         
-        // Create a query against the collection to filter by userId
-        const q = query(runRecordsRef, where('userId', '==', userId));
+        // Create a query for records with the given userId
+        const userRecordsQuery = query(recordsCollection, where('userId', '==', userId));
         
-        // Set up a real-time listener
-        const unsubscribe = onSnapshot(q, (querySnapshot) => {
-          // Map the documents to JoggingTracker objects
-          const runRecords: JoggingRecord[] = [];
-          querySnapshot.forEach((doc) => {
-            const data = doc.data() as JoggingRecord;
-            // Ensure the id is set from the document id
-            data.id = doc.id;
-            runRecords.push(data);
-          });
-          
-          console.log(`Retrieved ${runRecords.length} run records for user ${userId}`);
-          observer.next(runRecords);
+        // Create a snapshot listener on this query
+        const unsubscribe = onSnapshot(userRecordsQuery, (snapshot) => {
+          try {
+            // Map snapshot documents to JoggingRecord objects
+            const records: JoggingRecord[] = [];
+            snapshot.forEach(doc => {
+              const data = doc.data() as JoggingRecord;
+              
+              // Skip deleted records
+              if (data.deleted) return;
+              
+              // Add the document ID to the record
+              data.id = doc.id;
+              records.push(data);
+            });
+            
+            console.log(`Found ${records.length} jogging records for user ${userId}`);
+            observer.next(records);
+          } catch (error) {
+            console.error('Error processing jogging records snapshot:', error);
+            observer.error(error);
+          }
         }, error => {
-          console.error('Error getting user run records:', error);
+          console.error('Error in jogging records snapshot listener:', error);
           observer.error(error);
         });
         
-        // Return the unsubscribe function to clean up when the observable is unsubscribed
-        return unsubscribe;
+        // Return unsubscribe function to clean up the snapshot listener
+        return () => unsubscribe();
       } catch (error) {
-        console.error('Error setting up run records listener:', error);
+        console.error('Error setting up jogging records listener:', error);
         observer.error(error);
-        // Return a no-op function for the unsubscribe
         return () => {};
       }
     });
@@ -330,36 +338,44 @@ export class AuthService {
   getUserSwimRecords(userId: string): Observable<SwimRecord[]> {
     return new Observable<SwimRecord[]>(observer => {
       try {
-        // Create a reference to the swim-records collection
-        const swimRecordsRef = collection(this.firestore, 'swim-records');
+        // Reference to the swim-records collection
+        const recordsCollection = collection(this.firestore, 'swim-records');
         
-        // Create a query against the collection to filter by userId
-        const q = query(swimRecordsRef, where('userId', '==', userId));
+        // Create a query for records with the given userId
+        const userRecordsQuery = query(recordsCollection, where('userId', '==', userId));
         
-        // Set up a real-time listener
-        const unsubscribe = onSnapshot(q, (querySnapshot) => {
-          // Map the documents to SwimRecord objects
-          const swimRecords: SwimRecord[] = [];
-          querySnapshot.forEach((doc) => {
-            const data = doc.data() as SwimRecord;
-            // Ensure the id is set from the document id
-            data.id = doc.id;
-            swimRecords.push(data);
-          });
-          
-          console.log(`Retrieved ${swimRecords.length} swim records for user ${userId}`);
-          observer.next(swimRecords);
+        // Create a snapshot listener on this query
+        const unsubscribe = onSnapshot(userRecordsQuery, (snapshot) => {
+          try {
+            // Map snapshot documents to SwimRecord objects
+            const records: SwimRecord[] = [];
+            snapshot.forEach(doc => {
+              const data = doc.data() as SwimRecord;
+              
+              // Skip deleted records
+              if (data.deleted) return;
+              
+              // Add the document ID to the record
+              data.id = doc.id;
+              records.push(data);
+            });
+            
+            console.log(`Found ${records.length} swim records for user ${userId}`);
+            observer.next(records);
+          } catch (error) {
+            console.error('Error processing swim records snapshot:', error);
+            observer.error(error);
+          }
         }, error => {
-          console.error('Error getting user swim records:', error);
+          console.error('Error in swim records snapshot listener:', error);
           observer.error(error);
         });
         
-        // Return the unsubscribe function to clean up when the observable is unsubscribed
-        return unsubscribe;
+        // Return unsubscribe function to clean up the snapshot listener
+        return () => unsubscribe();
       } catch (error) {
         console.error('Error setting up swim records listener:', error);
         observer.error(error);
-        // Return a no-op function for the unsubscribe
         return () => {};
       }
     });
@@ -373,6 +389,30 @@ export class AuthService {
       this.router.navigate(['/login']);
     } catch (error) {
       console.error('Error logging out:', error);
+      throw error;
+    }
+  }
+
+  // Delete a jogging record
+  async deleteJoggingRecord(recordId: string): Promise<void> {
+    try {
+      const recordRef = doc(this.firestore, 'run-records', recordId);
+      await setDoc(recordRef, { deleted: true, deletedAt: new Date().toISOString() }, { merge: true });
+      return;
+    } catch (error) {
+      console.error('Error deleting jogging record:', error);
+      throw error;
+    }
+  }
+
+  // Delete a swim record
+  async deleteSwimRecord(recordId: string): Promise<void> {
+    try {
+      const recordRef = doc(this.firestore, 'swim-records', recordId);
+      await setDoc(recordRef, { deleted: true, deletedAt: new Date().toISOString() }, { merge: true });
+      return;
+    } catch (error) {
+      console.error('Error deleting swim record:', error);
       throw error;
     }
   }

@@ -16,6 +16,8 @@ export interface JoggingRecord {
     currentLevel: number; // ranges from 1 to 5
     newLevel?: number; // The new level is the result of this specific jogging record
     newFirstPlaceTime?: number; // The new first place time is the result of this specific jogging record
+    deleted?: boolean; // Flag to mark record as deleted
+    deletedAt?: string; // ISO timestamp when the record was deleted
 }
 
 export interface SwimRecord {
@@ -30,6 +32,8 @@ export interface SwimRecord {
     currentLevel: number;
     newLevel?: number; // The new level is the result of this specific swim record
     newFirstPlaceTime?: number; // The new first place time is the result of this specific swim record
+    deleted?: boolean; // Flag to mark record as deleted
+    deletedAt?: string; // ISO timestamp when the record was deleted
 }
 
 export interface Route {

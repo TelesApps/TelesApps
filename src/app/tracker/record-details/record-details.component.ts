@@ -23,6 +23,7 @@ import { JoggingRecord, SwimRecord } from '../../interfaces/tracker.interface';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ConfirmDialogComponent } from '../../shared/dialogs/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-record-details',
@@ -44,7 +45,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatTooltipModule,
     FireTimeRecordPipe,
     TimeRecordPipe,
-    OrdinalPipe
+    OrdinalPipe,
+    ConfirmDialogComponent
   ],
   templateUrl: './record-details.component.html',
   styleUrls: ['./record-details.component.scss']
@@ -119,16 +121,13 @@ export class RecordDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // Get the record ID from the route parameters
-    this.route.params.pipe(take(1)).subscribe(params => {
+    // Get data from query parameters
+    this.route.queryParams.pipe(take(1)).subscribe(params => {
       const recordId = params['id'];
       if (recordId) {
         this.loadRecord(recordId);
       }
-    });
-
-    // Get the source tab index from query params
-    this.route.queryParams.pipe(take(1)).subscribe(params => {
+      
       this.sourceTabIndex = parseInt(params['sourceTab'] || '1', 10);
     });
   }
@@ -527,5 +526,48 @@ export class RecordDetailsComponent implements OnInit, OnDestroy {
       return this.isLevelDown();
     }
     return this.tempValues['newLevel'] < this.record.currentLevel;
+  }
+
+  // Add new method to handle delete record
+  onDeleteRecord(): void {
+    if (!this.record) return;
+    
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '350px',
+      data: {
+        title: 'Delete Record',
+        message: 'Are you sure you want to delete this record? This action cannot be undone.',
+        confirmButtonText: 'Delete',
+        cancelButtonText: 'Cancel',
+        color: 'warn'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && this.record) {
+        // User confirmed deletion
+        if (this.recordType === 'jogging') {
+          this.authService.deleteJoggingRecord(this.record.id)
+            .then(() => {
+              console.log('Jogging record deleted successfully');
+              this.onGoBack();
+            })
+            .catch((error: any) => {
+              console.error('Error deleting jogging record:', error);
+              this.error = 'Failed to delete record';
+            });
+        } else {
+          this.authService.deleteSwimRecord(this.record.id)
+            .then(() => {
+              console.log('Swim record deleted successfully');
+              this.onGoBack();
+            })
+            .catch((error: any) => {
+              console.error('Error deleting swim record:', error);
+              this.error = 'Failed to delete record';
+            });
+        }
+      }
+    });
   }
 }

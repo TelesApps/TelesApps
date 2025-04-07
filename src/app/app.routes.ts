@@ -56,14 +56,12 @@ export const routes: Routes = [
         canActivate: [authGuard],
         children: [
             {
-                path: 'record/:id',
-                component: RecordDetailsComponent,
-                data: { skipPrerendering: true }
+                path: 'record',
+                component: RecordDetailsComponent
             },
             {
-                path: 'swim-record/:id',
-                component: RecordDetailsComponent,
-                data: { skipPrerendering: true }
+                path: 'swim-record',
+                component: RecordDetailsComponent
             }
         ]
     },
