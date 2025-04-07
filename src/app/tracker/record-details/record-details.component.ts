@@ -495,8 +495,12 @@ export class RecordDetailsComponent implements OnInit, OnDestroy {
   }
 
   onGoBack() {
-    // Navigate back to the appropriate tab
-    this.router.navigate(['/tracker'], { queryParams: { selectedTab: this.sourceTabIndex } });
+    // Navigate back to the appropriate records component based on record type
+    if (this.recordType === 'swim') {
+      this.router.navigate(['/tracker'], { queryParams: { selectedTab: 3 } }); // Swim records tab
+    } else {
+      this.router.navigate(['/tracker'], { queryParams: { selectedTab: 1 } }); // Jogging records tab
+    }
   }
 
   ngOnDestroy(): void {
